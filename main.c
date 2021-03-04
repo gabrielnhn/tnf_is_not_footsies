@@ -8,7 +8,7 @@
 #define STR_MAX 100
 
 void must_init(bool test, const char *description)
-// Used to initialize modules and immediately test whether it works
+// Used to initialize modules and immediately test whether they work
 {
     if(test) return;
     printf("couldn't initialize %s\n", description);
@@ -76,8 +76,8 @@ int main()
             al_draw_bitmap(stage, 0, 0, 0);
 
             // alternate Yun idle animation sprites
-            int a = i / 2;
-            int j = (a%11) + 1;
+            int a = i / 2; // change sprites every 2 frames
+            int j = (a%11) + 1; // sprites vary from 1 to 12
             i++;
             sprintf(yun_path, "animation/1-idle/%d.png", j);
             yun = al_load_bitmap(yun_path);
