@@ -3,10 +3,9 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_image.h>
 #include "music.c"
+#include "display.c"
 
-#define WIDTH 612//912
-#define HEIGHT 235//354
-//612 x 235
+
 #define STR_MAX 100
 
 void must_init(bool test, const char *description)
@@ -18,7 +17,6 @@ void must_init(bool test, const char *description)
     exit(1);
 }
 
-
 int main()
 {
     al_init();
@@ -28,14 +26,10 @@ int main()
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
 
-    // Display settings
-    al_set_new_display_flags(ALLEGRO_RESIZABLE);
-    al_get_new_display_flags();
-    ALLEGRO_DISPLAY* disp = al_create_display(WIDTH*2, HEIGHT*2);
-
-
     // Weird ass font
     ALLEGRO_FONT* font = al_create_builtin_font();
+
+    ALLEGRO_DISPLAY* disp = create_display();
 
     // We're going to use images
     al_init_image_addon();
@@ -64,7 +58,6 @@ int main()
     int i = 0;
     while(1)
     {
-
         al_wait_for_event(queue, &event);
 
         if(event.type == ALLEGRO_EVENT_TIMER)
@@ -87,12 +80,6 @@ int main()
             must_init(yun, "Yun");
             al_draw_bitmap(yun, 50, 50, 0);
 
-            
-            
-            
-            al_identity_transform(&trans);
-            al_scale_transform(&trans, 2, 2); // scale by a factor of 2
-            al_use_transform(&trans);
             
             al_flip_display();
 
