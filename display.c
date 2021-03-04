@@ -16,3 +16,8 @@ ALLEGRO_DISPLAY* create_display()
 
     return disp;
 }
+
+void destroy_display(ALLEGRO_DISPLAY* disp)
+{
+    al_destroy_display(disp);
+}
