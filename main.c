@@ -65,7 +65,7 @@ int main()
         if(event.type == ALLEGRO_EVENT_TIMER)
             redraw = true;
         else if((event.type == ALLEGRO_EVENT_KEY_DOWN) || (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
-            break;
+            break; // exit game
 
         if(redraw && al_is_event_queue_empty(queue)) // no events to handle
         {
