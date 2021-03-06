@@ -2,3 +2,4 @@ allegro_test.c
 animation/1-idle/old/
 main
 old_main.c
+*.o
