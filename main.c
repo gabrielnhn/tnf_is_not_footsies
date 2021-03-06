@@ -55,7 +55,7 @@ int main()
 
     al_start_timer(timer);
 
-    int i = 0;
+    int frame_count = 0;
     while(1)
     {
         al_wait_for_event(queue, &event);
@@ -74,13 +74,13 @@ int main()
             al_draw_bitmap(stage, 0, 0, 0);
 
             // alternate Yun idle animation sprites
-            int a = i / 2; // change sprites every 2 frames
+            int a = frame_count / 2; // change sprites every 2 frames
             int j = (a%11) + 1; // sprites vary from 1 to 12
-            i++;
+            frame_count++;
             sprintf(yun_path, "animation/1-idle/%d.png", j);
             yun = al_load_bitmap(yun_path);
             must_init(yun, "Yun");
-            al_draw_bitmap(yun, 50, 50, 0);
+            al_draw_bitmap(yun, 50, 50, ALLEGRO_FLIP_HORIZONTAL);
 
             // Print the new display
             al_flip_display();
