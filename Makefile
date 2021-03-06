@@ -1,5 +1,9 @@
 CC=gcc
 
+old_main: old_main.c animation.o display.o music.o player.o
+	$(CC) old_main.c animation.o display.o music.o player.o -o old_main $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
+
+
 allegro_test:
 	$(CC) allegro_test.c -o allegro_test $(pkg-config allegro-5 allegro_font-5 --libs --cflags) 
 

@@ -13,9 +13,10 @@ typedef struct
 
 typedef struct
 {
-    int health;
-    int animation;
     int animation_frame;
+    // int health;
+    int animation;
+    int animation_sprite_id;
     int x;
 
     ALLEGRO_BITMAP* sprite;
