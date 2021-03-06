@@ -1,6 +1,4 @@
-    
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
+#include "music.h"
     
 ALLEGRO_AUDIO_STREAM* play_music(const char* str)
 {

@@ -1,9 +1,4 @@
-#include <allegro5/allegro5.h>
-#define WIDTH 612
-#define HEIGHT 235
-
-#include "player.c"
-
+#include "display.h"
 
 ALLEGRO_DISPLAY* create_display()
 {

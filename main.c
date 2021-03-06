@@ -2,8 +2,8 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_image.h>
-#include "music.c"
-#include "display.c"
+#include "music.h"
+#include "display.h"
 
 #define STR_MAX 100
 
