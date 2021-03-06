@@ -55,8 +55,6 @@ int main()
 
     al_start_timer(timer);
 
-    ALLEGRO_TRANSFORM trans;
-
     int i = 0;
     while(1)
     {
