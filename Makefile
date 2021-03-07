@@ -9,7 +9,7 @@ allegro_test:
 	$(CC) $(cflags) allegro_test.c -o allegro_test $(pkg-config allegro-5 allegro_font-5 --libs --cflags) 
 
 main: main.c animation.o display.o music.o player.o
-	$(CC) $(cflags) -g main.c animation.o display.o music.o player.o utils.o -o main $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
+	$(CC) $(cflags)  main.c animation.o display.o music.o player.o utils.o -o main $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
 
 animation.o: animation.c animation.h utils.o
 	$(CC) $(cflags) -c animation.c -o animation.o 
@@ -25,6 +25,9 @@ player.o: player.c player.h
 
 utils.o: utils.c utils.h
 	$(CC) $(cflags) -c utils.c -o utils.o
+
+purge: clean
+	rm -rf main
 
 clean:
 	rm -rf *.o
