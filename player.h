@@ -13,8 +13,9 @@ typedef struct
 
 typedef struct
 {
+    // int a,b,c;
     int animation_frame;
-    // int health;
+    int health;
     int animation;
     int animation_sprite_id;
     int x;

@@ -42,7 +42,6 @@ int main()
     must_init(stage, "Stage");
 
     // Character image
-    ALLEGRO_BITMAP* yun;
     char path[STR_MAX];
     
     // Allegro "Events" are interruptions to be handled
