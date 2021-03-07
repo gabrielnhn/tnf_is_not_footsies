@@ -66,6 +66,7 @@ int main()
 
     long frame_count = 0;
     bool done = false;
+    bool decreasing;
     while(!done)
     {
         al_wait_for_event(queue, &event);
@@ -99,10 +100,22 @@ int main()
             int a = frame_count / 2; // change sprites every 2 frames
 
             p1.animation_sprite_id = a % sprites_on_each_animation[p1.animation];
-            p2.animation_sprite_id = (a % sprites_on_each_animation[p2.animation]);
-            
-            frame_count++;
+            p2.animation_sprite_id = a % sprites_on_each_animation[p2.animation];
 
+            if ((a % sprites_on_each_animation[p1.animation] != sprites_on_each_animation[p1.animation] - 1)
+                && !decreasing)
+            {          
+                frame_count++;
+            }
+            else
+            {
+                decreasing = true;
+                frame_count--;
+            }
+            if (a % sprites_on_each_animation[p1.animation] == 0)
+            {
+                decreasing = false;
+            }
             // for p1
             p1.sprite = animations[p1.animation][p1.animation_sprite_id];
 
