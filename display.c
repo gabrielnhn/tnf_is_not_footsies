@@ -29,13 +29,6 @@ void draw_display(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     // draw stage
     al_draw_bitmap(stage, 0, 0, 0);
 
-    // alternate Yun idle animation sprites
-    // int a = frame_count / 2; // change sprites every 2 frames
-    // int j = (a%11) + 1; // sprites vary from 1 to 12
-    // frame_count++;
-    // sprintf(yun_path, "animation/1-idle/%d.png", j);
-    // yun = al_load_bitmap(yun_path);
-    // must_init(yun, "Yun");
     al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 

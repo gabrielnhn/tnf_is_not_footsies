@@ -22,7 +22,12 @@ enum animation
 #define ANIMATIONS_N 16
 
 char* animation_enum_to_folder(enum animation a);
+
+int sprites_on_each_animation[ANIMATIONS_N]; // array used only to free memory
+
 ALLEGRO_BITMAP*** load_sprites();
+
+
 void destroy_sprites(ALLEGRO_BITMAP*** animations);
 
 #endif

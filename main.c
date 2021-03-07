@@ -6,6 +6,7 @@
 #include "display.h"
 #include "animation.h"
 #include "utils.h"
+#include "input.h"
 
 int main()
 {
@@ -60,25 +61,45 @@ int main()
     p1.animation = idle;
     p2.animation = idle;
 
+    input_setup();
+
+
     long frame_count = 0;
-    while(1)
+    bool done = false;
+    while(!done)
     {
         al_wait_for_event(queue, &event);
 
-        if(event.type == ALLEGRO_EVENT_TIMER)
+        switch(event.type)
+        {
+        case ALLEGRO_EVENT_TIMER:
+            check_input(&p1, &p2, event);
             redraw = true;
-        else if((event.type == ALLEGRO_EVENT_KEY_DOWN) || (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
-            break; // exit game
+            break;
 
-        if(redraw && al_is_event_queue_empty(queue)) // no events to handle
+        case ALLEGRO_EVENT_KEY_DOWN:
+           check_input(&p1, &p2, event);
+
+            if(event.keyboard.keycode != ALLEGRO_KEY_ESCAPE)
+                break;
+        
+        case ALLEGRO_EVENT_KEY_UP:
+            check_input(&p1, &p2, event);
+            break;
+
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            done = true;
+            break;
+        }
+ 
+        if(redraw && al_is_event_queue_empty(queue)) // no inputs to handle
         {
             // alternate players idle animation sprites
 
             int a = frame_count / 2; // change sprites every 2 frames
-            int j = (a%11); // sprites vary from 0 to 11
 
-            p1.animation_sprite_id = j;
-            p2.animation_sprite_id = ((j + 3) % 11);
+            p1.animation_sprite_id = a % sprites_on_each_animation[p1.animation];
+            p2.animation_sprite_id = (a % sprites_on_each_animation[p2.animation]);
             
             frame_count++;
 

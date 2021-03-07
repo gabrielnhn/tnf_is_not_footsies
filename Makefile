@@ -1,8 +1,10 @@
 CC=gcc
 cflags= -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
  
-main: main.c animation.o display.o music.o player.o
-	$(CC) main.c animation.o display.o music.o player.o utils.o -o main $(cflags) 
+all: main
+
+main: main.c animation.o display.o music.o player.o utils.o input.o
+	$(CC) main.c animation.o display.o music.o player.o utils.o input.o -o main $(cflags) 
 
 animation.o: animation.c animation.h utils.o
 	$(CC) $(cflags) -c animation.c -o animation.o 
@@ -18,6 +20,9 @@ player.o: player.c player.h
 
 utils.o: utils.c utils.h
 	$(CC) $(cflags) -c utils.c -o utils.o
+
+input.o: input.c input.h
+	$(CC) $(cflags) -c input.c -o input.o
 
 purge: clean
 	rm -rf main
