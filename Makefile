@@ -11,10 +11,10 @@ display.o: display.c display.h
 	$(CC) $(cflags) -c display.c -o display.o
 
 music.o: music.c music.h
-	$(CC) $(cflags) -c music.c -o music.o $(shell pkg-config allegro-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
+	$(CC) $(cflags) -c music.c -o music.o 
 
 player.o: player.c player.h
-	$(CC) $(cflags) -c player.c -o player.o $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 --libs --cflags)
+	$(CC) $(cflags) -c player.c -o player.o
 
 utils.o: utils.c utils.h
 	$(CC) $(cflags) -c utils.c -o utils.o
