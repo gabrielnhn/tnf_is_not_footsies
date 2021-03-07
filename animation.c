@@ -1,6 +1,6 @@
 #include "animation.h"
 
-char* animation_enum_to_folder(enum animation a)
+char *animation_enum_to_folder(enum animation a)
 // get the folder of sprites for a given animation
 {
     switch (a)
@@ -60,18 +60,18 @@ char* animation_enum_to_folder(enum animation a)
 
 int sprites_on_each_animation[ANIMATIONS_N]; // array used only to free memory
 
-ALLEGRO_BITMAP*** load_sprites()
+ALLEGRO_BITMAP ***load_sprites()
 // get all the sprites from the drive
 {
     // store them all in a matrix of BITMAP*
-    ALLEGRO_BITMAP*** animations = malloc(sizeof(ALLEGRO_BITMAP**) * ANIMATIONS_N);
-    
+    ALLEGRO_BITMAP ***animations = malloc(sizeof(ALLEGRO_BITMAP **) * ANIMATIONS_N);
+
     DIR *animation_d;
     struct dirent *dir;
 
     char path[STR_MAX]; // store the path of each sprite
-    
-    for(int i = 0; i < ANIMATIONS_N; i++)
+
+    for (int i = 0; i < ANIMATIONS_N; i++)
     // for each animation
     {
         // open its folder
@@ -89,7 +89,7 @@ ALLEGRO_BITMAP*** load_sprites()
         rewinddir(animation_d);
 
         // get memory in order to store each sprite
-        animations[i] = malloc(sizeof(ALLEGRO_BITMAP**) * sprites);
+        animations[i] = malloc(sizeof(ALLEGRO_BITMAP **) * sprites);
 
         // get them sprites
         int j = 0;
@@ -110,11 +110,11 @@ ALLEGRO_BITMAP*** load_sprites()
     return animations;
 }
 
-void destroy_sprites(ALLEGRO_BITMAP*** animations)
+void destroy_sprites(ALLEGRO_BITMAP ***animations)
 {
-    for(int i = 0; i < ANIMATIONS_N; i++)
+    for (int i = 0; i < ANIMATIONS_N; i++)
     {
-        for(int j = 0; j < sprites_on_each_animation[i]; j++)
+        for (int j = 0; j < sprites_on_each_animation[i]; j++)
         {
             al_destroy_bitmap(animations[i][j]);
         }

@@ -45,6 +45,8 @@ int main()
     // Music module
     ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVRashid.opus");
 
+    // Initial setup
+
     bool redraw = true;
     ALLEGRO_EVENT event;
 
@@ -53,12 +55,12 @@ int main()
     player p1, p2;
 
     p1.x = 50;
-    p2.x = WIDTH - 150;
+    p2.x = WIDTH - 300;
 
     p1.animation = idle;
     p2.animation = idle;
 
-    int frame_count = 0;
+    long frame_count = 0;
     while(1)
     {
         al_wait_for_event(queue, &event);
@@ -70,8 +72,7 @@ int main()
 
         if(redraw && al_is_event_queue_empty(queue)) // no events to handle
         {
-
-            // // alternate Yun idle animation sprites
+            // alternate players idle animation sprites
 
             int a = frame_count / 2; // change sprites every 2 frames
             int j = (a%11); // sprites vary from 0 to 11
@@ -82,20 +83,10 @@ int main()
             frame_count++;
 
             // for p1
-            // sprintf(path, "%s%d.png", animation_enum_to_folder(p1.animation), p1.animation_sprite_id);
-
-            // p1.sprite = al_load_bitmap(path);
             p1.sprite = animations[p1.animation][p1.animation_sprite_id];
 
-            // must_init(p1.sprite, "sprite");
-
             // for p2
-            // sprintf(path, "%s%d.png", animation_enum_to_folder(p2.animation), p2.animation_sprite_id);
-
-            // p2.sprite = al_load_bitmap(path);
             p2.sprite = animations[p2.animation][p2.animation_sprite_id];
-
-            // must_init(p2.sprite, "sprite");
 
             draw_display(stage, &p1, &p2);
 

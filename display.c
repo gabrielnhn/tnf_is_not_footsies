@@ -36,8 +36,8 @@ void draw_display(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     // sprintf(yun_path, "animation/1-idle/%d.png", j);
     // yun = al_load_bitmap(yun_path);
     // must_init(yun, "Yun");
-    al_draw_bitmap(player1->sprite, player1->x, 50, ALLEGRO_FLIP_HORIZONTAL);
-    al_draw_bitmap(player2->sprite, player2->x, 50, 0);
+    al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
+    al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 
     // Print the new display
     al_flip_display();
