@@ -5,17 +5,7 @@
 #include "music.h"
 #include "display.h"
 #include "animation.h"
-
-
-#define STR_MAX 100
-
-void must_init(bool test, const char *description)
-// Used to initialize modules and immediately test whether they work
-{
-    if(test) return;
-    printf("couldn't initialize %s\n", description);
-    exit(1);
-}
+#include "utils.h"
 
 int main()
 {
@@ -42,8 +32,11 @@ int main()
     must_init(stage, "Stage");
 
     // Character image
-    char path[STR_MAX];
-    
+    // char path[STR_MAX];
+
+    ALLEGRO_BITMAP*** animations;
+    animations = load_sprites();
+
     // Allegro "Events" are interruptions to be handled
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(disp));
@@ -81,24 +74,28 @@ int main()
             // // alternate Yun idle animation sprites
 
             int a = frame_count / 2; // change sprites every 2 frames
-            int j = (a%11) + 1; // sprites vary from 1 to 12
+            int j = (a%11); // sprites vary from 0 to 11
 
             p1.animation_sprite_id = j;
-            p2.animation_sprite_id = ((j + 3) % 11) + 1;
+            p2.animation_sprite_id = ((j + 3) % 11);
             
             frame_count++;
 
             // for p1
-            sprintf(path, "%s%d.png", animation_enum_to_folder(p1.animation), p1.animation_sprite_id);
+            // sprintf(path, "%s%d.png", animation_enum_to_folder(p1.animation), p1.animation_sprite_id);
 
-            p1.sprite = al_load_bitmap(path);
-            must_init(p1.sprite, "sprite");
+            // p1.sprite = al_load_bitmap(path);
+            p1.sprite = animations[p1.animation][p1.animation_sprite_id];
+
+            // must_init(p1.sprite, "sprite");
 
             // for p2
-            sprintf(path, "%s%d.png", animation_enum_to_folder(p2.animation), p2.animation_sprite_id);
+            // sprintf(path, "%s%d.png", animation_enum_to_folder(p2.animation), p2.animation_sprite_id);
 
-            p2.sprite = al_load_bitmap(path);
-            must_init(p2.sprite, "sprite");
+            // p2.sprite = al_load_bitmap(path);
+            p2.sprite = animations[p2.animation][p2.animation_sprite_id];
+
+            // must_init(p2.sprite, "sprite");
 
             draw_display(stage, &p1, &p2);
 
@@ -108,6 +105,9 @@ int main()
 
     // Game over, destroy everything we made
     destroy_music(music);
+
+    al_destroy_bitmap(stage);
+    destroy_sprites(animations);
 
     al_destroy_font(font);
     destroy_display(disp);
