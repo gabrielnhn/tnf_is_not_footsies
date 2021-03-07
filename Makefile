@@ -12,7 +12,7 @@ main: main.c animation.o display.o music.o player.o
 	$(CC) $(cflags) -g main.c animation.o display.o music.o player.o utils.o -o main $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
 
 animation.o: animation.c animation.h utils.o
-	$(CC) $(cflags) -c animation.c utils.o -o animation.o 
+	$(CC) $(cflags) -c animation.c -o animation.o 
 
 display.o: display.c display.h
 	$(CC) $(cflags) -c display.c -o display.o $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 --libs --cflags)

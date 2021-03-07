@@ -58,13 +58,12 @@ char* animation_enum_to_folder(enum animation a)
     }
 }
 
-int sprites_on_each_animation[ANIMATIONS_N]; // global array 
+int sprites_on_each_animation[ANIMATIONS_N]; // array used only to free memory
 
 ALLEGRO_BITMAP*** load_sprites()
 // get all the sprites from the drive
 {
     // store them all in a matrix of BITMAP*
-    // ALLEGRO_BITMAP** animations[ANIMATIONS_N];
     ALLEGRO_BITMAP*** animations = malloc(sizeof(ALLEGRO_BITMAP**) * ANIMATIONS_N);
     
     DIR *animation_d;
@@ -100,7 +99,7 @@ ALLEGRO_BITMAP*** load_sprites()
             {
                 sprintf(path, "%s%d.png", animation_enum_to_folder(i), j);
                 animations[i][j] = al_load_bitmap(path);
-                printf("%s\n", path);
+                // printf("%s\n", path);
                 must_init(animations[i][j], "sprite");
 
                 j += 1;
