@@ -4,9 +4,10 @@
 #include <allegro5/allegro5.h>
 #include "player.h"
 
-#define WIDTH 612
-#define HEIGHT 235
+#define WIDTH 500
+#define HEIGHT 260
 #define PLAYER_HEIGHT 70
+#define SCALE 3
 
 
 

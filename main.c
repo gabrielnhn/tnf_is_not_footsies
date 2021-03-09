@@ -31,7 +31,7 @@ int main()
     al_init_image_addon();
 
     // Stage image
-    ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage2.png");
+    ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage3.png");
     must_init(stage, "Stage");
 
     // Character image
