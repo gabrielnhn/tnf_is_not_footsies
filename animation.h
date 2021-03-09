@@ -34,4 +34,6 @@ int frames_on_each_animation[ANIMATIONS_N];
 void animation_setup();
 int sprite_for_frame(enum animation, int frame);
 
+bool is_command_attack(enum animation a);
+
 #endif

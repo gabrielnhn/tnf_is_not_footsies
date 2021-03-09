@@ -18,10 +18,12 @@ typedef struct
     int animation_frame;
     int health;
     int current_animation;
+    int last_animation;
     int animation_sprite_id;
     int x;
 
     bool is_neutral;
+    bool is_standing;
     bool is_blocking;
 
     ALLEGRO_BITMAP* sprite;

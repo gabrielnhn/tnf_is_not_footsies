@@ -60,6 +60,10 @@ int main()
     p1.x = 50;
     p2.x = WIDTH - 300;
 
+
+    p1.last_animation = idle;
+    p2.last_animation = idle;
+
     p1.current_animation = idle;
     p2.current_animation = idle;
     p1.animation_frame = 0;
@@ -108,7 +112,8 @@ int main()
             // for p1
             // p1.animation_sprite_id = sprite_for_frame(p1.current_animation, frame_count % frames_on_each_animation[p1.current_animation]);
             p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
-            printf("%d[%d]\n", p1.current_animation, p1.animation_frame);
+            // printf("%d[%d] stand:%d wants to:%d was in:%d\n", p1.current_animation, p1.animation_frame, p1.is_standing, p1.wanted_animation, p1.last_animation);
+            // printf("%d\n", p1.last_animation);
 
             p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
             // printf("problems\n");
