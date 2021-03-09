@@ -110,16 +110,17 @@ int main()
             choose_animation(&p2);
 
             // for p1
-            // p1.animation_sprite_id = sprite_for_frame(p1.current_animation, frame_count % frames_on_each_animation[p1.current_animation]);
+
+            if (p1.current_animation == walk_forward)
+                p1.x += SPEED;
+            else if (p1.current_animation == walk_backwards)
+                p1.x -= SPEED;
+
             p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
-            // printf("%d[%d] stand:%d wants to:%d was in:%d\n", p1.current_animation, p1.animation_frame, p1.is_standing, p1.wanted_animation, p1.last_animation);
-            // printf("%d\n", p1.last_animation);
 
             p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
-            // printf("problems\n");
 
             // for p2
-            // p2.animation_sprite_id = sprite_for_frame(p2.current_animation, frame_count % frames_on_each_animation[p2.current_animation]);
             p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
 
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];

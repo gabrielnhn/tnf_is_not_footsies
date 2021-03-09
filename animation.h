@@ -20,7 +20,7 @@ enum animation
 };
 
 #define ANIMATIONS_N 16
-#define INTERVAL 2
+#define INTERVAL 2.5
 
 
 char* animation_enum_to_folder(enum animation a);
