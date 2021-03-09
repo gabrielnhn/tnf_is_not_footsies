@@ -1,5 +1,5 @@
 CC=gcc
-cflags= -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 --libs --cflags)
+cflags= -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 allegro_primitives-5 --libs --cflags)
  
 all: main
 

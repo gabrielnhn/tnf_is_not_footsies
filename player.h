@@ -4,6 +4,7 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_image.h>
 #include "animation.h"
+#include "utils.h"
 
 typedef struct
 {
@@ -28,7 +29,7 @@ typedef struct
 
     ALLEGRO_BITMAP* sprite;
 
-    box_t hurtbox;
+    box_t main_hurtbox;
     box_t hitbox;
 } player;
 
@@ -36,6 +37,8 @@ bool is_neutral(enum animation a);
 
 bool is_standing(player* p);
 
-int real_x(player p);
+int middle_x(player p);
+
+void update_hurtboxes(player* p1, player* p2);
 
 #endif

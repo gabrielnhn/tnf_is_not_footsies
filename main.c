@@ -26,6 +26,7 @@ int main()
 
     // Display module
     ALLEGRO_DISPLAY* disp = create_display();
+    al_init_primitives_addon();
 
     // We're going to use images
     al_init_image_addon();
@@ -56,18 +57,7 @@ int main()
     al_start_timer(timer);
 
     player p1, p2;
-
-    p1.x = 50;
-    p2.x = WIDTH - 300;
-
-
-    p1.last_animation = idle;
-    p2.last_animation = idle;
-
-    p1.current_animation = idle;
-    p2.current_animation = idle;
-    p1.animation_frame = 0;
-    p2.animation_frame = 0;
+    init_players(&p1, &p2);
 
     input_setup();
     animation_setup();
@@ -106,15 +96,19 @@ int main()
             p1.animation_frame++;
             p2.animation_frame++;
 
+            update_hurtboxes(&p1, &p2);
+            // update_hurtbox(&p2);
+
+
             choose_animation(&p1);
             choose_animation(&p2);
 
             // for p1
             // printf("%d < %d < %d\n", 0, p1.x, p2.x);
 
-            if ((p1.current_animation == walk_forward) && real_x(p1) < real_x(p2))
+            if ((p1.current_animation == walk_forward) && middle_x(p1) < middle_x(p2))
                 p1.x += SPEED;
-            else if ((p1.current_animation == walk_backwards) && 0 < real_x(p1))
+            else if ((p1.current_animation == walk_backwards) && 0 < middle_x(p1))
                 p1.x -= SPEED;
 
             p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);

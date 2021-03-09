@@ -5,6 +5,34 @@ int check_hitboxes(player* p1, player* p2)
     return 0;
 }
 
+void init_players(player* p1, player* p2)
+{
+    p1->x = 50;
+    p2->x = WIDTH - 300;
+    
+    p1->last_animation = idle;
+    p2->last_animation = idle;
+    
+    p1->current_animation = idle;
+    p2->current_animation = idle;
+    
+    p1->animation_frame = 0;
+    p2->animation_frame = 0;
+
+    update_hurtboxes(p1, p2);
+
+}
+
+bool boxes_collide(box_t A, box_t B)
+{
+    if(A.x > (B.x + B.width)) return false;
+    if((A.x + A.width) < B.x) return false;
+    if(A.y > (B.y + B.height)) return false;
+    if((A.y + A.height) < B.y) return false;
+
+    return true;
+}
+
 void choose_animation(player* p)
 {
     
