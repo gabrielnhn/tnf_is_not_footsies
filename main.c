@@ -7,6 +7,8 @@
 #include "animation.h"
 #include "utils.h"
 #include "input.h"
+#include "logic.h"
+
 
 int main()
 {
@@ -60,6 +62,8 @@ int main()
 
     p1.current_animation = idle;
     p2.current_animation = idle;
+    p1.animation_frame = 0;
+    p2.animation_frame = 0;
 
     input_setup();
     animation_setup();
@@ -95,13 +99,24 @@ int main()
  
         if(redraw && al_is_event_queue_empty(queue)) // no inputs to handle
         {
+            p1.animation_frame++;
+            p2.animation_frame++;
+
+            choose_animation(&p1);
+            choose_animation(&p2);
 
             // for p1
-            p1.animation_sprite_id = sprite_for_frame(p1.current_animation, frame_count % frames_on_each_animation[p1.current_animation]);
+            // p1.animation_sprite_id = sprite_for_frame(p1.current_animation, frame_count % frames_on_each_animation[p1.current_animation]);
+            p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
+            printf("%d[%d]\n", p1.current_animation, p1.animation_frame);
+
             p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
+            // printf("problems\n");
 
             // for p2
-            p2.animation_sprite_id = sprite_for_frame(p2.current_animation, frame_count % frames_on_each_animation[p2.current_animation]);
+            // p2.animation_sprite_id = sprite_for_frame(p2.current_animation, frame_count % frames_on_each_animation[p2.current_animation]);
+            p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
+
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
             draw_display(stage, &p1, &p2);

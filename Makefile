@@ -3,8 +3,8 @@ cflags= -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegr
  
 all: main
 
-main: main.c animation.o display.o music.o player.o utils.o input.o
-	$(CC) main.c animation.o display.o music.o player.o utils.o input.o -o main $(cflags) 
+main: main.c animation.o display.o music.o player.o utils.o input.o logic.o
+	$(CC) main.c animation.o display.o music.o player.o utils.o input.o logic.o -o main $(cflags) 
 
 animation.o: animation.c animation.h utils.o
 	$(CC) $(cflags) -c animation.c -o animation.o 
@@ -23,6 +23,9 @@ utils.o: utils.c utils.h
 
 input.o: input.c input.h
 	$(CC) $(cflags) -c input.c -o input.o
+
+logic.o: logic.c logic.h
+	$(CC) $(cflags) -c logic.c -o logic.o
 
 purge: clean
 	rm -rf main

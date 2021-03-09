@@ -132,7 +132,8 @@ void animation_setup()
     frames_on_each_animation[walk_backwards] = 15 * INTERVAL;
     frames_on_each_animation[dash] = 8 * INTERVAL;
     frames_on_each_animation[backdash] = 21 * INTERVAL;
-    frames_on_each_animation[crouching] = 6 * INTERVAL;
+    // frames_on_each_animation[crouching] = 6 * INTERVAL;
+    frames_on_each_animation[crouching] = 11 * INTERVAL;
     frames_on_each_animation[crLP] = 8 * INTERVAL;
     frames_on_each_animation[crMK] = 13 * INTERVAL;
     frames_on_each_animation[dash_punch] = 15 * INTERVAL;

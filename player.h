@@ -3,6 +3,7 @@
 
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_image.h>
+#include "animation.h"
 
 typedef struct
 {
@@ -20,10 +21,18 @@ typedef struct
     int animation_sprite_id;
     int x;
 
+    bool is_neutral;
+    bool is_blocking;
+
     ALLEGRO_BITMAP* sprite;
 
     box_t hurtbox;
     box_t hitbox;
 } player;
+
+bool is_neutral(enum animation a);
+
+bool is_standing(player* p);
+
 
 #endif

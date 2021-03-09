@@ -20,13 +20,17 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
             break;
 
         p1->wanted_animation = idle; // default animation
+        p1->is_blocking = false; // by default no one's blocking
 
         if (key[ALLEGRO_KEY_DOWN])
+        {
             p1->wanted_animation = crouching;
-
-        else if (key[ALLEGRO_KEY_LEFT])
-            p1->wanted_animation = walk_backwards;
-
+        }
+        if (key[ALLEGRO_KEY_LEFT]){
+            p1->is_blocking = true;
+            if (p1->wanted_animation != crouching) // do not walk backwards if crouching
+                p1->wanted_animation = walk_backwards;
+        }
         else if (key[ALLEGRO_KEY_RIGHT])
             p1->wanted_animation = walk_forward;
 
