@@ -16,19 +16,19 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
     {
     case ALLEGRO_EVENT_TIMER: // clock ticks
 
-        if(p1->animation == crMK || p1->animation == crLP)
+        if(p1->wanted_animation == crMK || p1->wanted_animation == crLP)
             break;
 
-        p1->animation = idle; // default animation
+        p1->wanted_animation = idle; // default animation
 
         if (key[ALLEGRO_KEY_DOWN])
-            p1->animation = crouching;
+            p1->wanted_animation = crouching;
 
         else if (key[ALLEGRO_KEY_LEFT])
-            p1->animation = walk_backwards;
+            p1->wanted_animation = walk_backwards;
 
         else if (key[ALLEGRO_KEY_RIGHT])
-            p1->animation = walk_forward;
+            p1->wanted_animation = walk_forward;
 
         for (int i = 0; i < ALLEGRO_KEY_MAX; i++)
             key[i] &= KEY_SEEN;
@@ -39,12 +39,12 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
         if (event.keyboard.keycode == ALLEGRO_KEY_COMMA)
         {
             // printf("crMK\n");
-            p1->animation = crMK;
+            p1->wanted_animation = crMK;
         }
         else if (event.keyboard.keycode == ALLEGRO_KEY_FULLSTOP)
         {
             // printf("crLP\n");
-            p1->animation = crLP;
+            p1->wanted_animation = crLP;
         }
         else
         {

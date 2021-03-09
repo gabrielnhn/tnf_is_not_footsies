@@ -13,10 +13,10 @@ typedef struct
 
 typedef struct
 {
-    // int a,b,c;
+    int wanted_animation;
     int animation_frame;
     int health;
-    int animation;
+    int current_animation;
     int animation_sprite_id;
     int x;
 

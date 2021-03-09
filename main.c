@@ -58,8 +58,8 @@ int main()
     p1.x = 50;
     p2.x = WIDTH - 300;
 
-    p1.animation = idle;
-    p2.animation = idle;
+    p1.current_animation = idle;
+    p2.current_animation = idle;
 
     input_setup();
     animation_setup();
@@ -95,39 +95,14 @@ int main()
  
         if(redraw && al_is_event_queue_empty(queue)) // no inputs to handle
         {
-            // // alternate players idle animation sprites
-
-            // int a = frame_count / 2; // change sprites every 2 frames
-
-            // p1.animation_sprite_id = a % sprites_on_each_animation[p1.animation];
-            // p2.animation_sprite_id = a % sprites_on_each_animation[p2.animation];
-
-            // if ((a % sprites_on_each_animation[p1.animation] != sprites_on_each_animation[p1.animation] - 1)
-            //     && !decreasing)
-            // {          
-            //     frame_count++;
-            // }
-            // else
-            // {
-            //     decreasing = true;
-            //     frame_count--;
-            // }
-            // if (a % sprites_on_each_animation[p1.animation] == 0)
-            // {
-            //     decreasing = false;
-            // }
-
-
 
             // for p1
-            printf("%ld-", frame_count % frames_on_each_animation[p1.animation]);
-            p1.animation_sprite_id = sprite_for_frame(p1.animation, frame_count % frames_on_each_animation[p1.animation]);
-            printf("%d\n", p1.animation_sprite_id);
-            p1.sprite = animations[p1.animation][p1.animation_sprite_id];
+            p1.animation_sprite_id = sprite_for_frame(p1.current_animation, frame_count % frames_on_each_animation[p1.current_animation]);
+            p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
 
             // for p2
-            p2.animation_sprite_id = sprite_for_frame(p2.animation, frame_count % frames_on_each_animation[p2.animation]);
-            p2.sprite = animations[p2.animation][p2.animation_sprite_id];
+            p2.animation_sprite_id = sprite_for_frame(p2.current_animation, frame_count % frames_on_each_animation[p2.current_animation]);
+            p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
             draw_display(stage, &p1, &p2);
 
