@@ -120,3 +120,60 @@ void destroy_sprites(ALLEGRO_BITMAP ***animations)
         }
     }
 }
+
+
+// FRAME DATA
+int frames_on_each_animation[ANIMATIONS_N];
+
+void animation_setup()
+{
+    frames_on_each_animation[idle] = 11 * INTERVAL;
+    frames_on_each_animation[walk_forward] = 15 * INTERVAL;
+    frames_on_each_animation[walk_backwards] = 15 * INTERVAL;
+    frames_on_each_animation[dash] = 8 * INTERVAL;
+    frames_on_each_animation[backdash] = 21 * INTERVAL;
+    frames_on_each_animation[crouching] = 6 * INTERVAL;
+    frames_on_each_animation[crLP] = 8 * INTERVAL;
+    frames_on_each_animation[crMK] = 13 * INTERVAL;
+    frames_on_each_animation[dash_punch] = 15 * INTERVAL;
+    frames_on_each_animation[overhead] = 20 * INTERVAL;
+    frames_on_each_animation[block_high] = 11 * INTERVAL;
+    frames_on_each_animation[block_low] =  11 * INTERVAL;
+    frames_on_each_animation[fall] = 19 * INTERVAL;
+    frames_on_each_animation[high_hitstun] = 5 * INTERVAL;
+    frames_on_each_animation[low_hitstun] = 7 * INTERVAL;
+    frames_on_each_animation[rise] = 9 * INTERVAL;
+}
+
+int sprite_for_frame(enum animation a, int frame)
+// return the index of the sprite for a given frame
+{
+    if (frame >= frames_on_each_animation[a])
+        // no such frame
+        return (-1); 
+        // or maybe return the last sprite? // return (sprites_on_each_animation[a] -1);
+
+
+    if (sprites_on_each_animation[a] == (frames_on_each_animation[a]/INTERVAL))
+        // animation doesn't go 'back and forward'
+    {
+        return (frame/INTERVAL);
+    }
+    else
+    {
+        if(frame/INTERVAL < (sprites_on_each_animation[a]))
+        // animation going "forward"
+        {
+            return (frame/INTERVAL);
+        }
+        else
+        // animation going "backwards"
+        {
+            // mirror the value based on the amount of sprites of the animation
+            // so it stays in the range of the sprites array
+
+            return ((frame/INTERVAL* (-1)) + (sprites_on_each_animation[a] * 2)) -1;
+        }
+        
+    }
+}
