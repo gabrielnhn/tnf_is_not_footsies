@@ -28,12 +28,13 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
         }
         if (key[ALLEGRO_KEY_LEFT]){
             p1->is_blocking = true;
-            if (p1->wanted_animation != crouching) // do not walk backwards if crouching
+            if (p1->wanted_animation != crouching) // do not walk if crouching
                 p1->wanted_animation = walk_backwards;
         }
-        else if (key[ALLEGRO_KEY_RIGHT])
-            p1->wanted_animation = walk_forward;
-
+        else if (key[ALLEGRO_KEY_RIGHT]){
+            if (p1->wanted_animation != crouching) // do not walk if crouching
+                p1->wanted_animation = walk_forward;
+        }
         for (int i = 0; i < ALLEGRO_KEY_MAX; i++)
             key[i] &= KEY_SEEN;
 
