@@ -28,12 +28,13 @@ void choose_animation(player* p)
 
     if (((p->current_animation == crouching) || is_command_attack(p->last_animation)) && can_move)
     {
-        if(is_command_attack(p->last_animation))
-            p->current_animation = crouching;
 
         if (p->wanted_animation == crouching)
         // continue crouching
         {
+            if(is_command_attack(p->last_animation))
+                p->current_animation = crouching;
+                
             p->is_standing = false;
 
             if ((p->animation_sprite_id < 5) && !is_command_attack(p->last_animation));
