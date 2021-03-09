@@ -4,6 +4,7 @@
 
 void must_init(bool test, const char *description);
 
-#define STR_MAX 100
+bool inrange(int x, int min, int max);
 
+#define STR_MAX 100
 #define SPEED 3 // character speed

@@ -36,5 +36,6 @@ bool is_neutral(enum animation a);
 
 bool is_standing(player* p);
 
+int real_x(player p);
 
 #endif

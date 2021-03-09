@@ -7,12 +7,17 @@ int check_hitboxes(player* p1, player* p2)
 
 void choose_animation(player* p)
 {
+    
     // int hitbox_retval = check_hitboxes(p1, p2);
     // if (hitbox_retval != 0)
     // {
     //     // histun/blocking animations
     //     return;
     // }
+
+
+
+    // no one's hurt:
 
     bool can_move = false;
     
@@ -34,7 +39,7 @@ void choose_animation(player* p)
         {
             if(is_command_attack(p->last_animation))
                 p->current_animation = crouching;
-                
+
             p->is_standing = false;
 
             if ((p->animation_sprite_id < 5) && !is_command_attack(p->last_animation));

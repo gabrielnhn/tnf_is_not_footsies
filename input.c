@@ -61,5 +61,6 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
         key[event.keyboard.keycode] &= KEY_RELEASED;
         break;
     }
+    p2->wanted_animation = idle;
     return retval;
 }

@@ -33,3 +33,9 @@ bool is_standing(player* p)
         return true;
     }
 }
+
+int real_x(player p)
+// compensating for image border
+{
+    return (p.x + 122);
+}

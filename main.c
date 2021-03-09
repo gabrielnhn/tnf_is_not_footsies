@@ -110,10 +110,11 @@ int main()
             choose_animation(&p2);
 
             // for p1
+            // printf("%d < %d < %d\n", 0, p1.x, p2.x);
 
-            if (p1.current_animation == walk_forward)
+            if ((p1.current_animation == walk_forward) && real_x(p1) < real_x(p2))
                 p1.x += SPEED;
-            else if (p1.current_animation == walk_backwards)
+            else if ((p1.current_animation == walk_backwards) && 0 < real_x(p1))
                 p1.x -= SPEED;
 
             p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
