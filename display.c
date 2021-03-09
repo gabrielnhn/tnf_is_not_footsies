@@ -27,7 +27,7 @@ void draw_display(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     al_clear_to_color(al_map_rgb(0, 0, 0));
     
     // draw stage
-    al_draw_bitmap(stage, -200, -200, 0);
+    al_draw_bitmap(stage, -220, -220, 0);
 
     al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
