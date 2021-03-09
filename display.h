@@ -5,7 +5,7 @@
 #include <allegro5/allegro_primitives.h>
 #include "player.h"
 
-#define WIDTH 500
+#define WIDTH 400
 #define HEIGHT 260
 
 #define SCALE 3

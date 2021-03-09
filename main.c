@@ -106,9 +106,9 @@ int main()
             // for p1
             // printf("%d < %d < %d\n", 0, p1.x, p2.x);
 
-            if ((p1.current_animation == walk_forward) && middle_x(p1) < middle_x(p2))
+            if ((p1.current_animation == walk_forward) &&!boxes_collide(p1.main_hurtbox, p2.main_hurtbox))
                 p1.x += SPEED;
-            else if ((p1.current_animation == walk_backwards) && 0 < middle_x(p1))
+            else if ((p1.current_animation == walk_backwards) && 0 < p1.main_hurtbox.x)
                 p1.x -= SPEED;
 
             p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);

@@ -35,13 +35,14 @@ bool is_standing(player* p)
 }
 
 int middle_x(player p)
-// compensating for image border
+// compensating for sprite border
 {
     return (p.x + 122);
 }
 
 void update_hurtboxes(player* p1, player* p2)
 // compensate for sprite border
+// completely hardcoded
 {
     p1->main_hurtbox.x = p1->x + 74 + 20;
     p1->main_hurtbox.width = 75 - 15;
