@@ -151,6 +151,9 @@ int speed_for_animation(enum animation a)
     case backdash:
         return SPEED * -1.1;
 
+    case overhead:
+        return SPEED * 0.5;
+
     default:
         return 0;
     }
