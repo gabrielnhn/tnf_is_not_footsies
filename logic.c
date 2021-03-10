@@ -60,22 +60,22 @@ void choose_animation(player* p)
     if (is_neutral(p->current_animation))
         can_move = true;
 
-    if (((p->current_animation == crouching) || is_command_attack(p->last_animation)) && can_move)
+    if (((p->current_animation == crouching) || is_attack(p->last_animation)) && can_move)
     {
 
         if (p->wanted_animation == crouching)
         // continue crouching
         {
-            if(is_command_attack(p->last_animation))
+            if(is_attack(p->last_animation))
             // if recovering from an attack, one should recover back in crouching position, not standing. 
                 p->current_animation = crouching;
 
             p->is_standing = false;
 
-            if ((p->animation_sprite_id < 5) && !is_command_attack(p->last_animation));
+            if ((p->animation_sprite_id < 5) && !is_attack(p->last_animation));
             // is starting to crouch, just let it be
 
-            else if (p->animation_sprite_id == (5) || is_command_attack(p->last_animation))
+            else if (p->animation_sprite_id == (5) || is_attack(p->last_animation))
             // has fully crouched OR recovering from attack
             {
                 p->last_animation = idle;
@@ -119,7 +119,7 @@ void choose_animation(player* p)
 
     // this is important so when doing command moves (such as crMK and crLP)
     // the move won't repeat itself
-    if (is_command_attack(p->current_animation) && (p->current_animation == p->wanted_animation))
+    if (is_attack(p->current_animation) && (p->current_animation == p->wanted_animation))
     {
         if (p->is_standing){
             p->wanted_animation = idle;

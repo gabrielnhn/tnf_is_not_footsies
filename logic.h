@@ -3,6 +3,7 @@
 
 #include "player.h"
 #include "display.h"
+#include "attacks.h"
 
 int check_hitboxes(player* p1, player* p2);
 

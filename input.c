@@ -31,7 +31,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
             if ((p1->buffer_length > 2) &&
                 (p1->input_buffer[p1->buffer_length - 1] == PUNCH) && // just pressed PUNCH
                 (p1->input_buffer[p1->buffer_length - 2] == RIGHT) && // was pressing forward
-                (p1->input_buffer[p1->buffer_length - 3] == DOWN)) // pressed DOWN a short time ago
+                ((p1->input_buffer[p1->buffer_length - 3] == DOWN) || !p1->is_standing)) // pressed DOWN a short time ago
             {
                 // ↓→+👊
                 p1->wanted_animation = dash_punch;
