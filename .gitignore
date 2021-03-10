@@ -4,3 +4,4 @@ main
 old_main*
 old_animation/
 *.o
+.vscode
