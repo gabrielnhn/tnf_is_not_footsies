@@ -102,10 +102,8 @@ int main()
             choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);
 
-
             // check for movement
             check_movement(&p1, &p2);
-
 
             // get the sprite according to the animation
 
