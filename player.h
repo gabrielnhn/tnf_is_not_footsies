@@ -15,7 +15,8 @@ typedef struct
 typedef struct
 {
     // input related:
-    unsigned char input_buffer[10];
+    unsigned char input_buffer[30];
+    int buffer_length;
     long last_input_frame;
 
     // sprite/animation related

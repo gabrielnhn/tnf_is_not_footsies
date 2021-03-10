@@ -11,6 +11,8 @@ bool inrange(int x, int min, int max);
 
 void bad_malloc();
 
+bool in_array(char x, unsigned char* array, int array_size);
+
 #define STR_MAX 100
 
 #endif

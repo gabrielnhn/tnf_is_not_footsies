@@ -61,7 +61,7 @@ int main()
     player p1, p2;
     init_players(&p1, &p2);
 
-    input_setup();
+    input_setup(&p1, &p2);
     animation_setup();
 
     bool game_over = false;

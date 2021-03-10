@@ -18,3 +18,13 @@ void bad_malloc()
     perror("Bad memory allocation\n");
     exit(1);
 }
+
+bool in_array(char x, unsigned char* array, int array_size)
+{
+    for (int i = 0; i < array_size; i++)
+    {
+        if (array[i] == x)
+            return true;
+    }
+    return false;
+}

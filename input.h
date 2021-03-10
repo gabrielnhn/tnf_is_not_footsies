@@ -6,9 +6,14 @@
 #include <allegro5/allegro5.h>
 #include "animation.h"
 #include "player.h"
+#include "utils.h"
 
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
+
+#define BUFFER_TIMER 10
+
+enum input {UP, DOWN, LEFT, RIGHT, PUNCH, KICK};
 
 unsigned char key[ALLEGRO_KEY_MAX];
 
