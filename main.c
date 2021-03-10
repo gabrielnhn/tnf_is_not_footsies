@@ -18,25 +18,26 @@ int main()
 
     // 60 FPS
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
+    must_init(timer, "allegro timer");
 
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
+    must_init(queue, "allegro queue");
 
-    // Weird ass font
     ALLEGRO_FONT* font = al_create_builtin_font();
+    must_init(font, "allegro font");
 
     // Display module
     ALLEGRO_DISPLAY* disp = create_display();
-    al_init_primitives_addon();
+    must_init(disp, "display");
+
+    must_init(al_init_primitives_addon(), "primitives addon");
 
     // We're going to use images
-    al_init_image_addon();
+    must_init(al_init_image_addon(), "image addon");
 
     // Stage image
     ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage3.png");
     must_init(stage, "Stage");
-
-    // Character image
-    // char path[STR_MAX];
 
     ALLEGRO_BITMAP*** animations;
     animations = load_sprites();
@@ -48,6 +49,7 @@ int main()
 
     // Music module
     ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVRashid.opus");
+    must_init(music, "music");
 
     // Initial setup
 

@@ -77,7 +77,7 @@ ALLEGRO_BITMAP ***load_sprites()
     {
         // open its folder
         animation_d = opendir(animation_enum_to_folder(i));
-        must_init(animation_d, "animations/");
+        must_init(animation_d, "animation/");
         rewinddir(animation_d);
 
         // determine how many sprites there are for the animation
@@ -123,18 +123,17 @@ void destroy_sprites(ALLEGRO_BITMAP ***animations)
     }
 }
 
-
 // FRAME DATA
 int frames_on_each_animation[ANIMATIONS_N];
 
 void animation_setup()
+// hardcoded amount of frames for each animation
 {
     frames_on_each_animation[idle] = 11 * INTERVAL;
     frames_on_each_animation[walk_forward] = 15 * INTERVAL;
     frames_on_each_animation[walk_backwards] = 15 * INTERVAL;
     frames_on_each_animation[dash] = 8 * INTERVAL;
     frames_on_each_animation[backdash] = 21 * INTERVAL;
-    // frames_on_each_animation[crouching] = 6 * INTERVAL;
     frames_on_each_animation[crouching] = 11 * INTERVAL;
     frames_on_each_animation[crLP] = 8 * INTERVAL;
     frames_on_each_animation[crMK] = 13 * INTERVAL;
