@@ -65,6 +65,7 @@ ALLEGRO_BITMAP ***load_sprites()
 {
     // store them all in a matrix of BITMAP*
     ALLEGRO_BITMAP ***animations = malloc(sizeof(ALLEGRO_BITMAP **) * ANIMATIONS_N);
+    must_init(animations, "animations array");
 
     DIR *animation_d;
     struct dirent *dir;
@@ -90,6 +91,7 @@ ALLEGRO_BITMAP ***load_sprites()
 
         // get memory in order to store each sprite
         animations[i] = malloc(sizeof(ALLEGRO_BITMAP **) * sprites);
+        must_init(animations[i], "sprites");
 
         // get them sprites
         int j = 0;

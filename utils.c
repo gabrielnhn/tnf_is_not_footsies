@@ -12,3 +12,9 @@ bool inrange(int x, int min, int max)
 {
     return (min <= x && x <= max);
 }
+
+void bad_malloc()
+{
+    perror("Bad memory allocation\n");
+    exit(1);
+}

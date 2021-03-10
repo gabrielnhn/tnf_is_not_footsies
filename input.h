@@ -8,4 +8,4 @@
 #define KEY_RELEASED 2
 
 void input_setup();
-int check_input(player* p1, player* p2,  ALLEGRO_EVENT event);
+int check_input(player* p1, player* p2, ALLEGRO_EVENT event);

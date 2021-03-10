@@ -7,8 +7,8 @@ int check_hitboxes(player* p1, player* p2)
 
 void init_players(player* p1, player* p2)
 {
-    p1->x = 50;
-    p2->x = WIDTH - 300;
+    p1->x = SCR_MIN + 90;
+    p2->x = SCR_MAX - 90;
     
     p1->last_animation = idle;
     p2->last_animation = idle;

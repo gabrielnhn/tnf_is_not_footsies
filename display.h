@@ -8,12 +8,15 @@
 #define WIDTH 400
 #define HEIGHT 260
 
+#define SCR_MIN -95
+#define SCR_MAX 245
+
+
 #define SCALE 3
-
-
 
 ALLEGRO_DISPLAY *create_display();
 void destroy_display(ALLEGRO_DISPLAY *disp);
+void draw_boxes();
 void draw_display(ALLEGRO_BITMAP *stage, player *player1, player *player2);
 
 #endif

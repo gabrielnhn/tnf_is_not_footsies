@@ -97,14 +97,12 @@ int main()
             p2.animation_frame++;
 
             update_hurtboxes(&p1, &p2);
-            // update_hurtbox(&p2);
-
 
             choose_animation(&p1);
             choose_animation(&p2);
 
+            // printf("%d < %d\n", p1.x, p2.x);
             // for p1
-            // printf("%d < %d < %d\n", 0, p1.x, p2.x);
 
             if ((p1.current_animation == walk_forward) &&!boxes_collide(p1.main_hurtbox, p2.main_hurtbox))
                 p1.x += SPEED;
