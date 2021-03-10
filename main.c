@@ -12,9 +12,11 @@
 
 int main()
 {
+    // Initial Setup:
+
     // Initialize ALLEGRO funcionalities
-    al_init();
-    al_install_keyboard();
+    must_init(al_init(), "allegro");
+    must_init(al_install_keyboard(), "allegro keyboard");
 
     // 60 FPS
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
@@ -31,15 +33,13 @@ int main()
     must_init(disp, "display");
 
     must_init(al_init_primitives_addon(), "primitives addon");
-
-    // We're going to use images
     must_init(al_init_image_addon(), "image addon");
 
     // Stage image
     ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage3.png");
     must_init(stage, "Stage");
 
-    ALLEGRO_BITMAP*** animations;
+    ALLEGRO_BITMAP*** animations; // 2d array of bitmap pointers
     animations = load_sprites();
 
     // Allegro "Events" are interruptions to be handled
@@ -51,12 +51,12 @@ int main()
     ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVRashid.opus");
     must_init(music, "music");
 
-    // Initial setup
 
-    bool redraw = true;
-    ALLEGRO_EVENT event;
+    // Initial game setup
 
+    bool clock_tick = true; // every time the clock ticks, check game state
     al_start_timer(timer);
+    ALLEGRO_EVENT event;
 
     player p1, p2;
     init_players(&p1, &p2);
@@ -64,10 +64,8 @@ int main()
     input_setup();
     animation_setup();
 
-    long frame_count = 0;
-    bool done = false;
-    // bool decreasing;
-    while(!done)
+    bool game_over = false;
+    while(!game_over)
     {
         al_wait_for_event(queue, &event);
 
@@ -75,55 +73,57 @@ int main()
         {
         case ALLEGRO_EVENT_TIMER:
             check_input(&p1, &p2, event);
-            redraw = true;
+            clock_tick = true;
             break;
 
-        case ALLEGRO_EVENT_KEY_DOWN:
+        case ALLEGRO_EVENT_KEY_DOWN: // key pressed
            check_input(&p1, &p2, event);
 
             if(event.keyboard.keycode != ALLEGRO_KEY_ESCAPE)
                 break;
         
-        case ALLEGRO_EVENT_KEY_UP:
+        case ALLEGRO_EVENT_KEY_UP: // key released
             check_input(&p1, &p2, event);
             break;
 
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            done = true;
+            game_over = true;
             break;
         }
  
-        if(redraw && al_is_event_queue_empty(queue)) // no inputs to handle
+        if(clock_tick && al_is_event_queue_empty(queue))
+        // PROCESS GAME STATE IN CURRENT FRAME
         {
-            p1.animation_frame++;
+            p1.animation_frame++; // move onto the next animation frame
             p2.animation_frame++;
 
-            update_hurtboxes(&p1, &p2);
+            update_hurtboxes(&p1, &p2); // according to both players' position
 
-            choose_animation(&p1);
+            choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);
 
-            // printf("%d < %d\n", p1.x, p2.x);
-            // for p1
+            // check for movement
 
             if ((p1.current_animation == walk_forward) &&!boxes_collide(p1.main_hurtbox, p2.main_hurtbox))
                 p1.x += SPEED;
+
             else if ((p1.current_animation == walk_backwards) && 0 < p1.main_hurtbox.x)
                 p1.x -= SPEED;
 
-            p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
+            // get the sprite according to the animation
 
+            // for p1
+            p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
             p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
 
             // for p2
             p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
-
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
             draw_display(stage, &p1, &p2);
 
-            redraw = false;
-            frame_count++;
+            clock_tick = false;
+            // frame_count++;
         }
     }
 
