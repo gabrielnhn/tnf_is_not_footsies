@@ -158,3 +158,47 @@ int speed_for_animation(enum animation a)
         return 0;
     }
 }
+
+void check_movement(player* p1, player* p2)
+{
+    // p1:
+    if (speed_for_animation(p1->current_animation) > 0)
+    {
+        if (!boxes_collide(p1->main_hurtbox, p2->main_hurtbox) && (p1->x < SCR_MAX))
+            p1->x += speed_for_animation(p1->current_animation);
+
+        else if (boxes_collide(p1->main_hurtbox, p2->main_hurtbox))
+        {
+            if (p2->x < SCR_MAX) // drag the other player along
+            {
+                p1->x += speed_for_animation(p1->current_animation)/2;
+                p2->x += speed_for_animation(p1->current_animation)/2;
+            }
+        }
+    }
+    else
+    {
+        if (p1->x > SCR_MIN)
+            p1->x += speed_for_animation(p1->current_animation);
+    }
+    // for p2
+    if (speed_for_animation(p2->current_animation) < 0)
+    {
+        if (!boxes_collide(p2->main_hurtbox, p1->main_hurtbox) && (p1->x > SCR_MIN))
+            p2->x += speed_for_animation(p2->current_animation);
+
+        else if (boxes_collide(p1->main_hurtbox, p2->main_hurtbox))
+        {
+            if (p1->x > SCR_MIN) // drag the other player along
+            {
+                p1->x += speed_for_animation(p2->current_animation)/2;
+                p2->x += speed_for_animation(p2->current_animation)/2;
+            }
+        }
+    }
+    else
+    {
+        if (p2->x < SCR_MAX)
+            p2->x += speed_for_animation(p2->current_animation);
+    }
+}

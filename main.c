@@ -102,14 +102,10 @@ int main()
             choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);
 
+
             // check for movement
+            check_movement(&p1, &p2);
 
-            // if ((p1.current_animation == walk_forward) &&!boxes_collide(p1.main_hurtbox, p2.main_hurtbox))
-            //     p1.x += SPEED;
-
-            // else if ((p1.current_animation == walk_backwards) && 0 < p1.main_hurtbox.x)
-            //     p1.x -= SPEED;
-            p1.x += speed_for_animation(p1.current_animation);
 
             // get the sprite according to the animation
 
@@ -126,7 +122,7 @@ int main()
             clock_tick = false;
             frame_count++;
 
-            print_array(p1.input_buffer, p1.buffer_length);
+            // print_array(p1.input_buffer, p1.buffer_length);
         }
     }
 

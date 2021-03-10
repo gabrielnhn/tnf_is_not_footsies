@@ -15,4 +15,6 @@ void choose_animation(player* p);
 
 int speed_for_animation(enum animation a);
 
+void check_movement(player* p1, player* p2);
+
 #endif

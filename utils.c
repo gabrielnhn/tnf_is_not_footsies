@@ -10,7 +10,7 @@ void must_init(bool test, const char *description)
 
 bool inrange(int x, int min, int max)
 {
-    return (min <= x && x <= max);
+    return ((min <= x) && (x <= max));
 }
 
 void bad_malloc()
