@@ -36,7 +36,7 @@ int main()
     must_init(al_init_image_addon(), "image addon");
 
     // Stage image
-    ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage3.png");
+    ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage4.png");
     must_init(stage, "Stage");
 
     ALLEGRO_BITMAP*** animations; // 2d array of bitmap pointers
