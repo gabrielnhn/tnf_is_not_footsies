@@ -9,7 +9,7 @@
 #define HEIGHT 260
 #define SCALE 3
 
-// I don't know why, but those are the values in the X axis
+// I don't know why, but these are the values in the X axis
 // that define the range the players can be: 
 #define SCR_MIN -95
 #define SCR_MAX 245

@@ -10,7 +10,10 @@
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
 
-void input_setup();
-int check_input(player* p1, player* p2, ALLEGRO_EVENT event);
+unsigned char key[ALLEGRO_KEY_MAX];
+
+
+void input_setup(player* p1, player* p2);
+int check_input(player* p1, player* p2, ALLEGRO_EVENT event, long frame_count);
 
 #endif

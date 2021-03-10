@@ -14,22 +14,28 @@ typedef struct
 
 typedef struct
 {
-    int wanted_animation;
-    int animation_frame;
-    int health;
-    int current_animation;
-    int last_animation;
-    int animation_sprite_id;
-    int x;
+    // input related:
+    unsigned char input_buffer[10];
+    long last_input_frame;
 
+    // sprite/animation related
+    int last_animation;
+    int current_animation;
+    int wanted_animation;
+    int animation_sprite_id;
+    int animation_frame;
+    ALLEGRO_BITMAP* sprite;
+
+    // game state related
+    int health;
+    int x;
     bool is_neutral;
     bool is_standing;
     bool is_blocking;
 
-    ALLEGRO_BITMAP* sprite;
-
     box_t main_hurtbox;
     box_t hitbox;
+
 } player;
 
 #define SPEED 3 // character speed

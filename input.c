@@ -2,12 +2,14 @@
 
 unsigned char key[ALLEGRO_KEY_MAX]; // used to tell whether a key is being pressed
 
-void input_setup()
+void input_setup(player* p1, player* p2)
 {
     memset(key, 0, sizeof(key)); // clear it
+    memset(p1->input_buffer, 0, sizeof(p1->input_buffer));
+    memset(p2->input_buffer, 0, sizeof(p2->input_buffer));
 }
 
-int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
+int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
 // return the animation the player wants to execute
 // (handles all the input)
 {

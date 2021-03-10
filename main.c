@@ -51,12 +51,12 @@ int main()
     ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVRashid.opus");
     must_init(music, "music");
 
-
     // Initial game setup
 
     bool clock_tick = true; // every time the clock ticks, check game state
     al_start_timer(timer);
     ALLEGRO_EVENT event;
+    long frame_count = 0;
 
     player p1, p2;
     init_players(&p1, &p2);
@@ -72,18 +72,18 @@ int main()
         switch(event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            check_input(&p1, &p2, event);
+            check_input(&p1, &p2, event, frame_count);
             clock_tick = true;
             break;
 
         case ALLEGRO_EVENT_KEY_DOWN: // key pressed
-           check_input(&p1, &p2, event);
+           check_input(&p1, &p2, event, frame_count);
 
             if(event.keyboard.keycode != ALLEGRO_KEY_ESCAPE)
                 break;
         
         case ALLEGRO_EVENT_KEY_UP: // key released
-            check_input(&p1, &p2, event);
+            check_input(&p1, &p2, event, frame_count);
             break;
 
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
@@ -123,7 +123,7 @@ int main()
             draw_display(stage, &p1, &p2);
 
             clock_tick = false;
-            // frame_count++;
+            frame_count++;
         }
     }
 
