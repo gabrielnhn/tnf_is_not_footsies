@@ -28,3 +28,12 @@ bool in_array(char x, unsigned char* array, int array_size)
     }
     return false;
 }
+
+void print_array(unsigned char* array, int array_size)
+{
+    for(int i = 0; i < array_size; i++)
+    {
+        printf("%d-", (int)(array[i]));
+    }
+    printf("\n");
+}

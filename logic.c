@@ -124,7 +124,7 @@ void choose_animation(player* p)
         if (p->is_standing){
             p->wanted_animation = idle;
         }
-        else
+        else if (p->current_animation != dash_punch) // if you dash punch, you have to stand again
         {
             // used so when recovering from an attack, the player won't have to crouch again 
             p->last_animation = p->wanted_animation;

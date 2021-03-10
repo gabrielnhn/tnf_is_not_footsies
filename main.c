@@ -124,6 +124,8 @@ int main()
 
             clock_tick = false;
             frame_count++;
+
+            print_array(p1.input_buffer, p1.buffer_length);
         }
     }
 
