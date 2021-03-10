@@ -79,7 +79,7 @@ void choose_animation(player* p)
             // has fully crouched OR recovering from attack
             {
                 p->last_animation = idle;
-                p->animation_frame = (6*INTERVAL) - 1; // hardcoded sprite when Yun is crouching
+                p->animation_frame = (6*INTERVAL); // hardcoded sprite when Yun is crouching
             }
             else
             // was standing up but decided to go back to crouching

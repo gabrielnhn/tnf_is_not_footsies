@@ -18,7 +18,7 @@ enum animation
 };
 #define ANIMATIONS_N 16
 
-#define INTERVAL 2.5 // interval of frames in which a sprite is used
+#define INTERVAL 3 // interval of frames in which a sprite is used
 
 int sprites_on_each_animation[ANIMATIONS_N];
 int frames_on_each_animation[ANIMATIONS_N];

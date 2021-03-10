@@ -138,7 +138,8 @@ void animation_setup()
     frames_on_each_animation[crLP] = 8 * INTERVAL;
     frames_on_each_animation[crMK] = 13 * INTERVAL;
     frames_on_each_animation[dash_punch] = 15 * INTERVAL;
-    frames_on_each_animation[overhead] = 20 * INTERVAL;
+    // frames_on_each_animation[overhead] = 20 * INTERVAL;
+    frames_on_each_animation[overhead] = 14 * INTERVAL;
     frames_on_each_animation[block_high] = 11 * INTERVAL;
     frames_on_each_animation[block_low] =  11 * INTERVAL;
     frames_on_each_animation[fall] = 19 * INTERVAL;
@@ -152,8 +153,9 @@ int sprite_for_frame(enum animation a, int frame)
 {
     if (frame >= frames_on_each_animation[a])
         // no such frame
-        return (-1); 
-        // or maybe return the last sprite? // return (sprites_on_each_animation[a] -1);
+        // return (-1); 
+        // or maybe return the last sprite?
+        return (sprites_on_each_animation[a] -1);
 
     if (sprites_on_each_animation[a] == (frames_on_each_animation[a]/INTERVAL))
         // animation doesn't go 'back and forward'

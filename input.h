@@ -11,7 +11,7 @@
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
 
-#define BUFFER_TIMER 15
+#define BUFFER_TIMER 10
 
 enum input {UP, DOWN, LEFT, RIGHT, PUNCH, KICK};
 
