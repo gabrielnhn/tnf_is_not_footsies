@@ -155,7 +155,6 @@ int sprite_for_frame(enum animation a, int frame)
         return (-1); 
         // or maybe return the last sprite? // return (sprites_on_each_animation[a] -1);
 
-
     if (sprites_on_each_animation[a] == (frames_on_each_animation[a]/INTERVAL))
         // animation doesn't go 'back and forward'
     {

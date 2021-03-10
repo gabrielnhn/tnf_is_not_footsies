@@ -1,3 +1,6 @@
+#ifndef INPUT_H
+#define INPUT_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro5/allegro5.h>
@@ -9,3 +12,5 @@
 
 void input_setup();
 int check_input(player* p1, player* p2, ALLEGRO_EVENT event);
+
+#endif

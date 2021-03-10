@@ -23,6 +23,7 @@ void destroy_display(ALLEGRO_DISPLAY* disp)
 
 void draw_boxes(player* p1, player* p2)
 {
+    // draw main hurtboxes in blue
     al_draw_filled_rectangle(p1->main_hurtbox.x, p1->main_hurtbox.y,
                              p1->main_hurtbox.x + p1->main_hurtbox.width,
                              p1->main_hurtbox.y + p1->main_hurtbox.height,
@@ -42,6 +43,7 @@ void draw_display(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     // draw stage
     al_draw_bitmap(stage, -220, -220, 0);
 
+    //draw player sprites
     al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 

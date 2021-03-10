@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,5 +12,5 @@ bool inrange(int x, int min, int max);
 void bad_malloc();
 
 #define STR_MAX 100
-#define SPEED 3 // character speed
-#define PLAYER_HEIGHT 70
+
+#endif

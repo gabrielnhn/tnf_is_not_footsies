@@ -42,17 +42,15 @@ int middle_x(player p)
 
 void update_hurtboxes(player* p1, player* p2)
 // compensate for sprite border
-// completely hardcoded
+// completely hardcoded.
 {
     p1->main_hurtbox.x = p1->x + 74 + 20;
-    p1->main_hurtbox.width = 75 - 15;
+    p1->main_hurtbox.width = 75 - 20;
     p1->main_hurtbox.y = PLAYER_HEIGHT + 62;
-    p1->main_hurtbox.height = 96; 
-
+    p1->main_hurtbox.height = 96;
 
     p2->main_hurtbox.x = p2->x + 74 + 20;
     p2->main_hurtbox.width = 75 - 15;
     p2->main_hurtbox.y = PLAYER_HEIGHT + 62;
     p2->main_hurtbox.height = 96; 
 }
-

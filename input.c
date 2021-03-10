@@ -1,17 +1,16 @@
 #include "input.h"
 
-unsigned char key[ALLEGRO_KEY_MAX];
+unsigned char key[ALLEGRO_KEY_MAX]; // used to tell whether a key is being pressed
 
 void input_setup()
 {
-    memset(key, 0, sizeof(key));
+    memset(key, 0, sizeof(key)); // clear it
 }
 
 int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
 // return the animation the player wants to execute
 // (handles all the input)
 {
-    int retval = 0;
     switch (event.type)
     {
     case ALLEGRO_EVENT_TIMER: // clock ticks
@@ -20,7 +19,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
             break;
 
         p1->wanted_animation = idle; // default animation
-        p1->is_blocking = false; // by default no one's blocking
+        p1->is_blocking = false; // by default no one is blocking
 
         if (key[ALLEGRO_KEY_DOWN])
         {
@@ -43,17 +42,14 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
     case ALLEGRO_EVENT_KEY_DOWN:
         if (event.keyboard.keycode == ALLEGRO_KEY_COMMA)
         {
-            // printf("crMK\n");
             p1->wanted_animation = crMK;
         }
         else if (event.keyboard.keycode == ALLEGRO_KEY_FULLSTOP)
         {
-            // printf("crLP\n");
             p1->wanted_animation = crLP;
         }
         else
         {
-            // printf("Other\n");
             key[event.keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
         }
         break;
@@ -62,6 +58,9 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event)
         key[event.keyboard.keycode] &= KEY_RELEASED;
         break;
     }
+
     p2->wanted_animation = idle;
-    return retval;
+
+
+    return 0;
 }

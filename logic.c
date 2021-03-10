@@ -6,6 +6,7 @@ int check_hitboxes(player* p1, player* p2)
 }
 
 void init_players(player* p1, player* p2)
+// initial players state
 {
     p1->x = SCR_MIN + 90;
     p2->x = SCR_MAX - 90;
@@ -34,6 +35,7 @@ bool boxes_collide(box_t A, box_t B)
 }
 
 void choose_animation(player* p)
+// according to input/game state, decide which animation the player will perform
 {
     
     // int hitbox_retval = check_hitboxes(p1, p2);
@@ -44,13 +46,12 @@ void choose_animation(player* p)
     // }
 
 
-
-    // no one's hurt:
+    // no collision, do what the input tells us to do:
 
     bool can_move = false;
     
     if (p->animation_frame >= frames_on_each_animation[p->current_animation])
-    // finished a move
+    // just finished a move
     {
         can_move = true;
         p->animation_frame = 0;
@@ -66,6 +67,7 @@ void choose_animation(player* p)
         // continue crouching
         {
             if(is_command_attack(p->last_animation))
+            // if recovering from an attack, one should recover back in crouching position, not standing. 
                 p->current_animation = crouching;
 
             p->is_standing = false;
@@ -88,10 +90,8 @@ void choose_animation(player* p)
         }
     }
 
-
     if (can_move)
     {
-
         // again, details when crouching
         if ((p->current_animation == crouching) && ((p->wanted_animation == idle)))
         {
@@ -104,14 +104,15 @@ void choose_animation(player* p)
         }
         else if(p->current_animation != p->wanted_animation)
         {
+            // switch animations
             p->current_animation = p->wanted_animation;
             p->animation_frame = 0;
         }
 
-        if (is_neutral(p->current_animation))
-            p->is_neutral = true;
-
     }
+
+    if (p->is_neutral)
+        p->is_neutral = true;
 
     if (p->current_animation == idle)
         p->is_standing = true;

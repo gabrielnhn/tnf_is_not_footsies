@@ -1,5 +1,5 @@
-#ifndef PLAYER
-#define PLAYER
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_image.h>
@@ -11,7 +11,6 @@ typedef struct
     int x,y;
     int width, height;
 } box_t;
-
 
 typedef struct
 {
@@ -32,6 +31,9 @@ typedef struct
     box_t main_hurtbox;
     box_t hitbox;
 } player;
+
+#define SPEED 3 // character speed
+#define PLAYER_HEIGHT 70
 
 bool is_neutral(enum animation a);
 
