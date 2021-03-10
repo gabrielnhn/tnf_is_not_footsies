@@ -104,11 +104,12 @@ int main()
 
             // check for movement
 
-            if ((p1.current_animation == walk_forward) &&!boxes_collide(p1.main_hurtbox, p2.main_hurtbox))
-                p1.x += SPEED;
+            // if ((p1.current_animation == walk_forward) &&!boxes_collide(p1.main_hurtbox, p2.main_hurtbox))
+            //     p1.x += SPEED;
 
-            else if ((p1.current_animation == walk_backwards) && 0 < p1.main_hurtbox.x)
-                p1.x -= SPEED;
+            // else if ((p1.current_animation == walk_backwards) && 0 < p1.main_hurtbox.x)
+            //     p1.x -= SPEED;
+            p1.x += speed_for_animation(p1.current_animation);
 
             // get the sprite according to the animation
 

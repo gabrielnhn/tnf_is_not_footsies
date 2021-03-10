@@ -124,11 +124,34 @@ void choose_animation(player* p)
         if (p->is_standing){
             p->wanted_animation = idle;
         }
-        else if (p->current_animation != dash_punch) // if you dash punch, you have to stand again
+        else if (p->current_animation != dash_punch 
+                && p->current_animation != overhead) // if you dash punch or overhead, you have to stand again
         {
             // used so when recovering from an attack, the player won't have to crouch again 
             p->last_animation = p->wanted_animation;
             p->wanted_animation = crouching;
         }
+    }
+}
+
+int speed_for_animation(enum animation a)
+{
+    switch (a)
+    {
+    case walk_forward:
+        return SPEED;
+
+    case walk_backwards:
+        return -SPEED;
+
+    case dash:
+    case dash_punch:
+        return SPEED * 1.5;
+    
+    case backdash:
+        return SPEED * -1.5;
+
+    default:
+        return 0;
     }
 }
