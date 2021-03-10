@@ -77,7 +77,7 @@ ALLEGRO_BITMAP ***load_sprites()
     {
         // open its folder
         animation_d = opendir(animation_enum_to_folder(i));
-        must_init(animation_d, "animation dir");
+        must_init(animation_d, "animations/");
         rewinddir(animation_d);
 
         // determine how many sprites there are for the animation
@@ -91,7 +91,7 @@ ALLEGRO_BITMAP ***load_sprites()
 
         // get memory in order to store each sprite
         animations[i] = malloc(sizeof(ALLEGRO_BITMAP **) * sprites);
-        must_init(animations[i], "sprites");
+        must_init(animations[i], "sprites array");
 
         // get them sprites
         int j = 0;
@@ -102,7 +102,7 @@ ALLEGRO_BITMAP ***load_sprites()
                 sprintf(path, "%s%d.png", animation_enum_to_folder(i), j);
                 animations[i][j] = al_load_bitmap(path);
                 // printf("%s\n", path);
-                must_init(animations[i][j], "sprite");
+                must_init(animations[i][j], path);
 
                 j += 1;
             }
