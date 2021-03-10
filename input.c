@@ -40,7 +40,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
             // check for overhead
             else if ((p1->buffer_length > 0) &&
                      (p1->input_buffer[p1->buffer_length - 1] == KICK) &&// just pressed KICK
-                     (key[ALLEGRO_KEY_RIGHT])) // is holding forward
+                     (key[ALLEGRO_KEY_D])) // is holding forward
             {
                 // →+👟
                 p1->wanted_animation = overhead;
@@ -82,19 +82,19 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
 
             // no special commands, just movement:
 
-            else if(key[ALLEGRO_KEY_DOWN])
+            else if(key[ALLEGRO_KEY_S])
             {
                 p1->wanted_animation = crouching;
-                if (key[ALLEGRO_KEY_LEFT])
+                if (key[ALLEGRO_KEY_A])
                     p1->is_blocking = true;
             }
-            else if (key[ALLEGRO_KEY_LEFT])
+            else if (key[ALLEGRO_KEY_A])
             {
                 p1->is_blocking = true;
                 // if (p1->wanted_animation != crouching) // do not walk if crouching
                 p1->wanted_animation = walk_backwards;
             }
-            else if (key[ALLEGRO_KEY_RIGHT])
+            else if (key[ALLEGRO_KEY_D])
             {
                 if (p1->wanted_animation != crouching) // do not walk if crouching
                     p1->wanted_animation = walk_forward;
@@ -137,22 +137,22 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
                     input = PUNCH;
                     break;
 
-                case ALLEGRO_KEY_UP:
-                    p = 1;
-                    input = UP;
-                    break;
+                // case ALLEGRO_KEY_UP:
+                //     p = 1;
+                //     input = UP;
+                //     break;
 
-                case ALLEGRO_KEY_DOWN:
+                case ALLEGRO_KEY_S:
                     p = 1;
                     input = DOWN;
                     break;
 
-                case ALLEGRO_KEY_LEFT:
+                case ALLEGRO_KEY_A:
                     p = 1;
                     input = LEFT;
                     break;
 
-                case ALLEGRO_KEY_RIGHT:
+                case ALLEGRO_KEY_D:
                     p = 1;
                     input = RIGHT;
                     break;

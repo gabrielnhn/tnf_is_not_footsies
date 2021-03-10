@@ -48,7 +48,7 @@ int main()
     al_register_event_source(queue, al_get_timer_event_source(timer));
 
     // Music module
-    ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVRashid.opus");
+    ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVGuile.opus");
     must_init(music, "music");
 
     // Initial game setup
