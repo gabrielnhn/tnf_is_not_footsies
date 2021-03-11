@@ -3,6 +3,9 @@ cflags= -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegr
  
 all: main
 
+valmain: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o
+	$(CC) -g main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o -o main $(cflags) 
+
 main: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o
 	$(CC) main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o -o main $(cflags) 
 
