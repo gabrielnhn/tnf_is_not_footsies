@@ -26,6 +26,7 @@ typedef struct
     int animation_sprite_id;
     int animation_frame;
     ALLEGRO_BITMAP* sprite;
+    int paused_frames;
 
     // game state related
     int health;

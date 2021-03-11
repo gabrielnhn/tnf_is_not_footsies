@@ -95,14 +95,23 @@ int main()
         if(clock_tick && al_is_event_queue_empty(queue))
         // PROCESS GAME STATE IN CURRENT FRAME
         {
-            p1.animation_frame++; // move onto the next animation frame
-            p2.animation_frame++;
+            if(p1.paused_frames > 0)
+                p1.paused_frames--;
+            else
+                p1.animation_frame++;
+            
+            if(p2.paused_frames > 0)
+                p2.paused_frames--;
+            else
+                p2.animation_frame++;
 
             update_boxes(&p1, &p2); // according to both players' position
 
             p2.is_blocking = true;
 
-            printf("%d\n", check_hitboxes(&p1, &p2)); 
+            // printf("%d\n",check_hitboxes(&p1, &p2));
+            check_hitboxes(&p1, &p2);
+
             choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);
 
@@ -124,6 +133,7 @@ int main()
             clock_tick = false;
             frame_count++;
 
+            
             // print_array(p1.input_buffer, p1.buffer_length);
         }
     }

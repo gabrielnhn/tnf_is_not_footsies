@@ -3,6 +3,8 @@
 
 range_t active_frames[ANIMATIONS_N];
 box_t hitboxes[ANIMATIONS_N];
+int on_block_advantage[ANIMATIONS_N];
+int on_hit_advantage[ANIMATIONS_N];
 
 void attacks_setup()
 {
@@ -13,21 +15,29 @@ void attacks_setup()
         case crLP:
             active_frames[i] = (range_t){3 * INTERVAL, 5 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 50, 0};
+            on_block_advantage[i] = +3;
+            on_hit_advantage[i] = +3;
             break;
 
         case crMK:
             active_frames[i] = (range_t){4 * INTERVAL, 6 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 85, 0};
+            on_block_advantage[i] = -1;
+            on_hit_advantage[i] = +1;
             break;
 
         case dash_punch:
             active_frames[i] = (range_t){7 * INTERVAL, 9 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 60, 0};
+            on_block_advantage[i] = -16;
+            on_hit_advantage[i] = +1;
             break;
         
         case overhead:
             active_frames[i] = (range_t){9 * INTERVAL, 11 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 50, 0};
+            on_block_advantage[i] = -8;
+            on_hit_advantage[i] = -3;
             break;
         
         default:
@@ -81,7 +91,7 @@ void update_boxes(player* p1, player* p2)
     else
     {
         p1->main_hurtbox.x = 0;
-        p1->main_hurtbox.width = 0;
+        p1->main_hurtbox.width = -1;
         p1->main_hurtbox.y = 0;
         p1->main_hurtbox.height = 0;
     }
@@ -99,7 +109,7 @@ void update_boxes(player* p1, player* p2)
     else // no hitbox
     {
         p1->hitbox.x = 0;
-        p1->hitbox.width = 0;
+        p1->hitbox.width = -1;
         p1->hitbox.y = 0;
         p1->hitbox.height = 0;
     }
@@ -113,15 +123,25 @@ void update_boxes(player* p1, player* p2)
     else
     {
         p1->move_hurtbox.x = 0;
-        p1->move_hurtbox.width = 0;
+        p1->move_hurtbox.width = -1;
         p1->move_hurtbox.y = 0;
         p1->move_hurtbox.height = 0;
     }
 
-    p2->main_hurtbox.x = p2->x + 74 + 20;
-    p2->main_hurtbox.width = 75 - 15;
-    p2->main_hurtbox.y = PLAYER_HEIGHT + 62;
-    p2->main_hurtbox.height = 96; 
+    if (has_hurtbox(p2->current_animation))
+    {
+        p2->main_hurtbox.x = p2->x + 74 + 20;
+        p2->main_hurtbox.width = 75 - 15;
+        p2->main_hurtbox.y = PLAYER_HEIGHT + 62;
+        p2->main_hurtbox.height = 96;
+    }
+    else
+    {
+        p2->main_hurtbox.x = 0;
+        p2->main_hurtbox.width = -1;
+        p2->main_hurtbox.y = 0;
+        p2->main_hurtbox.height = 0;
+    } 
 }
 
 int check_hitboxes(player* p1, player* p2)
@@ -191,6 +211,9 @@ int check_hitboxes(player* p1, player* p2)
     {
         if (!p1_blocked)
         {
+            p1->paused_frames = DEFAULT_STUN + on_hit_advantage[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN - on_hit_advantage[p2->current_animation];
+
             if (p1->is_standing)
             {
                 p1->wanted_animation = high_hitstun;
@@ -204,6 +227,8 @@ int check_hitboxes(player* p1, player* p2)
         }
         else
         {
+            p1->paused_frames = DEFAULT_STUN + on_block_advantage[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN - on_block_advantage[p2->current_animation];
             if (p1->is_standing)
             {
                 p1->wanted_animation = block_high;
@@ -221,6 +246,9 @@ int check_hitboxes(player* p1, player* p2)
     {
         if (!p2_blocked)
         {
+            p2->paused_frames = DEFAULT_STUN + on_hit_advantage[p2->current_animation];
+            p1->paused_frames = DEFAULT_STUN - on_hit_advantage[p2->current_animation];
+
             if (p2->is_standing)
             {
                 p2->wanted_animation = high_hitstun;
@@ -234,6 +262,9 @@ int check_hitboxes(player* p1, player* p2)
         }
         else
         {
+            p1->paused_frames = DEFAULT_STUN + on_block_advantage[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN - on_block_advantage[p2->current_animation];
+
             if (p2->is_standing)
             {
                 p2->wanted_animation = block_high;
@@ -247,5 +278,11 @@ int check_hitboxes(player* p1, player* p2)
         }
     }
 
-    return (p1_was_hit || p2_was_hit);
+    // retval:
+    if  (p1_was_hit)
+        return 1;
+    else if (p2_was_hit)
+        return 2;
+    else
+        return 0;
 }

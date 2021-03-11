@@ -141,7 +141,8 @@ void animation_setup()
     frames_on_each_animation[dash_punch] = 15 * INTERVAL;
     // frames_on_each_animation[overhead] = 20 * INTERVAL;
     frames_on_each_animation[overhead] = 14 * INTERVAL;
-    frames_on_each_animation[block_high] = 11 * INTERVAL;
+    // frames_on_each_animation[block_high] = 11 * INTERVAL;
+    frames_on_each_animation[block_high] = 5 * INTERVAL;
     frames_on_each_animation[block_low] =  11 * INTERVAL;
     frames_on_each_animation[fall] = 19 * INTERVAL;
     frames_on_each_animation[high_hitstun] = 5 * INTERVAL;
@@ -152,7 +153,7 @@ void animation_setup()
 int sprite_for_frame(enum animation a, int frame)
 // return the index of the sprite for a given frame
 {
-    if (frame >= frames_on_each_animation[a])
+    if (!inrange(frame, 0, frames_on_each_animation[a]))
         // no such frame
         // return (-1); 
         // or maybe return the last sprite?
@@ -163,7 +164,8 @@ int sprite_for_frame(enum animation a, int frame)
     {
         return (frame/INTERVAL);
     }
-    else
+    else if (a != low_hitstun && a != high_hitstun &&
+             a != block_high && a != block_low)
     {
         if(frame/INTERVAL < (sprites_on_each_animation[a]))
         // animation going "forward"
@@ -179,5 +181,20 @@ int sprite_for_frame(enum animation a, int frame)
             return ((frame/INTERVAL* (-1)) + (sprites_on_each_animation[a] * 2)) -1;
         }
         
+    }
+    else // special animations
+    {
+        if (frame == 0)
+            return (sprites_on_each_animation[a] -1); // start with the last one
+
+        else if (frame/INTERVAL < (sprites_on_each_animation[a]))
+        {
+            return (sprites_on_each_animation[a] -frame/INTERVAL - 1);
+        }
+        else
+        // animation going "backwards"
+        {
+            return ((frame/INTERVAL* (+1)) + (sprites_on_each_animation[a] * 2)) -1;
+        }
     }
 }
