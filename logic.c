@@ -151,6 +151,10 @@ int speed_for_animation(enum animation a)
     case overhead:
         return SPEED * 0.5;
 
+    case block_low:
+    case block_high:
+        return -SPEED/2;
+
     default:
         return 0;
     }
@@ -184,24 +188,24 @@ void check_movement(player* p1, player* p2)
     // for p2
     if (p2->paused_frames == 0)
     {
-        if (speed_for_animation(p2->current_animation) < 0)
+        if (speed_for_animation(p2->current_animation) > 0)
         {
-            if (!boxes_collide(default_hurtbox_for_p(p2), default_hurtbox_for_p(p1)) && (p1->x > SCR_MIN))
-                p2->x += speed_for_animation(p2->current_animation);
+            if (!boxes_collide(default_hurtbox_for_p(p2), default_hurtbox_for_p(p1)) && (p2->x < SCR_MAX))
+                p2->x -= speed_for_animation(p2->current_animation);
 
             else if (boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)))
             {
                 if (p1->x > SCR_MIN) // drag the other player along
                 {
-                    p1->x += speed_for_animation(p2->current_animation)/2;
-                    p2->x += speed_for_animation(p2->current_animation)/2;
+                    p1->x -= speed_for_animation(p2->current_animation)/2;
+                    p2->x -= speed_for_animation(p2->current_animation)/2;
                 }
             }
         }
         else
         {
             if (p2->x < SCR_MAX)
-                p2->x += speed_for_animation(p2->current_animation);
+                p2->x -= speed_for_animation(p2->current_animation);
         }
     }
 }
