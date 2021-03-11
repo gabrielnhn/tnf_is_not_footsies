@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "animation.h"
 #include "player.h"
+#include "logic.h"
 
 typedef struct
 {
@@ -18,5 +19,7 @@ void attacks_setup();
 bool is_attack(enum animation a);
 
 void update_boxes(player* p1, player* p2);
+
+int check_hitboxes(player* p1, player* p2);
 
 #endif

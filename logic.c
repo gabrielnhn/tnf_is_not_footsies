@@ -1,9 +1,6 @@
 #include "logic.h"
 
-int check_hitboxes(player* p1, player* p2)
-{
-    return 0;
-}
+
 
 void init_players(player* p1, player* p2)
 // initial players state
@@ -19,6 +16,9 @@ void init_players(player* p1, player* p2)
     
     p1->animation_frame = 0;
     p2->animation_frame = 0;
+
+    p1->is_player1 = true;
+    p2->is_player1 = false;
 
     update_boxes(p1, p2);
 
@@ -37,15 +37,6 @@ bool boxes_collide(box_t A, box_t B)
 void choose_animation(player* p)
 // according to input/game state, decide which animation the player will perform
 {
-    
-    // int hitbox_retval = check_hitboxes(p1, p2);
-    // if (hitbox_retval != 0)
-    // {
-    //     // histun/blocking animations
-    //     return;
-    // }
-
-
     // no collision, do what the input tells us to do:
 
     bool can_move = false;

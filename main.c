@@ -100,6 +100,9 @@ int main()
 
             update_boxes(&p1, &p2); // according to both players' position
 
+            p2.is_blocking = true;
+
+            printf("%d\n", check_hitboxes(&p1, &p2)); 
             choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);
 
