@@ -103,10 +103,7 @@ void update_boxes(player* p1, player* p2)
 {
     if (has_hurtbox(p1->current_animation))
     {
-        p1->main_hurtbox.x = p1->x + 74 + 20;
-        p1->main_hurtbox.width = 75 - 20;
-        p1->main_hurtbox.y = PLAYER_HEIGHT + 62;
-        p1->main_hurtbox.height = 96;
+        p1->main_hurtbox = default_hurtbox_for_p(p1);
     }
     else
     {
@@ -150,10 +147,7 @@ void update_boxes(player* p1, player* p2)
 
     if (has_hurtbox(p2->current_animation))
     {
-        p2->main_hurtbox.x = p2->x + 74 + 20;
-        p2->main_hurtbox.width = 75 - 15;
-        p2->main_hurtbox.y = PLAYER_HEIGHT + 62;
-        p2->main_hurtbox.height = 96;
+        p2->main_hurtbox = default_hurtbox_for_p(p2);
     }
     else
     {

@@ -22,6 +22,8 @@ void attacks_setup();
 
 bool is_attack(enum animation a);
 
+box_t default_hurtbox_for_p(player* p);
+
 void update_boxes(player* p1, player* p2);
 
 int check_hitboxes(player* p1, player* p2);
