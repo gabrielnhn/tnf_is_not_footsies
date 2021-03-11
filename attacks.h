@@ -11,7 +11,7 @@ typedef struct
     int start, end;
 } range_t;
 
-#define DEFAULT_STUN 8
+#define DEFAULT_STUN 6
 
 extern range_t active_frames[ANIMATIONS_N];
 extern box_t hitboxes[ANIMATIONS_N];

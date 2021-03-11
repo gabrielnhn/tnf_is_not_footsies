@@ -164,7 +164,7 @@ int sprite_for_frame(enum animation a, int frame)
     {
         return (frame/INTERVAL);
     }
-    else if (a != low_hitstun && a != high_hitstun &&
+    else if (/*a != low_hitstun && a != high_hitstun &&*/
              a != block_high && a != block_low)
     {
         if(frame/INTERVAL < (sprites_on_each_animation[a]))
@@ -194,7 +194,7 @@ int sprite_for_frame(enum animation a, int frame)
         else
         // animation going "backwards"
         {
-            return ((frame/INTERVAL* (+1)) + (sprites_on_each_animation[a] * 2)) -1;
+            return ((frame/INTERVAL* (-1)) + (sprites_on_each_animation[a] * 2)) -1;
         }
     }
 }

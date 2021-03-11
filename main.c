@@ -126,6 +126,7 @@ int main()
 
             // for p2
             p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
+            // printf("%d %d\n", p2.animation_sprite_id, p2.animation_frame);
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
             draw_display(stage, &p1, &p2);
