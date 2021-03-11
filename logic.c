@@ -107,6 +107,18 @@ void choose_animation(player* p)
         }
 
     }
+    else if (p->current_animation == crLP || p->current_animation == crMK)
+    {
+        // if (inrange(p->animation_frame, active_frames[p->current_animation].start, active_frames[p->current_animation].end))
+        if ((p->animation_frame == active_frames[p->current_animation].end))
+        {
+            if (p->wanted_animation == dash_punch)
+            {
+                p->current_animation = dash_punch;
+                p->animation_frame = 0;
+            }
+        }
+    }
 
     if (p->is_neutral)
         p->is_neutral = true;
