@@ -35,6 +35,7 @@ typedef struct
     bool is_blocking;
 
     box_t main_hurtbox;
+    box_t move_hurtbox;
     box_t hitbox;
 
 } player;
@@ -47,7 +48,5 @@ bool is_neutral(enum animation a);
 bool is_standing(player* p);
 
 int middle_x(player p);
-
-void update_hurtboxes(player* p1, player* p2);
 
 #endif

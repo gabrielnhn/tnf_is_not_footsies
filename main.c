@@ -63,6 +63,7 @@ int main()
 
     input_setup(&p1, &p2);
     animation_setup();
+    attacks_setup();
 
     bool game_over = false;
     while(!game_over)
@@ -97,7 +98,7 @@ int main()
             p1.animation_frame++; // move onto the next animation frame
             p2.animation_frame++;
 
-            update_hurtboxes(&p1, &p2); // according to both players' position
+            update_boxes(&p1, &p2); // according to both players' position
 
             choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);

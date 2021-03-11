@@ -20,7 +20,7 @@ void init_players(player* p1, player* p2)
     p1->animation_frame = 0;
     p2->animation_frame = 0;
 
-    update_hurtboxes(p1, p2);
+    update_boxes(p1, p2);
 
 }
 
