@@ -77,6 +77,26 @@ bool has_hurtbox(enum animation a)
     }
 }
 
+box_t default_hurtbox_for_p(player* p)
+{
+    box_t default_box;
+    if (p->is_player1)
+    {
+        default_box.x = p->x + 74 + 20;
+        default_box.width = 75 - 20;
+        default_box.y = PLAYER_HEIGHT + 62;
+        default_box.height = 96;
+    }
+    else
+    {
+        default_box.x = p->x + 74 + 20;
+        default_box.width = 75 - 15;
+        default_box.y = PLAYER_HEIGHT + 62;
+        default_box.height = 96;
+    }
+    return default_box;
+}
+
 void update_boxes(player* p1, player* p2)
 // compensate for sprite border
 // completely hardcoded.
