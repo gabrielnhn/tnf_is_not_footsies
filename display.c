@@ -70,18 +70,23 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char co
 
     // draw health
     ALLEGRO_FONT* font = al_create_builtin_font();
-    char p1_hp_str[STR_MAX], p2_hp_str[STR_MAX];
-    sprintf(p1_hp_str, "%d", player1->health);
-    sprintf(p2_hp_str, "%d", player2->health);
+    char p1_HP[STR_MAX], p2_HP[STR_MAX];
+    char p1_Rounds[STR_MAX], p2_Rounds[STR_MAX];
+    sprintf(p1_HP, "%d HP", player1->health);
+    sprintf(p2_HP, "%d HP", player2->health);
+    sprintf(p1_Rounds, "%d round(s)", player1->rounds_won);
+    sprintf(p2_Rounds, "%d round(s)", player2->rounds_won); 
 
-    al_draw_text(font, al_map_rgb_f(0, 1, 0), 100, HEIGHT/6, ALLEGRO_ALIGN_CENTER, p1_hp_str);
-    al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, HEIGHT/6, ALLEGRO_ALIGN_CENTER, p2_hp_str);
+    al_draw_text(font, al_map_rgb_f(0, 1, 0), 100, 1*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p1_HP);
+    al_draw_text(font, al_map_rgb_f(0, 1, 0), 100, 2*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p1_Rounds);
+    al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, 1*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p2_HP);
+    al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, 2*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p2_Rounds);
 
     // draw_boxes(player1, player2);
 
     if(strcmp(message, "") != 0)
     {
-        al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH/2, HEIGHT/5, ALLEGRO_ALIGN_CENTER, message);
+        al_draw_text(font, al_map_rgb_f(1, 0, 0), WIDTH/2, HEIGHT/5, ALLEGRO_ALIGN_CENTER, message);
     }
 
     // Print the new display
