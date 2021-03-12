@@ -39,6 +39,7 @@ typedef struct
     box_t main_hurtbox;
     box_t move_hurtbox;
     box_t hitbox;
+    bool hitbox_is_active;
 
 } player;
 

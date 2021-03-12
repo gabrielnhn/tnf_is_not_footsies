@@ -121,6 +121,10 @@ void update_boxes(player* p1, player* p2)
         active_frames[p1->current_animation].start,
         active_frames[p1->current_animation].end))) // and it is during its active frames
     {
+        if (p1->animation_frame == active_frames[p1->current_animation].start)
+            // activate it on the first frame
+            p1->hitbox_is_active = true;
+            
         p1->hitbox.x = (p1->main_hurtbox.x + p1->main_hurtbox.width) + hitboxes[p1->current_animation].x;
         p1->hitbox.width = hitboxes[p1->current_animation].width;
         p1->hitbox.y = p1->main_hurtbox.y;
@@ -132,6 +136,7 @@ void update_boxes(player* p1, player* p2)
         p1->hitbox.width = -1;
         p1->hitbox.y = 0;
         p1->hitbox.height = 0;
+        p1->hitbox_is_active = false;
     }
     if (is_attack(p1->current_animation))
     {
@@ -164,6 +169,10 @@ void update_boxes(player* p1, player* p2)
         active_frames[p2->current_animation].start,
         active_frames[p2->current_animation].end))) // and it is during its active frames
     {
+        if (p2->animation_frame == active_frames[p2->current_animation].start)
+            // activate it on the first frame
+            p2->hitbox_is_active = true;
+
         p2->hitbox.x = (p2->main_hurtbox.x) - hitboxes[p2->current_animation].x - hitboxes[p2->current_animation].width;
         p2->hitbox.width = hitboxes[p2->current_animation].width;
         p2->hitbox.y = p2->main_hurtbox.y;
@@ -175,6 +184,7 @@ void update_boxes(player* p1, player* p2)
         p2->hitbox.width = -1;
         p2->hitbox.y = 0;
         p2->hitbox.height = 0;
+        p2->hitbox_is_active = false;
     }
     if (is_attack(p2->current_animation))
     {
@@ -199,12 +209,12 @@ int check_hitboxes(player* p1, player* p2)
     bool p2_was_hit = false;
     bool p2_blocked = false;
 
-    if (boxes_collide(p1->hitbox, p2->main_hurtbox) ||
-        boxes_collide(p1->hitbox, p2->move_hurtbox))
+    if ((boxes_collide(p1->hitbox, p2->main_hurtbox) ||
+        boxes_collide(p1->hitbox, p2->move_hurtbox)) && p1->hitbox_is_active)
         p2_was_hit = true;
 
-    if (boxes_collide(p2->hitbox, p1->main_hurtbox) ||
-        boxes_collide(p2->hitbox, p1->move_hurtbox))
+    if ((boxes_collide(p2->hitbox, p1->main_hurtbox) ||
+        boxes_collide(p2->hitbox, p1->move_hurtbox)) && p2->hitbox_is_active)
         p1_was_hit = true;
     
     // set flags
@@ -288,6 +298,7 @@ int check_hitboxes(player* p1, player* p2)
                 p1->animation_frame = 0;
             }
         }
+        p2->hitbox_is_active = false;
     }
 
     if(p2_was_hit)
@@ -324,6 +335,7 @@ int check_hitboxes(player* p1, player* p2)
                 p2->animation_frame = 0;
             }
         }
+        p1->hitbox_is_active = false;
     }
 
     // retval:
