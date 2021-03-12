@@ -122,8 +122,11 @@ void update_boxes(player* p1, player* p2)
         active_frames[p1->current_animation].end))) // and it is during its active frames
     {
         if (p1->animation_frame == active_frames[p1->current_animation].start)
-            // activate it on the first frame
-            p1->hitbox_is_active = true;
+        {
+            // activate it on the first frame of the animation
+            if(p1->paused_frames == 0)
+                p1->hitbox_is_active = true;    
+        }
             
         p1->hitbox.x = (p1->main_hurtbox.x + p1->main_hurtbox.width) + hitboxes[p1->current_animation].x;
         p1->hitbox.width = hitboxes[p1->current_animation].width;
@@ -170,8 +173,11 @@ void update_boxes(player* p1, player* p2)
         active_frames[p2->current_animation].end))) // and it is during its active frames
     {
         if (p2->animation_frame == active_frames[p2->current_animation].start)
-            // activate it on the first frame
-            p2->hitbox_is_active = true;
+        {
+            // activate it on the first frame of the animation
+            if(p2->paused_frames == 0)
+                p2->hitbox_is_active = true;    
+        };
 
         p2->hitbox.x = (p2->main_hurtbox.x) - hitboxes[p2->current_animation].x - hitboxes[p2->current_animation].width;
         p2->hitbox.width = hitboxes[p2->current_animation].width;
@@ -299,6 +305,7 @@ int check_hitboxes(player* p1, player* p2)
             }
         }
         p2->hitbox_is_active = false;
+        p2->animation_frame++;
     }
 
     if(p2_was_hit)
@@ -336,6 +343,7 @@ int check_hitboxes(player* p1, player* p2)
             }
         }
         p1->hitbox_is_active = false;
+        p1->animation_frame++;
     }
 
     // retval:

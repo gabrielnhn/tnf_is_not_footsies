@@ -125,6 +125,14 @@ void choose_animation(player* p)
             }
         }
     }
+    // force block/stun animation
+    else if (p->wanted_animation == high_hitstun || p->wanted_animation == low_hitstun ||
+             p->wanted_animation == block_low || p->wanted_animation == block_low)
+    {
+        p->current_animation = p->wanted_animation;
+        if (p->current_animation != p->wanted_animation)
+            p->animation_frame = 0;
+    }
 
     if (p->is_neutral)
         p->is_neutral = true;
@@ -212,7 +220,7 @@ void check_movement(player* p1, player* p2)
     {
         if (speed_for_animation(p2->current_animation) > 0)
         {
-            if (!boxes_collide(default_hurtbox_for_p(p2), default_hurtbox_for_p(p1)) && (p2->x < SCR_MAX))
+            if (!boxes_collide(default_hurtbox_for_p(p2), default_hurtbox_for_p(p1)) && (p2->x > SCR_MIN))
                 p2->x -= speed_for_animation(p2->current_animation);
 
             else if (boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)))

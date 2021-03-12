@@ -94,6 +94,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
             // p2.is_blocking = true;
 
+            // printf("%d, %d, %d\n", check_hitboxes(&p1, &p2), p1.paused_frames, p1.hitbox_is_active);
             check_hitboxes(&p1, &p2);
 
             choose_animation(&p1); // according to input AND game state
