@@ -7,6 +7,8 @@
 #include "animation.h"
 #include "player.h"
 #include "utils.h"
+#include "loops.h"
+#include "autoplayer.h"
 
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
@@ -19,6 +21,6 @@ unsigned char key[ALLEGRO_KEY_MAX];
 
 
 void input_setup(player* p1, player* p2);
-int check_input(player* p1, player* p2, ALLEGRO_EVENT event, long frame_count);
+int check_input(player* p1, player* p2, ALLEGRO_EVENT event, long frame_count, int p2_input_method);
 
 #endif

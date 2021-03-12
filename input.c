@@ -13,7 +13,7 @@ void input_setup(player* p1, player* p2)
     p2->last_input_frame = 0;
 }
 
-int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
+int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, int p2_input_method)
 // return the animation the player wants to execute
 // (handles all the input)
 {
@@ -100,6 +100,10 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
                     p1->wanted_animation = walk_forward;
             }
 
+            if(p2_input_method == IS_CPU)
+                get_autoplayer_input(p1, p2);
+
+
             // Needed to keep the input system working
 
             for (int i = 0; i < ALLEGRO_KEY_MAX; i++)
@@ -177,7 +181,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count)
             break;
     }
 
-    p2->wanted_animation = idle;
+    
 
 
     return 0;

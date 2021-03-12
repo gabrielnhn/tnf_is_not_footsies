@@ -1,5 +1,5 @@
 #include "loops.h"
-    
+
 int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
 {
     bool menu_done = false;
@@ -37,7 +37,6 @@ int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
     return option;
 }
 
-
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, int option)
 {
@@ -58,18 +57,18 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
         switch(event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            check_input(&p1, &p2, event, frame_count);
+            check_input(&p1, &p2, event, frame_count, option);
             clock_tick = true;
             break;
 
         case ALLEGRO_EVENT_KEY_DOWN: // key pressed
-           check_input(&p1, &p2, event, frame_count);
+           check_input(&p1, &p2, event, frame_count, option);
 
             if(event.keyboard.keycode != ALLEGRO_KEY_ESCAPE)
                 break;
         
         case ALLEGRO_EVENT_KEY_UP: // key released
-            check_input(&p1, &p2, event, frame_count);
+            check_input(&p1, &p2, event, frame_count, option);
             break;
 
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
@@ -120,8 +119,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             draw_loops(stage, &p1, &p2);
 
             clock_tick = false;
-            frame_count++;
-   
+            frame_count++;   
         }
     }
 }
