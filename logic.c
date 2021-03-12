@@ -140,7 +140,9 @@ void choose_animation(player* p)
     if (p->is_neutral)
         p->is_neutral = true;
 
-    if (p->current_animation == idle)
+    // if (p->current_animation == idle)
+    //     p->is_standing = true;
+    if(is_standing(p))
         p->is_standing = true;
 
     // this is important so when doing command moves (such as crMK and crLP)
