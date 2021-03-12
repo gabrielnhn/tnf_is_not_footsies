@@ -185,6 +185,9 @@ int speed_for_animation(enum animation a)
     case low_hitstun:
         return -2*SPEED/3;
 
+    case crLP:
+        return -SPEED/2;
+
     default:
         return 0;
     }
