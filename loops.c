@@ -40,6 +40,8 @@ int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, int option)
 {
+    // Initial setup:
+
     bool clock_tick = true; // every time the clock ticks, check game state
     long frame_count = 0;
     player p1, p2;
@@ -50,29 +52,22 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
     attacks_setup();
 
     bool game_over = false;
+
     while(!game_over)
     {
         al_wait_for_event(queue, &event);
 
         switch(event.type)
         {
-        case ALLEGRO_EVENT_TIMER:
-            check_input(&p1, &p2, event, frame_count, option);
-            clock_tick = true;
-            break;
-
-        case ALLEGRO_EVENT_KEY_DOWN: // key pressed
-           check_input(&p1, &p2, event, frame_count, option);
-
-            if(event.keyboard.keycode != ALLEGRO_KEY_ESCAPE)
-                break;
-        
-        case ALLEGRO_EVENT_KEY_UP: // key released
-            check_input(&p1, &p2, event, frame_count, option);
-            break;
-
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             game_over = true;
+            break;
+
+        case ALLEGRO_EVENT_TIMER:
+            clock_tick = true;
+
+        default:
+            check_input(&p1, &p2, event, frame_count, option);
             break;
         }
  
