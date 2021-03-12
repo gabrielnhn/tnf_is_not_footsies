@@ -78,7 +78,7 @@ void draw_loops(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, HEIGHT/6, ALLEGRO_ALIGN_CENTER, p2_hp_str);
 
 
-    draw_boxes(player1, player2);
+    // draw_boxes(player1, player2);
 
     // Print the new display
     al_flip_display();

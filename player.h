@@ -35,6 +35,7 @@ typedef struct
     bool is_neutral;
     bool is_standing;
     bool is_blocking;
+    bool is_KOd;
 
     box_t main_hurtbox;
     box_t move_hurtbox;

@@ -97,6 +97,8 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             // printf("%d, %d, %d\n", check_hitboxes(&p1, &p2), p1.paused_frames, p1.hitbox_is_active);
             check_hitboxes(&p1, &p2);
 
+            check_ko(&p1, &p2);
+
             choose_animation(&p1); // according to input AND game state
             choose_animation(&p2);
 
@@ -107,6 +109,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
             // for p1
             p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
+            printf("%d-%d\n", p1.current_animation, p1.animation_sprite_id);
             p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
 
             // for p2
@@ -117,6 +120,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
             clock_tick = false;
             frame_count++;   
+
         }
     }
 }

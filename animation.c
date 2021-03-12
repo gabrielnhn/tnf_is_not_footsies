@@ -153,11 +153,11 @@ void animation_setup()
 int sprite_for_frame(enum animation a, int frame)
 // return the index of the sprite for a given frame
 {
-    if (!inrange(frame, 0, frames_on_each_animation[a]))
+    if (!inrange(frame, 0, frames_on_each_animation[a] - 1)){
         // no such frame
         // return (-1); 
         // or maybe return the last sprite?
-        return (sprites_on_each_animation[a] -1);
+        return (sprites_on_each_animation[a] -1);}
 
     if (sprites_on_each_animation[a] == (frames_on_each_animation[a]/INTERVAL))
         // animation doesn't go 'back and forward'

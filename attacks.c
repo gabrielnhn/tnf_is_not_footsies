@@ -79,6 +79,8 @@ bool has_hurtbox(enum animation a)
     // case block_low:
     // case block_high:
     //     return false;
+    case fall:
+        return false;
     
     default:
         return true;

@@ -24,6 +24,9 @@ void init_players(player* p1, player* p2)
     p1->health = 100;
     p2->health = 100;
 
+    p1->is_KOd = false;
+    p2->is_KOd = false;
+
     update_boxes(p1, p2);
 
 }
@@ -46,7 +49,12 @@ bool boxes_collide(box_t A, box_t B)
 void choose_animation(player* p)
 // according to input/game state, decide which animation the player will perform
 {
-    // no collision, do what the input tells us to do:
+    // first of all, check for KO:
+    if(p->is_KOd == true)
+    {
+        // p->animation_frame++;
+        return;
+    }
 
     bool can_move = false;
     
@@ -245,5 +253,26 @@ void check_movement(player* p1, player* p2)
             if (p2->x < SCR_MAX)
                 p2->x -= speed_for_animation(p2->current_animation);
         }
+    }
+}
+
+void check_ko (player* p1, player* p2)
+{
+    if(!(p1->is_KOd || p2->is_KOd))
+    // don't check it twice
+    {
+        if (p1->health <= 0)
+        {
+            p1->is_KOd = true;
+            p1->animation_frame = 0;
+            p1->current_animation = fall;
+        }
+        if (p2->health <= 0)
+        {
+            p2->is_KOd = true;
+            p2->animation_frame = 0;
+            p2->current_animation = fall;
+        }
+        
     }
 }
