@@ -16,6 +16,8 @@
 #define IS_CPU 1
 #define IS_PLAYER2 2
 
+#define FALL_ANIMATION_END 300
+
 int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue);
 
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,

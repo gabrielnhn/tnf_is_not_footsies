@@ -43,84 +43,132 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
     // Initial setup:
 
     bool clock_tick = true; // every time the clock ticks, check game state
-    long frame_count = 0;
     player p1, p2;
-    init_players(&p1, &p2);
 
+    // Match setup:
     input_setup(&p1, &p2);
     animation_setup();
     attacks_setup();
     if (option == IS_CPU)
         autoplayer_setup();
 
-    bool game_over = false;
+    bool match_over = false;
+    int round_number = 1;
+    int p1_rounds = 0;
+    int p2_rounds = 0;
+    char const *message;
 
-    while (!game_over)
+    while (!match_over)
     {
-        // HANDLE INPUT //
-        al_wait_for_event(queue, &event);
-
-        switch (event.type)
+        // Round setup:
+        long frame_count = 0;
+        init_players(&p1, &p2);
+        bool round_over = false;
+        
+        while(!round_over)
         {
-        case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            game_over = true;
-            break;
+            // HANDLE INPUT //
+            al_wait_for_event(queue, &event);
 
-        case ALLEGRO_EVENT_TIMER:
-            clock_tick = true;
-
-        default:
-            check_input(&p1, &p2, event, frame_count, option);
-            break;
-        }
- 
-        // PROCESS GAME STATE IN CURRENT FRAME
-        if (clock_tick && al_is_event_queue_empty(queue))
-        {
-            if(p1.paused_frames > 0)
-                p1.paused_frames--;
-            else
+            switch (event.type)
             {
-                p1.paused_frames = 0;
-                p1.animation_frame++;
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                round_over = true;
+                match_over = true;
+                break;
+
+            case ALLEGRO_EVENT_TIMER:
+                clock_tick = true;
+
+            default:
+                check_input(&p1, &p2, event, frame_count, option);
+                break;
             }
 
-            if(p2.paused_frames > 0)
-                p2.paused_frames--;
-            else
+            // PROCESS GAME STATE IN CURRENT FRAME
+            message = "";
+
+            if (clock_tick && al_is_event_queue_empty(queue))
             {
-                p2.paused_frames = 0;
-                p2.animation_frame++;
+                if (p1.paused_frames > 0)
+                    p1.paused_frames--;
+                else
+                {
+                    p1.paused_frames = 0;
+                    p1.animation_frame++;
+                }
+
+                if (p2.paused_frames > 0)
+                    p2.paused_frames--;
+                else
+                {
+                    p2.paused_frames = 0;
+                    p2.animation_frame++;
+                }
+                update_boxes(&p1, &p2); // according to both players' position
+
+                // p2.is_blocking = true;
+
+                check_hitboxes(&p1, &p2);
+
+                check_ko(&p1, &p2);
+
+                choose_animation(&p1); // according to input AND game state
+                choose_animation(&p2);
+
+                // check for movement
+                check_movement(&p1, &p2);
+
+                // get the sprite according to the animation
+
+                // for p1
+                p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
+                p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
+
+                // for p2
+                p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
+                p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
+
+                // check for round over
+                if(p1.is_KOd)
+                {
+                    if (p2.is_KOd)
+                    {
+                        message = "Double K.O.";
+                    }
+                    else
+                    {
+                        message = "P1 K.O.";
+                    }
+                }
+                else if (p2.is_KOd)
+                {
+                    message = "P2 K.O." ;
+                }
+
+                draw_match(stage, &p1, &p2, message);
+
+                if (p1.is_KOd && p1.animation_frame > FALL_ANIMATION_END)
+                {
+                    round_over = true;
+                    p2_rounds += 1;
+                }
+                if (p2.is_KOd && p2.animation_frame > FALL_ANIMATION_END)
+                {
+                    round_over = true;
+                    p1_rounds += 1;
+                }
+
+                clock_tick = false;
+                frame_count++;   
+
             }
-            update_boxes(&p1, &p2); // according to both players' position
-
-            // p2.is_blocking = true;
-
-            check_hitboxes(&p1, &p2);
-
-            check_ko(&p1, &p2);
-
-            choose_animation(&p1); // according to input AND game state
-            choose_animation(&p2);
-
-            // check for movement
-            check_movement(&p1, &p2);
-
-            // get the sprite according to the animation
-
-            // for p1
-            p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
-            p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
-
-            // for p2
-            p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
-            p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
-
-            draw_match(stage, &p1, &p2);
-
-            clock_tick = false;
-            frame_count++;   
-
         }
+        round_number += 1;
+        if (round_number > 3) 
+            match_over = true;
+        else if ((p1_rounds >= 2) || p2_rounds >= 2)
+            match_over = true;
+
     }
 }
