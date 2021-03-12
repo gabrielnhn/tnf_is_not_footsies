@@ -65,6 +65,52 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
         init_players(&p1, &p2);
         bool round_over = false;
         
+        // time before round starts
+        int start = frame_count;
+        while (frame_count < start + ROUND_START_TIMER)
+        {
+            al_wait_for_event(queue, &event);
+
+            switch (event.type)
+            {
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                round_over = true;
+                match_over = true;
+                break;
+
+            case ALLEGRO_EVENT_TIMER:
+                clock_tick = true;
+                frame_count++;
+            }
+
+            if (clock_tick){
+                // update idle animation
+                p1.animation_frame++;
+                p2.animation_frame++;
+                choose_animation(&p1); 
+                choose_animation(&p2);
+
+                // for p1
+                p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
+                p1.sprite = animations[p1.current_animation][p1.animation_sprite_id];
+
+                // for p2
+                p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
+                p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
+
+                if (round_number == 1){
+                    message = "Round 1";
+                }
+                else if (round_number == 2){
+                    message = "Round 2";
+                }
+                else {
+                    message = "Final Round";
+                }
+                draw_match(stage, &p1, &p2, message);
+            }
+        }
+
         while(!round_over)
         {
             // HANDLE INPUT //
@@ -86,7 +132,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             }
 
             // PROCESS GAME STATE IN CURRENT FRAME
-            message = "";
+            message = "Fight!";
 
             if (clock_tick && al_is_event_queue_empty(queue))
             {
@@ -148,12 +194,12 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
                 draw_match(stage, &p1, &p2, message);
 
-                if (p1.is_KOd && p1.animation_frame > FALL_ANIMATION_END)
+                if (p1.is_KOd && p1.animation_frame > ROUND_END_TIMER)
                 {
                     round_over = true;
                     p2.rounds_won += 1;
                 }
-                if (p2.is_KOd && p2.animation_frame > FALL_ANIMATION_END)
+                if (p2.is_KOd && p2.animation_frame > ROUND_END_TIMER)
                 {
                     round_over = true;
                     p1.rounds_won += 1;

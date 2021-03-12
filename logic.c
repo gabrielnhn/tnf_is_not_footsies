@@ -19,6 +19,7 @@ void choose_animation(player* p)
 // according to input/game state, decide which animation the player will perform
 {
     // first of all, check for KO:
+    
     if(p->is_KOd == true)
     {
         // p->animation_frame++;
@@ -92,7 +93,6 @@ void choose_animation(player* p)
             p->current_animation = p->wanted_animation;
             p->animation_frame = 0;
         }
-
     }
      // force block/stun animation
     else if (p->wanted_animation == high_hitstun || p->wanted_animation == low_hitstun ||

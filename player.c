@@ -11,6 +11,10 @@ void init_players(player* p1, player* p2)
     
     p1->current_animation = idle;
     p2->current_animation = idle;
+
+    p1->wanted_animation = idle;
+    p2->wanted_animation = idle;
+
     
     p1->animation_frame = 0;
     p2->animation_frame = 0;

@@ -58,17 +58,21 @@ void draw_boxes(player* p1, player* p2)
 
 void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char const* message)
 {
+    // printf("clearing\n");
     // clear display
     al_clear_to_color(al_map_rgb(0, 0, 0));
     
+    // printf("stage\n");
     // draw stage
     al_draw_bitmap(stage, -220, -220, 0);
 
+    // printf("sprites\n");
     //draw player sprites
     al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 
-    // draw health
+    // printf("HUD\n");
+    // draw HUD
     ALLEGRO_FONT* font = al_create_builtin_font();
     char p1_HP[STR_MAX], p2_HP[STR_MAX];
     char p1_Rounds[STR_MAX], p2_Rounds[STR_MAX];
@@ -82,14 +86,16 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char co
     al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, 1*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p2_HP);
     al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, 2*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p2_Rounds);
 
-    // draw_boxes(player1, player2);
-
+    // printf("message?\n");
     if(strcmp(message, "") != 0)
     {
         al_draw_text(font, al_map_rgb_f(1, 0, 0), WIDTH/2, HEIGHT/5, ALLEGRO_ALIGN_CENTER, message);
     }
 
-    // Print the new display
+    // draw_boxes(player1, player2);
+
+    // Print this new display
+    // printf("flip\n");
     al_flip_display();
 }
 
