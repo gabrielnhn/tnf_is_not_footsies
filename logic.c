@@ -94,6 +94,14 @@ void choose_animation(player* p)
         }
 
     }
+     // force block/stun animation
+    else if (p->wanted_animation == high_hitstun || p->wanted_animation == low_hitstun ||
+             p->wanted_animation == block_low || p->wanted_animation == block_low)
+    {
+        p->current_animation = p->wanted_animation;
+        if (p->current_animation != p->wanted_animation)
+            p->animation_frame = 0;
+    }
     else if (p->current_animation == crLP || p->current_animation == crMK) // crLP and crMK cancel into dash_punch!
     {
         if ((p->animation_frame == active_frames[p->current_animation].end)) // cancel only in the last active frame
@@ -105,14 +113,7 @@ void choose_animation(player* p)
             }
         }
     }
-    // force block/stun animation
-    else if (p->wanted_animation == high_hitstun || p->wanted_animation == low_hitstun ||
-             p->wanted_animation == block_low || p->wanted_animation == block_low)
-    {
-        p->current_animation = p->wanted_animation;
-        if (p->current_animation != p->wanted_animation)
-            p->animation_frame = 0;
-    }
+   
 
     if (p->is_neutral)
         p->is_neutral = true;

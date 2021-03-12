@@ -54,14 +54,14 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
     bool match_over = false;
     int round_number = 1;
-    int p1_rounds = 0;
-    int p2_rounds = 0;
+    p1.rounds_won = 0;
+    p2.rounds_won = 0;
     char const *message;
+    long frame_count = 0;
 
     while (!match_over)
     {
         // Round setup:
-        long frame_count = 0;
         init_players(&p1, &p2);
         bool round_over = false;
         
@@ -151,12 +151,12 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 if (p1.is_KOd && p1.animation_frame > FALL_ANIMATION_END)
                 {
                     round_over = true;
-                    p2_rounds += 1;
+                    p2.rounds_won += 1;
                 }
                 if (p2.is_KOd && p2.animation_frame > FALL_ANIMATION_END)
                 {
                     round_over = true;
-                    p1_rounds += 1;
+                    p1.rounds_won += 1;
                 }
 
                 clock_tick = false;
@@ -167,7 +167,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
         round_number += 1;
         if (round_number > 3) 
             match_over = true;
-        else if ((p1_rounds >= 2) || p2_rounds >= 2)
+        else if ((p1.rounds_won >= 2) || p2.rounds_won >= 2)
             match_over = true;
 
     }

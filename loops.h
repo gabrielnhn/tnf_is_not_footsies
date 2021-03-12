@@ -16,7 +16,7 @@
 #define IS_CPU 1
 #define IS_PLAYER2 2
 
-#define FALL_ANIMATION_END 300
+#define FALL_ANIMATION_END 200 // amount of frames until round is declared over
 
 int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue);
 
