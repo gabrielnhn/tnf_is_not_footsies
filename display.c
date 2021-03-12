@@ -74,20 +74,41 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     al_flip_display();
 }
 
-void draw_menu()
+void draw_menu(int option)
 {
     // clear display
-    al_clear_to_color(al_map_rgb(0, 0, 0));
+    al_clear_to_color(al_map_rgb_f(1, 1, 1));
     
     // void al_draw_text(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags,
     //                   char const *text)
     // draw options
 
-    ALLEGRO_FONT* font = al_create_builtin_font();
-    al_draw_text(font, al_map_rgba_f(0.5, 0, 0, 0.5), SCR_MIN + 50, HEIGHT + 50, ALLEGRO_ALIGN_CENTRE, "VERSUS CPU");
-    
-    al_draw_text(font, al_map_rgba_f(0.5, 0, 0, 0.5), SCR_MAX - 50, HEIGHT + 50, ALLEGRO_ALIGN_CENTRE, "VERSUS P1");
+    char* opt1_str = "VERSUS CPU";
+    char* opt2_str = "VERSUS P2";
 
+
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, opt1_str);
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH - 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, opt2_str);
+
+    int text_x, text_y, text_width, text_height;
+    if (option == 1)
+    {
+        al_get_text_dimensions(font, opt2_str, &text_x, &text_y, &text_width, &text_height);
+        al_draw_rectangle(100 - MENU_RECT_BORDER - text_width/2, HEIGHT/2 - MENU_RECT_BORDER,
+                          100 + text_width/2 + MENU_RECT_BORDER, HEIGHT/2 + text_height + MENU_RECT_BORDER,
+                          al_map_rgb_f(0, 1, 0), 3);
+    }
+    else // option 2
+    {
+        al_get_text_dimensions(font, opt1_str, &text_x, &text_y, &text_width, &text_height);
+        al_draw_rectangle(WIDTH - 100 - MENU_RECT_BORDER - text_width/2, HEIGHT/2 - MENU_RECT_BORDER,
+                          WIDTH - 100 + text_width/2 + MENU_RECT_BORDER, HEIGHT/2 + text_height + MENU_RECT_BORDER,
+                          al_map_rgb_f(0, 1, 0), 3);
+    }
+
+    //     void al_draw_rectangle(float x1, float y1, float x2, float y2,
+    //    ALLEGRO_COLOR color, float thickness)
 
     // Print the new display
     al_flip_display();

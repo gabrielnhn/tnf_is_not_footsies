@@ -14,11 +14,13 @@
 #define SCR_MIN -95
 #define SCR_MAX 245
 
+#define MENU_RECT_BORDER 10
+
 ALLEGRO_DISPLAY *create_display();
 void destroy_display(ALLEGRO_DISPLAY *disp);
 
 void draw_boxes();
 void draw_match(ALLEGRO_BITMAP *stage, player *player1, player *player2);
-void draw_menu();
+void draw_menu(int option);
 
 #endif
