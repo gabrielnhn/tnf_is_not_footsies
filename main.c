@@ -29,7 +29,8 @@ int main()
     must_init(font, "allegro font");
 
     // Display module
-    ALLEGRO_DISPLAY* disp = create_display();
+    ALLEGRO_DISPLAY
+    // draw_boxes(player1, player2);* disp = create_display();
     must_init(disp, "display");
 
     must_init(al_init_primitives_addon(), "primitives addon");
@@ -129,7 +130,7 @@ int main()
             // printf("%d %d\n", p2.animation_sprite_id, p2.animation_frame);
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
-            draw_display(stage, &p1, &p2);
+            draw_match(stage, &p1, &p2);
 
             clock_tick = false;
             frame_count++;

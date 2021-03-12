@@ -56,7 +56,7 @@ void draw_boxes(player* p1, player* p2)
                              al_map_rgba_f(0.5, 0, 0, 0.5));
 }
 
-void draw_display(ALLEGRO_BITMAP* stage, player* player1, player* player2)
+void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2)
 {
     // clear display
     al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -69,6 +69,25 @@ void draw_display(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 
     draw_boxes(player1, player2);
+
+    // Print the new display
+    al_flip_display();
+}
+
+void draw_menu()
+{
+    // clear display
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+    
+    // void al_draw_text(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags,
+    //                   char const *text)
+    // draw options
+
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    al_draw_text(font, al_map_rgba_f(0.5, 0, 0, 0.5), SCR_MIN + 50, HEIGHT + 50, ALLEGRO_ALIGN_CENTRE, "VERSUS CPU");
+    
+    al_draw_text(font, al_map_rgba_f(0.5, 0, 0, 0.5), SCR_MAX - 50, HEIGHT + 50, ALLEGRO_ALIGN_CENTRE, "VERSUS P1");
+
 
     // Print the new display
     al_flip_display();

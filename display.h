@@ -18,6 +18,7 @@ ALLEGRO_DISPLAY *create_display();
 void destroy_display(ALLEGRO_DISPLAY *disp);
 
 void draw_boxes();
-void draw_display(ALLEGRO_BITMAP *stage, player *player1, player *player2);
+void draw_match(ALLEGRO_BITMAP *stage, player *player1, player *player2);
+void draw_menu();
 
 #endif
