@@ -50,6 +50,8 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
     input_setup(&p1, &p2);
     animation_setup();
     attacks_setup();
+    if (option == IS_CPU)
+        autoplayer_setup();
 
     bool game_over = false;
 

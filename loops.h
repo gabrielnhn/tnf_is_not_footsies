@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "input.h"
 #include "logic.h"
+#include "autoplayer.h"
 
 #define IS_CPU 1
 #define IS_PLAYER2 2
