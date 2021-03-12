@@ -53,11 +53,12 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
     bool game_over = false;
 
-    while(!game_over)
+    while (!game_over)
     {
+        // HANDLE INPUT //
         al_wait_for_event(queue, &event);
 
-        switch(event.type)
+        switch (event.type)
         {
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             game_over = true;
@@ -71,8 +72,8 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             break;
         }
  
-        if(clock_tick && al_is_event_queue_empty(queue))
         // PROCESS GAME STATE IN CURRENT FRAME
+        if (clock_tick && al_is_event_queue_empty(queue))
         {
             if(p1.paused_frames > 0)
                 p1.paused_frames--;
@@ -81,7 +82,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 p1.paused_frames = 0;
                 p1.animation_frame++;
             }
-            
+
             if(p2.paused_frames > 0)
                 p2.paused_frames--;
             else
