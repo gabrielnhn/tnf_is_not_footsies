@@ -3,8 +3,6 @@
 
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_image.h>
-#include "animation.h"
-#include "utils.h"
 
 typedef struct
 {
@@ -44,8 +42,15 @@ typedef struct
 
 } player;
 
+#include "animation.h"
+#include "utils.h"
+#include "display.h"
+#include "logic.h"
+
 #define SPEED 3 // character speed
 #define PLAYER_HEIGHT 70
+
+void init_players(player* p1, player* p2);
 
 bool is_neutral(enum animation a);
 

@@ -56,7 +56,7 @@ void draw_boxes(player* p1, player* p2)
                              al_map_rgba_f(0.5, 0, 0, 0.5));
 }
 
-void draw_loops(ALLEGRO_BITMAP* stage, player* player1, player* player2)
+void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2)
 {
     // clear display
     al_clear_to_color(al_map_rgb(0, 0, 0));

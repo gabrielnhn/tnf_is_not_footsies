@@ -1,5 +1,36 @@
 #include "player.h"
 
+void init_players(player* p1, player* p2)
+// initial players state
+{
+    p1->x = SCR_MIN + 90;
+    p2->x = SCR_MAX - 90;
+    
+    p1->last_animation = idle;
+    p2->last_animation = idle;
+    
+    p1->current_animation = idle;
+    p2->current_animation = idle;
+    
+    p1->animation_frame = 0;
+    p2->animation_frame = 0;
+
+    p1->is_player1 = true;
+    p2->is_player1 = false;
+
+    p1->paused_frames = 0;
+    p2->paused_frames = 0;
+
+    p1->health = 100;
+    p2->health = 100;
+
+    p1->is_KOd = false;
+    p2->is_KOd = false;
+
+    update_boxes(p1, p2);
+
+}
+
 bool is_neutral(enum animation a)
 // player can move freely
 {

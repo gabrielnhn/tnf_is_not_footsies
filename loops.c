@@ -116,7 +116,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
-            draw_loops(stage, &p1, &p2);
+            draw_match(stage, &p1, &p2);
 
             clock_tick = false;
             frame_count++;   

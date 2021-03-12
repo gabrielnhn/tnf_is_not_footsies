@@ -5,8 +5,6 @@
 #include "display.h"
 #include "attacks.h"
 
-void init_players(player* p1, player* p2);
-
 bool boxes_collide(box_t A, box_t B);
 
 void choose_animation(player* p);
