@@ -15,9 +15,9 @@
 #define IS_CPU 1
 #define IS_PLAYER2 2
 
-void menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue);
+int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue);
 
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
-                ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage);
+                ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, int option);
 
 #endif

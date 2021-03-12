@@ -27,10 +27,11 @@ void attacks_setup()
             break;
 
         case dash_punch:
-            active_frames[i] = (range_t){7 * INTERVAL, 9 * INTERVAL};
+            // active_frames[i] = (range_t){7 * INTERVAL, 9 * INTERVAL};
+            active_frames[i] = (range_t){3 * INTERVAL, 9 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 60, 0};
             on_block_advantage[i] = -16;
-            on_hit_advantage[i] = +1;
+            on_hit_advantage[i] = 14;
             break;
         
         case overhead:
@@ -42,6 +43,8 @@ void attacks_setup()
         
         default:
             active_frames[i] = (range_t){-1, -1}; // no active frames, not an attack
+            on_block_advantage[i] = 0;
+            on_hit_advantage[i] = 0;
             break;
         }
     }
@@ -291,8 +294,8 @@ int check_hitboxes(player* p1, player* p2)
     {
         if (!p2_blocked)
         {
-            p2->paused_frames = DEFAULT_STUN + on_hit_advantage[p2->current_animation];
-            p1->paused_frames = DEFAULT_STUN - on_hit_advantage[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN + on_hit_advantage[p1->current_animation];
+            p1->paused_frames = DEFAULT_STUN - on_hit_advantage[p1->current_animation];
 
             if (p2->is_standing)
             {

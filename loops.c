@@ -1,10 +1,10 @@
 #include "loops.h"
     
-void menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
+int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
 {
     bool menu_done = false;
     int input;
-    int option = 1;
+    int option = IS_CPU;
     while(!menu_done)
     {
         al_wait_for_event(queue, &event);
@@ -21,9 +21,9 @@ void menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
             if (input == ALLEGRO_KEY_ENTER)
                 menu_done = true;
             else if (input == ALLEGRO_KEY_A)
-                option = 1;
+                option = IS_CPU;
             else if (input == ALLEGRO_KEY_D)
-                option = 2;
+                option = IS_PLAYER2;
 
             break;
 
@@ -34,11 +34,12 @@ void menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
     }
     // super important, SEGFAULT otherwise:
     al_flush_event_queue(queue);
+    return option;
 }
 
 
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
-                ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage)
+                ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, int option)
 {
     bool clock_tick = true; // every time the clock ticks, check game state
     long frame_count = 0;
@@ -82,18 +83,22 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             if(p1.paused_frames > 0)
                 p1.paused_frames--;
             else
+            {
+                p1.paused_frames = 0;
                 p1.animation_frame++;
+            }
             
             if(p2.paused_frames > 0)
                 p2.paused_frames--;
             else
+            {
+                p2.paused_frames = 0;
                 p2.animation_frame++;
-
+            }
             update_boxes(&p1, &p2); // according to both players' position
 
-            p2.is_blocking = true;
+            // p2.is_blocking = true;
 
-            // printf("%d\n",check_hitboxes(&p1, &p2));
             check_hitboxes(&p1, &p2);
 
             choose_animation(&p1); // according to input AND game state
@@ -110,16 +115,13 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
             // for p2
             p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
-            // printf("%d %d\n", p2.animation_sprite_id, p2.animation_frame);
             p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
             draw_loops(stage, &p1, &p2);
 
             clock_tick = false;
             frame_count++;
-
-            
-            // print_array(p1.input_buffer, p1.buffer_length);
+   
         }
     }
 }
