@@ -8,7 +8,7 @@
 #include "utils.h"
 #include "input.h"
 #include "logic.h"
-#include "match.h"
+#include "loops.h"
 
 int main()
 {
@@ -134,7 +134,7 @@ int main()
     // //         // printf("%d %d\n", p2.animation_sprite_id, p2.animation_frame);
     // //         p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
-    // //         draw_match(stage, &p1, &p2);
+    // //         draw_loops(stage, &p1, &p2);
 
     // //         clock_tick = false;
     // //         frame_count++;
