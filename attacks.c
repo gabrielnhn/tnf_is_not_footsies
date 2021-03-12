@@ -5,6 +5,7 @@ range_t active_frames[ANIMATIONS_N];
 box_t hitboxes[ANIMATIONS_N];
 int on_block_advantage[ANIMATIONS_N];
 int on_hit_advantage[ANIMATIONS_N];
+int damage[ANIMATIONS_N];
 
 void attacks_setup()
 {
@@ -17,6 +18,7 @@ void attacks_setup()
             hitboxes[i] = (box_t){0, 0, 50, 0};
             on_block_advantage[i] = +3;
             on_hit_advantage[i] = +3;
+            damage[i] = 15;
             break;
 
         case crMK:
@@ -24,6 +26,7 @@ void attacks_setup()
             hitboxes[i] = (box_t){0, 0, 85, 0};
             on_block_advantage[i] = -1;
             on_hit_advantage[i] = +1;
+            damage[i] = 20;
             break;
 
         case dash_punch:
@@ -32,13 +35,15 @@ void attacks_setup()
             hitboxes[i] = (box_t){0, 0, 60, 0};
             on_block_advantage[i] = -16;
             on_hit_advantage[i] = 14;
+            damage[i] = 50;
             break;
         
         case overhead:
             active_frames[i] = (range_t){9 * INTERVAL, 11 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 50, 0};
             on_block_advantage[i] = -8;
-            on_hit_advantage[i] = +5;
+            on_hit_advantage[i] = +8;
+            damage[i] = 25;
             break;
         
         default:
@@ -268,6 +273,10 @@ int check_hitboxes(player* p1, player* p2)
         {
             p2_blocked = false;
         }
+        if(!p2_blocked)
+        {
+            p2->health -= damage[p1->current_animation];
+        }
     }
 
     // handle flags
@@ -287,6 +296,10 @@ int check_hitboxes(player* p1, player* p2)
             {
                 p1->wanted_animation = low_hitstun;
                 p1->animation_frame = 0;
+            }
+            if(!p1_blocked)
+            {
+                p1->health -= damage[p2->current_animation];
             }
         }
         else

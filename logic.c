@@ -21,6 +21,9 @@ void init_players(player* p1, player* p2)
     p1->paused_frames = 0;
     p2->paused_frames = 0;
 
+    p1->health = 100;
+    p2->health = 100;
+
     update_boxes(p1, p2);
 
 }

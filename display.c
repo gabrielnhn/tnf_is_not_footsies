@@ -68,6 +68,16 @@ void draw_loops(ALLEGRO_BITMAP* stage, player* player1, player* player2)
     al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 
+    // draw health
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    char p1_hp_str[STR_MAX], p2_hp_str[STR_MAX];
+    sprintf(p1_hp_str, "%d", player1->health);
+    sprintf(p2_hp_str, "%d", player2->health);
+
+    al_draw_text(font, al_map_rgb_f(0, 1, 0), 100, HEIGHT/6, ALLEGRO_ALIGN_CENTER, p1_hp_str);
+    al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, HEIGHT/6, ALLEGRO_ALIGN_CENTER, p2_hp_str);
+
+
     draw_boxes(player1, player2);
 
     // Print the new display
