@@ -190,18 +190,12 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 if(p1.is_KOd)
                 {
                     if (p2.is_KOd)
-                    {
                         message = "Double K.O.";
-                    }
                     else
-                    {
                         message = "P1 K.O.";
-                    }
                 }
                 else if (p2.is_KOd)
-                {
                     message = "P2 K.O." ;
-                }
 
                 draw_match(stage, &p1, &p2, message);
 
