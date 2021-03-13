@@ -1,10 +1,10 @@
 #include "loops.h"
 
-int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
+int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
 {
     bool menu_done = false;
     int input;
-    int option = IS_CPU;
+    int p2_option = IS_CPU;
     while(!menu_done)
     {
         al_wait_for_event(queue, &event);
@@ -12,7 +12,7 @@ int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** 
         switch (event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            draw_menu(option);
+            draw_main_menu(p2_option);
             break;
 
         case ALLEGRO_EVENT_KEY_DOWN: // key pressed
@@ -21,9 +21,9 @@ int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** 
             if (input == ALLEGRO_KEY_ENTER)
                 menu_done = true;
             else if (input == ALLEGRO_KEY_A)
-                option = IS_CPU;
+                p2_option = IS_CPU;
             else if (input == ALLEGRO_KEY_D)
-                option = IS_PLAYER2;
+                p2_option = IS_PLAYER2;
 
             break;
 
@@ -34,12 +34,52 @@ int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** 
     }
     // super important, SEGFAULT otherwise:
     al_flush_event_queue(queue);
-    return option;
+    return p2_option;
+}
+
+int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
+{
+    bool menu_done = false;
+    int input;
+    int level = 1;
+    while(!menu_done)
+    {
+        al_wait_for_event(queue, &event);
+
+        switch (event.type)
+        {
+        case ALLEGRO_EVENT_TIMER:
+            draw_level_menu(level);
+            break;
+
+        case ALLEGRO_EVENT_KEY_DOWN: // key pressed
+            input = event.keyboard.keycode;
+
+            if (input == ALLEGRO_KEY_ENTER)
+                menu_done = true;
+            else if (input == ALLEGRO_KEY_A){
+                if (1 < level)
+                    level--;
+            }
+            else if (input == ALLEGRO_KEY_D){
+                if (level < LEVELS_N)
+                    level++;
+            }
+            break;
+
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            abort();
+            break;
+        }
+    }
+    // super important, SEGFAULT otherwise:
+    al_flush_event_queue(queue);
+    return level;
 }
 
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
-                ALLEGRO_SAMPLE** sounds, int option)
+                ALLEGRO_SAMPLE** sounds, int p2_option, int cpu_level)
 {
     // Initial setup:
 
@@ -50,7 +90,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
     input_setup(&p1, &p2);
     animation_setup();
     attacks_setup();
-    if (option == IS_CPU)
+    if (p2_option == IS_CPU)
         autoplayer_setup();
 
     bool match_over = false;
@@ -96,7 +136,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 p1.animation_frame++; // update animation frame
                 p2.animation_frame++;
                 // just so when the game starts, old input is considered
-                check_input(&p1, &p2, event, frame_count, option);
+                check_input(&p1, &p2, event, frame_count, p2_option);
                 // force idle animation 
                 p1.wanted_animation = idle;
                 p2.wanted_animation = idle;
@@ -137,7 +177,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 clock_tick = true;
 
             default:
-                check_input(&p1, &p2, event, frame_count, option);
+                check_input(&p1, &p2, event, frame_count, p2_option);
                 break;
             }
 

@@ -20,10 +20,12 @@
 #define ROUND_START_TIMER 100 // amount of frames until round is declared over
 #define ROUND_END_TIMER 200 // amount of frames until round is declared over
 
-int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds);
+int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds);
+
+int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds);
 
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
-                ALLEGRO_SAMPLE** sounds, int option);
+                ALLEGRO_SAMPLE** sounds, int p2_option, int cpu_level);
 
 #endif

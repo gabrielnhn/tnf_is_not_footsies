@@ -99,7 +99,7 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char co
     al_flip_display();
 }
 
-void draw_menu(int option)
+void draw_main_menu(int option)
 {
     // clear display
     al_clear_to_color(al_map_rgb_f(1, 1, 1));
@@ -134,6 +134,37 @@ void draw_menu(int option)
 
     //     void al_draw_rectangle(float x1, float y1, float x2, float y2,
     //    ALLEGRO_COLOR color, float thickness)
+
+    // Print the new display
+    al_flip_display();
+}
+
+void draw_level_menu(int level)
+{
+    // clear display
+    al_clear_to_color(al_map_rgb_f(1, 1, 1));
+    
+    // void al_draw_text(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags,
+    //                   char const *text)
+
+    // draw level option
+    char str[STR_MAX];
+
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    for(int i = 1; i <= LEVELS_N; i++)
+    {
+        sprintf(str, "%d", i);
+        al_draw_text(font, al_map_rgb_f(0, 0, 1), BORDER + (i-1)*WIDTH/LEVELS_N, HEIGHT/2, ALLEGRO_ALIGN_CENTER, str);
+    }
+
+    // draw selection rectangle
+    int text_width, text_height;
+    text_width =  al_get_text_width(font, "0");
+    text_height = al_get_font_line_height(font);
+
+    al_draw_rectangle(BORDER + (level-1)*WIDTH/LEVELS_N - MENU_RECT_BORDER - text_width/2, HEIGHT/2 - MENU_RECT_BORDER,
+                        BORDER + (level-1)*WIDTH/LEVELS_N + text_width/2 + MENU_RECT_BORDER, HEIGHT/2 + text_height + MENU_RECT_BORDER,
+                        al_map_rgb_f(0, 1, 0), 3);
 
     // Print the new display
     al_flip_display();

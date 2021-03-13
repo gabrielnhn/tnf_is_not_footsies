@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "player.h"
 
+#define LEVELS_N 6
+
 void autoplayer_setup();
 
 void get_autoplayer_input(player* p1, player* p2);

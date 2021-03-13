@@ -61,9 +61,13 @@ int main()
     al_start_timer(timer);
 
     // Initial game setup
-    int option = menu_loop(event, queue, sounds);
+    int p2_option = main_menu_loop(event, queue, sounds);
 
-    match_loop(event, queue, animations, stage, sounds, option);
+    int cpu_level = 0;
+    if (p2_option == IS_CPU)
+        cpu_level = level_menu_loop(event, queue, sounds);
+
+    match_loop(event, queue, animations, stage, sounds, p2_option, cpu_level);
 
     // Game over, destroy everything we made
     destroy_music(music);
