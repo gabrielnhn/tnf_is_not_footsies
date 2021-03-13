@@ -24,10 +24,10 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
 
             // different animations DO have priority!
             p1->wanted_animation = idle; // default animation
-            p1->is_blocking = false; // by default no one is blocking
+            p1->is_inputting_block = false; // by default no one is blocking
 
             p2->wanted_animation = idle; 
-            p2->is_blocking = false; 
+            p2->is_inputting_block = false; 
 
             // FOR PLAYER 1 // 
             // check for dash punch
@@ -89,11 +89,11 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
             {
                 p1->wanted_animation = crouching;
                 if (key[ALLEGRO_KEY_A])
-                    p1->is_blocking = true;
+                    p1->is_inputting_block = true;
             }
             else if (key[ALLEGRO_KEY_A])
             {
-                p1->is_blocking = true;
+                p1->is_inputting_block = true;
                 p1->wanted_animation = walk_backwards;
             }
             else if (key[ALLEGRO_KEY_D])
@@ -106,8 +106,8 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
                 get_autoplayer_input(p1, p2);
             else
             {
-                p2->wanted_animation = walk_backwards;
-                p2->is_blocking = true;
+                p2->wanted_animation = idle;
+                // p2->is_inputting_block = true;
             }
 
             // Needed to keep the input system working

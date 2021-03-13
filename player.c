@@ -25,8 +25,8 @@ void init_players(player* p1, player* p2)
     p1->paused_frames = 0;
     p2->paused_frames = 0;
 
-    p1->health = 100;
-    p2->health = 100;
+    p1->health = 150;
+    p2->health = 150;
 
     p1->is_KOd = false;
     p2->is_KOd = false;

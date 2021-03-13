@@ -233,7 +233,7 @@ int check_hitboxes(player* p1, player* p2)
     // set flags
     if (p1_was_hit)
     {
-        if (p1->is_blocking && (is_neutral(p1->current_animation) || is_blocking(p1->current_animation)))
+        if (p1->is_inputting_block && (is_neutral(p1->current_animation) || is_blocking(p1->current_animation)))
         {
             p1_blocked = true;
 
@@ -256,7 +256,7 @@ int check_hitboxes(player* p1, player* p2)
 
     if (p2_was_hit)
     {
-        if (p2->is_blocking && (is_neutral(p2->current_animation) || is_blocking(p2->current_animation)))
+        if (p2->is_inputting_block && (is_neutral(p2->current_animation) || is_blocking(p2->current_animation)))
         {
             p2_blocked = true;
 

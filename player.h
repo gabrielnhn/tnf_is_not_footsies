@@ -32,7 +32,7 @@ typedef struct
     bool is_player1;
     bool is_neutral;
     bool is_standing;
-    bool is_blocking;
+    bool is_inputting_block;
     bool is_KOd;
     int rounds_won;
 

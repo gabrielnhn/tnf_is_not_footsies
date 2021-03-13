@@ -153,7 +153,6 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 }
                 update_boxes(&p1, &p2); // according to both players' position
 
-                // p2.is_blocking = true;
 
                 check_hitboxes(&p1, &p2);
 
