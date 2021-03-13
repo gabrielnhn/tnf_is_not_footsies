@@ -32,9 +32,9 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
             // FOR PLAYER 1 // 
             // check for dash punch
             if ((p1->buffer_length > 2) &&
-                (p1->input_buffer[p1->buffer_length - 1] == PUNCH) && // just pressed PUNCH
-                (p1->input_buffer[p1->buffer_length - 2] == RIGHT) && // was pressing forward
-                ((p1->input_buffer[p1->buffer_length - 3] == DOWN) || !p1->is_standing)) // pressed DOWN a short time ago
+                (p1->input_buffer[p1->buffer_length - 1] == p1PUNCH) && // just pressed PUNCH
+                (p1->input_buffer[p1->buffer_length - 2] == p1RIGHT) && // was pressing forward
+                ((p1->input_buffer[p1->buffer_length - 3] == p1DOWN) || !p1->is_standing)) // pressed DOWN a short time ago
             {
                 // ↓→+👊
                 p1->wanted_animation = dash_punch;
@@ -42,7 +42,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
 
             // check for overhead
             else if ((p1->buffer_length > 0) &&
-                     (p1->input_buffer[p1->buffer_length - 1] == KICK) &&// just pressed KICK
+                     (p1->input_buffer[p1->buffer_length - 1] == p1KICK) &&// just pressed KICK
                      (key[ALLEGRO_KEY_D])) // is holding forward
             {
                 // →+👟
@@ -51,8 +51,8 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
             
             // check for dash
             else if ((p1->buffer_length > 1) &&
-                     (p1->input_buffer[p1->buffer_length - 1] == RIGHT) &&
-                     (p1->input_buffer[p1->buffer_length - 2] == RIGHT)) // just pressed RIGHT twice
+                     (p1->input_buffer[p1->buffer_length - 1] == p1RIGHT) &&
+                     (p1->input_buffer[p1->buffer_length - 2] == p1RIGHT)) // just pressed RIGHT twice
             {
                 // →+→
                 p1->wanted_animation = dash;
@@ -60,8 +60,8 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
 
             // check for backdash
             else if ((p1->buffer_length > 1) &&
-                     (p1->input_buffer[p1->buffer_length - 1] == LEFT) &&
-                     (p1->input_buffer[p1->buffer_length - 2] == LEFT)) // just pressed LEFT twice
+                     (p1->input_buffer[p1->buffer_length - 1] == p1LEFT) &&
+                     (p1->input_buffer[p1->buffer_length - 2] == p1LEFT)) // just pressed LEFT twice
             {
                 // ←+←
                 p1->wanted_animation = backdash;
@@ -69,7 +69,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
 
             // check for crMK
             else if ((p1->buffer_length > 0) &&
-                     (p1->input_buffer[p1->buffer_length - 1] == KICK)) // just pressed KICK
+                     (p1->input_buffer[p1->buffer_length - 1] == p1KICK)) // just pressed KICK
             {
                 // 👟
                 p1->wanted_animation = crMK;
@@ -77,7 +77,7 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
 
             // check for crLP
             else if ((p1->buffer_length > 0) &&
-                     (p1->input_buffer[p1->buffer_length - 1] == PUNCH)) // just pressed KICK
+                     (p1->input_buffer[p1->buffer_length - 1] == p1PUNCH)) // just pressed KICK
             {
                 // 👊
                 p1->wanted_animation = crLP;
@@ -104,10 +104,78 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
 
             if(p2_input_method == IS_CPU)
                 get_autoplayer_input(p1, p2);
-            else
+            else // p2 == PLAYER2
             {
-                p2->wanted_animation = idle;
-                // p2->is_inputting_block = true;
+                if ((p2->buffer_length > 2) &&
+                    (p2->input_buffer[p2->buffer_length - 1] == p2PUNCH) && // just pressed PUNCH
+                    (p2->input_buffer[p2->buffer_length - 2] == p2LEFT) && // was pressing forward
+                    ((p2->input_buffer[p2->buffer_length - 3] == p2DOWN) || !p2->is_standing)) // pressed DOWN a short time ago
+                {
+                    // ↓→+👊
+                    p2->wanted_animation = dash_punch;
+                }
+
+                // check for overhead
+                else if ((p2->buffer_length > 0) &&
+                        (p2->input_buffer[p2->buffer_length - 1] == p2KICK) &&// just pressed KICK
+                        (key[ALLEGRO_KEY_LEFT])) // is holding forward
+                {
+                    // →+👟
+                    p2->wanted_animation = overhead;
+                }
+                
+                // check for dash
+                else if ((p2->buffer_length > 1) &&
+                        (p2->input_buffer[p2->buffer_length - 1] == p2LEFT) &&
+                        (p2->input_buffer[p2->buffer_length - 2] == p2LEFT)) // just pressed RIGHT twice
+                {
+                    // →+→
+                    p2->wanted_animation = dash;
+                }
+
+                // check for backdash
+                else if ((p2->buffer_length > 1) &&
+                        (p2->input_buffer[p2->buffer_length - 1] == p2RIGHT) &&
+                        (p2->input_buffer[p2->buffer_length - 2] == p2RIGHT)) // just pressed LEFT twice
+                {
+                    // ←+←
+                    p2->wanted_animation = backdash;
+                }
+
+                // check for crMK
+                else if ((p2->buffer_length > 0) &&
+                        (p2->input_buffer[p2->buffer_length - 1] == p2KICK)) // just pressed KICK
+                {
+                    // 👟
+                    p2->wanted_animation = crMK;
+                }
+
+                // check for crLP
+                else if ((p2->buffer_length > 0) &&
+                        (p2->input_buffer[p2->buffer_length - 1] == p2PUNCH)) // just pressed KICK
+                {
+                    // 👊
+                    p2->wanted_animation = crLP;
+                }
+
+                // no special commands, just movement:
+
+                else if(key[ALLEGRO_KEY_DOWN])
+                {
+                    p2->wanted_animation = crouching;
+                    if (key[ALLEGRO_KEY_RIGHT])
+                        p2->is_inputting_block = true;
+                }
+                else if (key[ALLEGRO_KEY_RIGHT])
+                {
+                    p2->is_inputting_block = true;
+                    p2->wanted_animation = walk_backwards;
+                }
+                else if (key[ALLEGRO_KEY_LEFT])
+                {
+                    if (p2->wanted_animation != crouching)
+                        p2->wanted_animation = walk_forward;
+                }
             }
 
             // Needed to keep the input system working
@@ -136,35 +204,57 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
             int p;
             switch (event.keyboard.keycode)
             {
-
-                case ALLEGRO_KEY_COMMA: // p1 kick
+                // P1:
+                case ALLEGRO_KEY_V: // p1 kick
                     p = 1;
-                    input = KICK;
+                    input = p1KICK;
                     break;
 
-                case ALLEGRO_KEY_FULLSTOP: // p1 punch
+                case ALLEGRO_KEY_B: // p1 punch
                     p = 1;
-                    input = PUNCH;
+                    input = p1PUNCH;
                     break;
-
-                // case ALLEGRO_KEY_UP:
-                //     p = 1;
-                //     input = UP;
-                //     break;
 
                 case ALLEGRO_KEY_S:
                     p = 1;
-                    input = DOWN;
+                    input = p1DOWN;
                     break;
 
                 case ALLEGRO_KEY_A:
                     p = 1;
-                    input = LEFT;
+                    input = p1LEFT;
                     break;
 
                 case ALLEGRO_KEY_D:
                     p = 1;
-                    input = RIGHT;
+                    input = p1RIGHT;
+                    break;
+
+                // P2:
+
+                case ALLEGRO_KEY_FULLSTOP: // p2 kick
+                    p = 2;
+                    input = p2KICK;
+                    break;
+
+                case ALLEGRO_KEY_COMMA: // p2 punch
+                    p = 2;
+                    input = p2PUNCH;
+                    break;
+
+                case ALLEGRO_KEY_DOWN:
+                    p = 2;
+                    input = p2DOWN;
+                    break;
+
+                case ALLEGRO_KEY_LEFT:
+                    p = 2;
+                    input = p2LEFT;
+                    break;
+
+                case ALLEGRO_KEY_RIGHT:
+                    p = 2;
+                    input = p2RIGHT;
                     break;
             }
             if (p == 1)

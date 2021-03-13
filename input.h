@@ -15,7 +15,9 @@
 
 #define BUFFER_TIMER 9
 
-enum input {UP, DOWN, LEFT, RIGHT, PUNCH, KICK};
+enum input {p1UP, p1DOWN, p1LEFT, p1RIGHT, p1PUNCH, p1KICK,
+            p2UP, p2DOWN, p2LEFT, p2RIGHT, p2PUNCH, p2KICK
+};
 
 unsigned char key[ALLEGRO_KEY_MAX];
 
