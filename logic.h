@@ -7,7 +7,7 @@
 
 bool boxes_collide(box_t A, box_t B);
 
-void choose_animation(player* p);
+void choose_animation(player* p, player* other_p);
 
 int speed_for_animation(player* p, player* other_p);
 

@@ -15,7 +15,7 @@ bool boxes_collide(box_t A, box_t B)
     return true;
 }
 
-void choose_animation(player* p)
+void choose_animation(player* p, player* other_p)
 // according to input/game state, decide which animation the player will perform
 {
     // first of all, check for KO:
@@ -105,7 +105,8 @@ void choose_animation(player* p)
     {
         if ((p->animation_frame == active_frames[p->current_animation].end)) // cancel only in the last active frame
         {
-            if (p->wanted_animation == dash_punch)
+            if ((p->wanted_animation == dash_punch) && // only cancel if move didnt whiff
+                (is_blocking(other_p->current_animation) || is_hitstun(other_p->current_animation)))
             {
                 p->current_animation = dash_punch;
                 p->animation_frame = 0;

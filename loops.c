@@ -155,8 +155,8 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 // force idle animation 
                 p1.wanted_animation = idle;
                 p2.wanted_animation = idle;
-                choose_animation(&p1); 
-                choose_animation(&p2);
+                choose_animation(&p1, &p2); 
+                choose_animation(&p2, &p1);
 
                 // for p1
                 p1.animation_sprite_id = sprite_for_frame(p1.current_animation, p1.animation_frame);
@@ -227,8 +227,8 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 if (check_ko(&p1, &p2))
                     play_sound(sounds, KO);
 
-                choose_animation(&p1); // according to input AND game state
-                choose_animation(&p2);
+                choose_animation(&p1, &p2); // according to input AND game state
+                choose_animation(&p2, &p1);
 
                 // check for movement
                 check_movement(&p1, &p2);
