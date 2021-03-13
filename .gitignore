@@ -5,3 +5,4 @@ old_main*
 old_animation/
 *.o
 .vscode
+highscore.txt
