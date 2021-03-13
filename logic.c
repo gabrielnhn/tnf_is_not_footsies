@@ -137,9 +137,9 @@ void choose_animation(player* p)
     }
 }
 
-int speed_for_animation(enum animation a)
+int speed_for_animation(player* p, player* other_p)
 {
-    switch (a)
+    switch (p->current_animation)
     {
     case walk_forward:
         return SPEED;
@@ -166,7 +166,15 @@ int speed_for_animation(enum animation a)
         return -2*SPEED/3;
 
     case crLP:
-        return -SPEED/2;
+        // pushback only on block/on hit
+        if ((p->is_player1 && // P1 hit P2
+            (is_blocking(other_p->current_animation) || is_hitstun(other_p->current_animation))) ||
+            (!p->is_player1 && // P2 hit P1 
+            (is_blocking(other_p->current_animation) || is_hitstun(other_p->current_animation))))
+            
+            return -SPEED/2;
+        else
+            return 0;
 
     default:
         return 0;
@@ -178,47 +186,47 @@ void check_movement(player* p1, player* p2)
     // p1:
     if (p1->paused_frames == 0)
     {
-        if (speed_for_animation(p1->current_animation) > 0)
+        if (speed_for_animation(p1, p2) > 0)
         {
             if (!boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)) && (p1->x < SCR_MAX))
-                p1->x += speed_for_animation(p1->current_animation);
+                p1->x += speed_for_animation(p1, p2);
 
             else if (boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)))
             {
                 if (p2->x < SCR_MAX) // drag the other player along
                 {
-                    p1->x += speed_for_animation(p1->current_animation)/2;
-                    p2->x += speed_for_animation(p1->current_animation)/2;
+                    p1->x += speed_for_animation(p1, p2)/2;
+                    p2->x += speed_for_animation(p1, p2)/2;
                 }
             }
         }
         else
         {
             if (p1->x > SCR_MIN)
-                p1->x += speed_for_animation(p1->current_animation);
+                p1->x += speed_for_animation(p1, p2);
         }
     }
     // for p2
     if (p2->paused_frames == 0)
     {
-        if (speed_for_animation(p2->current_animation) > 0)
+        if (speed_for_animation(p2, p1) > 0)
         {
             if (!boxes_collide(default_hurtbox_for_p(p2), default_hurtbox_for_p(p1)) && (p2->x > SCR_MIN))
-                p2->x -= speed_for_animation(p2->current_animation);
+                p2->x -= speed_for_animation(p2, p1);
 
             else if (boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)))
             {
                 if (p1->x > SCR_MIN) // drag the other player along
                 {
-                    p1->x -= speed_for_animation(p2->current_animation)/2;
-                    p2->x -= speed_for_animation(p2->current_animation)/2;
+                    p1->x -= speed_for_animation(p2, p1)/2;
+                    p2->x -= speed_for_animation(p2, p1)/2;
                 }
             }
         }
         else
         {
             if (p2->x < SCR_MAX)
-                p2->x -= speed_for_animation(p2->current_animation);
+                p2->x -= speed_for_animation(p2, p1);
         }
     }
 }

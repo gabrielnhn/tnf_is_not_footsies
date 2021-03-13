@@ -9,7 +9,7 @@ bool boxes_collide(box_t A, box_t B);
 
 void choose_animation(player* p);
 
-int speed_for_animation(enum animation a);
+int speed_for_animation(player* p, player* other_p);
 
 void check_movement(player* p1, player* p2);
 
