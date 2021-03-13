@@ -7,18 +7,19 @@ void autoplayer_setup()
     srand((unsigned) time(&t));
 }
 
-int autoplayer_count;
+// int autoplayer_count;
 
 void get_autoplayer_input(player* p1, player* p2)
 {
     // strat1: literally random
-    // p2->wanted_animation = rand() % 10;
-    autoplayer_count++;
-    // testing whether overhead is punishable:
-    if (autoplayer_count % 4 == 0)
-        p2->wanted_animation = dash_punch;
-    else
-        p2->wanted_animation = crMK;
+    p2->wanted_animation = rand() % 10;
+    
+    // testing whether crMK comboes into dash_punch:
+    // autoplayer_count++;
+    // if (autoplayer_count % 4 == 0)
+    //     p2->wanted_animation = dash_punch;
+    // else
+    //     p2->wanted_animation = crMK;
     
     return;
 }
