@@ -93,8 +93,13 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
             if (clock_tick){
                 // update idle animation
-                p1.animation_frame++;
+                p1.animation_frame++; // update animation frame
                 p2.animation_frame++;
+                // just so when the game starts, old input is considered
+                check_input(&p1, &p2, event, frame_count, option);
+                // force idle animation 
+                p1.wanted_animation = idle;
+                p2.wanted_animation = idle;
                 choose_animation(&p1); 
                 choose_animation(&p2);
 
@@ -106,15 +111,12 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
                 p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
-                if (round_number == 1){
+                if (round_number == 1)
                     message = "Round 1";
-                }
-                else if (round_number == 2){
+                else if (round_number == 2)
                     message = "Round 2";
-                }
-                else {
+                else
                     message = "Final Round";
-                }
                 draw_match(stage, &p1, &p2, message);
             }
         }
