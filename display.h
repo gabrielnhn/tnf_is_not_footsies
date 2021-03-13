@@ -29,7 +29,7 @@ void draw_match(ALLEGRO_BITMAP *stage, player *player1, player *player2, char co
 
 void draw_main_menu(int option);
 
-void draw_level_menu(int level);
+void draw_level_menu(int level, int* seconds_on_each);
 
 void draw_help_menu();
 

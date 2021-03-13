@@ -142,7 +142,7 @@ void draw_main_menu(int option)
     al_flip_display();
 }
 
-void draw_level_menu(int level)
+void draw_level_menu(int level, int* seconds_on_each)
 {
     // clear display
     al_clear_to_color(al_map_rgb_f(0, 0.7, 0.7));
@@ -166,6 +166,13 @@ void draw_level_menu(int level)
     al_draw_rectangle(BORDER + (level-1)*WIDTH/LEVELS_N - MENU_RECT_BORDER - text_width/2, HEIGHT/2 - MENU_RECT_BORDER,
                         BORDER + (level-1)*WIDTH/LEVELS_N + text_width/2 + MENU_RECT_BORDER, HEIGHT/2 + text_height + MENU_RECT_BORDER,
                         al_map_rgb_f(0, 1, 0), 3);
+    
+    if (seconds_on_each[level - 1] != -1)
+        sprintf(str, "Highscore for %d: %dsec", level, seconds_on_each[level - 1]);
+    else
+        sprintf(str, "Highscore for %d: Null", level);
+
+    al_draw_text(font, al_map_rgb_f(1, 0, 0), WIDTH/2, HEIGHT/2 + text_height*4, ALLEGRO_ALIGN_CENTER, str);
 
     // Print the new display
     al_flip_display();

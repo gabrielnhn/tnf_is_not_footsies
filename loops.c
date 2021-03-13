@@ -51,6 +51,9 @@ int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMP
 
 int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
 {
+    int seconds_on_each_level[LEVELS_N];
+    get_highscores(seconds_on_each_level);
+
     bool menu_done = false;
     int input;
     int level = 1;
@@ -61,7 +64,7 @@ int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAM
         switch (event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            draw_level_menu(level);
+            draw_level_menu(level, seconds_on_each_level);
             break;
 
         case ALLEGRO_EVENT_KEY_DOWN: // key pressed
