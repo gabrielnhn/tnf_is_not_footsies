@@ -176,8 +176,8 @@ void update_boxes(player* p1, player* p2)
     }
     if (is_attack(p2->current_animation) &&// move is an attack
         (inrange(p2->animation_frame,
-        active_frames[p2->current_animation].start,
-        active_frames[p2->current_animation].end))) // and it is during its active frames
+                 active_frames[p2->current_animation].start,
+                 active_frames[p2->current_animation].end))) // and it is during its active frames
     {
         if (p2->animation_frame == active_frames[p2->current_animation].start)
         {
@@ -201,10 +201,10 @@ void update_boxes(player* p1, player* p2)
     }
     if (is_attack(p2->current_animation))
     {
-        p2->hitbox.x = (p2->main_hurtbox.x) - hitboxes[p2->current_animation].x - hitboxes[p2->current_animation].width + 5;
-        p2->hitbox.width = hitboxes[p2->current_animation].width;
-        p2->hitbox.y = p2->main_hurtbox.y;
-        p2->hitbox.height = p2->main_hurtbox.height;
+        p2->move_hurtbox.x = (p2->main_hurtbox.x) - hitboxes[p2->current_animation].x - hitboxes[p2->current_animation].width + 5;
+        p2->move_hurtbox.width = hitboxes[p2->current_animation].width;
+        p2->move_hurtbox.y = p2->main_hurtbox.y;
+        p2->move_hurtbox.height = p2->main_hurtbox.height;
     }
     else
     {

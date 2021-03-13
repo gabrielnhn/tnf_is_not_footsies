@@ -6,6 +6,7 @@
 #include "player.h"
 
 #define LEVELS_N 6
+#define AUTOP_INTERVAL 40
 
 void autoplayer_setup();
 

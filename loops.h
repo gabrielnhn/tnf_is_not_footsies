@@ -16,6 +16,7 @@
 
 #define IS_CPU 1
 #define IS_PLAYER2 2
+#define QUIT 3
 
 #define ROUND_START_TIMER 100 // amount of frames until round is declared over
 #define ROUND_END_TIMER 200 // amount of frames until round is declared over

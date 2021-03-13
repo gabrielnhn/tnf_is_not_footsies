@@ -18,7 +18,13 @@ int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMP
         case ALLEGRO_EVENT_KEY_DOWN: // key pressed
             input = event.keyboard.keycode;
 
-            if (input == ALLEGRO_KEY_ENTER)
+            if (input == ALLEGRO_KEY_Q)
+            {
+                menu_done = true;
+                p2_option = QUIT;
+            }
+
+            else if (input == ALLEGRO_KEY_ENTER)
                 menu_done = true;
             else if (input == ALLEGRO_KEY_A)
                 p2_option = IS_CPU;

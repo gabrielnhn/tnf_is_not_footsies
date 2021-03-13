@@ -17,7 +17,7 @@
 #define SCR_MAX 245
 
 #define MENU_RECT_BORDER 10
-#define BORDER 50
+#define BORDER 35
 
 ALLEGRO_DISPLAY *create_display();
 
