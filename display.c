@@ -92,7 +92,7 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char co
         al_draw_text(font, al_map_rgb_f(1, 0, 0), WIDTH/2, HEIGHT/5, ALLEGRO_ALIGN_CENTER, message);
     }
 
-    // draw_boxes(player1, player2);
+    draw_boxes(player1, player2);
 
     // Print this new display
     // printf("flip\n");

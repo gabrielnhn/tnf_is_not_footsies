@@ -25,13 +25,13 @@ void attacks_setup()
             active_frames[i] = (range_t){4 * INTERVAL, 6 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 85, 0};
             on_block_advantage[i] = -1;
-            on_hit_advantage[i] = +1;
+            on_hit_advantage[i] = +5; // 13
             damage[i] = 20;
             break;
 
         case dash_punch:
             // active_frames[i] = (range_t){7 * INTERVAL, 9 * INTERVAL};
-            active_frames[i] = (range_t){3 * INTERVAL, 9 * INTERVAL};
+            active_frames[i] = (range_t){2 * INTERVAL, 9 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 60, 0};
             on_block_advantage[i] = -16;
             on_hit_advantage[i] = 14;
@@ -233,7 +233,7 @@ int check_hitboxes(player* p1, player* p2)
     // set flags
     if (p1_was_hit)
     {
-        if (p1->is_blocking)
+        if (p1->is_blocking && (is_neutral(p1->current_animation) || is_blocking(p1->current_animation)))
         {
             p1_blocked = true;
 
@@ -256,7 +256,7 @@ int check_hitboxes(player* p1, player* p2)
 
     if (p2_was_hit)
     {
-        if (p2->is_blocking)
+        if (p2->is_blocking && (is_neutral(p2->current_animation) || is_blocking(p2->current_animation)))
         {
             p2_blocked = true;
 

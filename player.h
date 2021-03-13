@@ -53,6 +53,10 @@ typedef struct
 
 void init_players(player* p1, player* p2);
 
+bool is_blocking(enum animation a);
+
+bool is_hitstun(enum animation a);
+
 bool is_neutral(enum animation a);
 
 bool is_standing(player* p);

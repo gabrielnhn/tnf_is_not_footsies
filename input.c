@@ -94,18 +94,21 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count, i
             else if (key[ALLEGRO_KEY_A])
             {
                 p1->is_blocking = true;
-                // if (p1->wanted_animation != crouching) // do not walk if crouching
                 p1->wanted_animation = walk_backwards;
             }
             else if (key[ALLEGRO_KEY_D])
             {
-                if (p1->wanted_animation != crouching) // do not walk if crouching
+                if (p1->wanted_animation != crouching)
                     p1->wanted_animation = walk_forward;
             }
 
             if(p2_input_method == IS_CPU)
                 get_autoplayer_input(p1, p2);
-
+            else
+            {
+                p2->wanted_animation = walk_backwards;
+                p2->is_blocking = true;
+            }
 
             // Needed to keep the input system working
 

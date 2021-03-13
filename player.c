@@ -51,6 +51,32 @@ bool is_neutral(enum animation a)
     }
 }
 
+bool is_blocking(enum animation a)
+{
+    switch (a)
+    {
+    case block_high:
+    case block_low:
+        return true;
+    
+    default:
+        return false;
+    }
+}
+
+bool is_hitstun(enum animation a)
+{
+    switch (a)
+    {
+    case high_hitstun:
+    case low_hitstun:
+        return true;
+    
+    default:
+        return false;
+    }
+}
+
 bool is_standing(player* p)
 {
     switch (p->current_animation)
