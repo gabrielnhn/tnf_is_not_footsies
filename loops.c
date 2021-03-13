@@ -106,7 +106,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
         init_players(&p1, &p2);
         bool round_over = false;
         
-        // time before round starts
+        // time before round starts: //
         int start = frame_count;
         if (round_number == 1)
             play_sound(sounds, round1);
@@ -136,7 +136,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 p1.animation_frame++; // update animation frame
                 p2.animation_frame++;
                 // just so when the game starts, old input is considered
-                check_input(&p1, &p2, event, frame_count, p2_option);
+                check_input(&p1, &p2, event, frame_count, p2_option, cpu_level);
                 // force idle animation 
                 p1.wanted_animation = idle;
                 p2.wanted_animation = idle;
@@ -160,7 +160,9 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 draw_match(stage, &p1, &p2, message);
             }
         }
+        // Real match: //
         play_sound(sounds, fight);
+
         while(!round_over)
         {
             // HANDLE INPUT //
@@ -177,7 +179,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 clock_tick = true;
 
             default:
-                check_input(&p1, &p2, event, frame_count, p2_option);
+                check_input(&p1, &p2, event, frame_count, p2_option, cpu_level);
                 break;
             }
 

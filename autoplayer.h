@@ -9,6 +9,6 @@
 
 void autoplayer_setup();
 
-void get_autoplayer_input(player* p1, player* p2);
+void get_autoplayer_input(player* p1, player* p2, int cpu_level);
 
 #endif

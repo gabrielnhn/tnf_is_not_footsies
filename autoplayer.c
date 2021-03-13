@@ -9,7 +9,7 @@ void autoplayer_setup()
 
 int autoplayer_count;
 
-void get_autoplayer_input(player* p1, player* p2)
+void get_autoplayer_input(player* p1, player* p2, int cpu_level)
 {
     // strat1: literally random
     p2->wanted_animation = rand() % 10;
