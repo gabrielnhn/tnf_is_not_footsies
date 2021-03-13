@@ -34,6 +34,7 @@ typedef struct
     bool is_standing;
     bool is_inputting_block;
     bool is_KOd;
+    bool is_godmode;
     int rounds_won;
 
     box_t main_hurtbox;

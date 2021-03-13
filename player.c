@@ -31,6 +31,9 @@ void init_players(player* p1, player* p2)
     p1->is_KOd = false;
     p2->is_KOd = false;
 
+    p1->is_godmode = false;
+    p2->is_godmode = false;
+
     update_boxes(p1, p2);
 
 }

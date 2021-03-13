@@ -28,6 +28,10 @@ void choose_animation(player* p, player* other_p)
 
     bool can_move = false;
     
+    if (p->wanted_animation == geneijin)
+        can_move = true;
+
+
     if (p->animation_frame >= frames_on_each_animation[p->current_animation])
     // just finished a move
     {

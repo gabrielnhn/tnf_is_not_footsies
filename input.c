@@ -31,8 +31,23 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count,
             p2->is_inputting_block = false; 
 
             // FOR PLAYER 1 // 
+
+            // check for godmode
+            if ((p1->buffer_length > 4) &&
+                (p1->input_buffer[p1->buffer_length - 1] == p1PUNCH) && // just pressed PUNCH
+                (p1->input_buffer[p1->buffer_length - 2] == p1KICK) && // just pressed KICK
+                (p1->input_buffer[p1->buffer_length - 3] == p1RIGHT) && // was pressing forward
+                (p1->input_buffer[p1->buffer_length - 4] == p1PUNCH) && // just pressed PUNCH
+                (p1->input_buffer[p1->buffer_length - 5] == p1PUNCH))// just pressed PUNCH
+
+            {
+                // 👊+👊+→+👟+👊
+                p1->wanted_animation = geneijin;
+                p1->is_godmode = true;
+            }
+
             // check for dash punch
-            if ((p1->buffer_length > 2) &&
+            else if ((p1->buffer_length > 2) &&
                 (p1->input_buffer[p1->buffer_length - 1] == p1PUNCH) && // just pressed PUNCH
                 (p1->input_buffer[p1->buffer_length - 2] == p1RIGHT) && // was pressing forward
                 ((p1->input_buffer[p1->buffer_length - 3] == p1DOWN) || !p1->is_standing)) // pressed DOWN a short time ago
@@ -110,7 +125,21 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count,
 
             else // p2 == PLAYER2
             {
-                if ((p2->buffer_length > 2) &&
+                // check for godmode
+                if ((p2->buffer_length > 4) &&
+                    (p2->input_buffer[p2->buffer_length - 1] == p2PUNCH) && // just pressed PUNCH
+                    (p2->input_buffer[p2->buffer_length - 2] == p2KICK) && // just pressed KICK
+                    (p2->input_buffer[p2->buffer_length - 3] == p2LEFT) && // was pressing forward
+                    (p2->input_buffer[p2->buffer_length - 4] == p2PUNCH) && // just pressed PUNCH
+                    (p2->input_buffer[p2->buffer_length - 5] == p2PUNCH))// just pressed PUNCH
+
+                {
+                    // 👊+👊+→+👟+👊
+                    p2->wanted_animation = geneijin;
+                    p2->is_godmode = true;
+                }
+                // check for dash punch
+                else if ((p2->buffer_length > 2) &&
                     (p2->input_buffer[p2->buffer_length - 1] == p2PUNCH) && // just pressed PUNCH
                     (p2->input_buffer[p2->buffer_length - 2] == p2LEFT) && // was pressing forward
                     ((p2->input_buffer[p2->buffer_length - 3] == p2DOWN) || !p2->is_standing)) // pressed DOWN a short time ago

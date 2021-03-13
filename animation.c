@@ -52,6 +52,9 @@ char *animation_enum_to_folder(enum animation a)
     case rise:
         return "resources/animation/16-rise/";
 
+    case geneijin:
+        return "resources/animation/17-geneijin/";
+
     default:
         fprintf(stderr, "No such animation %d\n", a);
         exit(1);
@@ -149,6 +152,7 @@ void animation_setup()
     frames_on_each_animation[high_hitstun] = 5 * INTERVAL;
     frames_on_each_animation[low_hitstun] = 7 * INTERVAL;
     frames_on_each_animation[rise] = 9 * INTERVAL;
+    frames_on_each_animation[geneijin] = 21 * INTERVAL;
 }
 
 int sprite_for_frame(enum animation a, int frame)

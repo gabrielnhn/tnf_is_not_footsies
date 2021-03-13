@@ -280,8 +280,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 }
 
                 clock_tick = false;
-                frame_count++;   
-
+                frame_count++;
             }
         }
         round_number += 1;

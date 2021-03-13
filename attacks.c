@@ -79,6 +79,7 @@ bool has_hurtbox(enum animation a)
     // case block_low:
     // case block_high:
     //     return false;
+    case geneijin:
     case fall:
         return false;
     
@@ -223,11 +224,11 @@ int check_hitboxes(player* p1, player* p2)
     bool p2_blocked = false;
 
     if ((boxes_collide(p1->hitbox, p2->main_hurtbox) ||
-        boxes_collide(p1->hitbox, p2->move_hurtbox)) && p1->hitbox_is_active)
+        boxes_collide(p1->hitbox, p2->move_hurtbox)) && p1->hitbox_is_active && !p2->is_godmode)
         p2_was_hit = true;
 
     if ((boxes_collide(p2->hitbox, p1->main_hurtbox) ||
-        boxes_collide(p2->hitbox, p1->move_hurtbox)) && p2->hitbox_is_active)
+        boxes_collide(p2->hitbox, p1->move_hurtbox)) && p2->hitbox_is_active && !p1->is_godmode)
         p1_was_hit = true;
     
     // set flags

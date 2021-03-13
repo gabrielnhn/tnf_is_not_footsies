@@ -3,8 +3,6 @@
 ALLEGRO_DISPLAY* create_display()
 {
     // Display settings
-    al_set_new_display_flags(ALLEGRO_RESIZABLE);
-    al_get_new_display_flags();
     ALLEGRO_DISPLAY* disp = al_create_display(WIDTH*SCALE, HEIGHT*SCALE);
 
     ALLEGRO_TRANSFORM trans;
