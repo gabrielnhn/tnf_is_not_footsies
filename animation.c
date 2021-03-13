@@ -143,7 +143,8 @@ void animation_setup()
     frames_on_each_animation[overhead] = 14 * INTERVAL;
     // frames_on_each_animation[block_high] = 11 * INTERVAL;
     frames_on_each_animation[block_high] = 5 * INTERVAL;
-    frames_on_each_animation[block_low] =  11 * INTERVAL;
+    // frames_on_each_animation[block_low] =  11 * INTERVAL;
+    frames_on_each_animation[block_low] = 5 * INTERVAL;
     frames_on_each_animation[fall] = 19 * INTERVAL;
     frames_on_each_animation[high_hitstun] = 5 * INTERVAL;
     frames_on_each_animation[low_hitstun] = 7 * INTERVAL;
