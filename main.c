@@ -66,11 +66,14 @@ int main()
     {
         p2_option = main_menu_loop(event, queue, sounds);
 
+        if (p2_option == HELP)
+            help_menu_loop(event, queue, sounds);
+
         int cpu_level = 0;
         if (p2_option == IS_CPU)
             cpu_level = level_menu_loop(event, queue, sounds);
 
-        if (p2_option != QUIT)
+        if (p2_option == IS_CPU || p2_option == IS_PLAYER2)
             match_loop(event, queue, animations, stage, sounds, p2_option, cpu_level);
     }
 

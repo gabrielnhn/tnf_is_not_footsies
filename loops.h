@@ -17,6 +17,7 @@
 #define IS_CPU 1
 #define IS_PLAYER2 2
 #define QUIT 3
+#define HELP 4
 
 #define ROUND_START_TIMER 100 // amount of frames until round is declared over
 #define ROUND_END_TIMER 200 // amount of frames until round is declared over
@@ -28,5 +29,8 @@ int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAM
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
                 ALLEGRO_SAMPLE** sounds, int p2_option, int cpu_level);
+
+void help_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds);
+
 
 #endif

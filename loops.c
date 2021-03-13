@@ -23,6 +23,11 @@ int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMP
                 menu_done = true;
                 p2_option = QUIT;
             }
+            else if (input == ALLEGRO_KEY_H)
+            {
+                menu_done = true;
+                p2_option = HELP;
+            }
 
             else if (input == ALLEGRO_KEY_ENTER)
                 menu_done = true;
@@ -283,4 +288,34 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             match_over = true;
 
     }
+}
+
+void help_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
+{
+    bool menu_done = false;
+    int input;
+    while(!menu_done)
+    {
+        al_wait_for_event(queue, &event);
+
+        switch (event.type)
+        {
+        case ALLEGRO_EVENT_TIMER:
+            draw_help_menu();
+            break;
+
+        case ALLEGRO_EVENT_KEY_DOWN: // key pressed
+            input = event.keyboard.keycode;
+
+            if (input == ALLEGRO_KEY_ENTER)
+                menu_done = true;
+            break;
+
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            menu_done = true;
+            break;
+        }
+    }
+    // super important, SEGFAULT otherwise:
+    al_flush_event_queue(queue);
 }

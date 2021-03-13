@@ -170,3 +170,35 @@ void draw_level_menu(int level)
     // Print the new display
     al_flip_display();
 }
+
+void draw_help_menu()
+{
+    // clear display
+    al_clear_to_color(al_map_rgb_f(0, 0.7, 0.7));
+    
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 1*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"P1 Inputs:");
+    al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 2*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Left: A");
+    al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 3*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Down: S");
+    al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 4*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Right: D");
+    al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 5*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Punch: B");
+    al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 6*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Kick: V");
+
+
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 1*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"P2 Inputs:");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 2*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Left: LeftKey");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 3*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Down: DownKey");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 4*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Right: RightKey");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 5*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Punch: Comma(,)");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 6*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Kick: FullStop(.)");
+
+
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 7*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Read the README file for more information!");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 8*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Author: Gabriel Nascarella Hishida");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 9*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"(Press Enter to quit help menu)");
+
+
+
+    // Print the new display
+    al_flip_display();
+}

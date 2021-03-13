@@ -31,4 +31,6 @@ void draw_main_menu(int option);
 
 void draw_level_menu(int level);
 
+void draw_help_menu();
+
 #endif
