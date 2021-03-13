@@ -13,6 +13,7 @@
 #include "logic.h"
 #include "autoplayer.h"
 #include "sounds.h"
+#include "score.h"
 
 #define IS_CPU 1
 #define IS_PLAYER2 2
@@ -26,7 +27,7 @@ int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMP
 
 int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds);
 
-void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
+long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
                 ALLEGRO_SAMPLE** sounds, int p2_option, int cpu_level);
 

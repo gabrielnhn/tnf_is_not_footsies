@@ -61,6 +61,7 @@ int main()
     al_start_timer(timer);
 
     // GAME/MENU:
+    long frame_count;
     int p2_option = 0;
     while (p2_option != QUIT)
     {
@@ -74,7 +75,10 @@ int main()
             cpu_level = level_menu_loop(event, queue, sounds);
 
         if (p2_option == IS_CPU || p2_option == IS_PLAYER2)
-            match_loop(event, queue, animations, stage, sounds, p2_option, cpu_level);
+            frame_count = match_loop(event, queue, animations, stage, sounds, p2_option, cpu_level);
+        
+        if (p2_option == IS_CPU)
+            check_for_highscore(cpu_level, frame_count);
     }
 
     // Game over, destroy everything we made

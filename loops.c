@@ -89,7 +89,7 @@ int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAM
     return level;
 }
 
-void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
+long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
                 ALLEGRO_SAMPLE** sounds, int p2_option, int cpu_level)
 {
@@ -288,6 +288,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             match_over = true;
 
     }
+    return frame_count;
 }
 
 void help_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
