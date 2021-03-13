@@ -167,6 +167,7 @@ int speed_for_animation(player* p, player* other_p)
         return -2*SPEED/3;
 
     case crLP:
+    case crMK:
         // pushback only on block/on hit
         if ((p->is_player1 && // P1 hit P2
             (is_blocking(other_p->current_animation) || is_hitstun(other_p->current_animation))) ||

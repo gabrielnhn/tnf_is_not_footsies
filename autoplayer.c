@@ -26,8 +26,10 @@ void get_autoplayer_input(player* p1, player* p2, int cpu_level)
         break;
 
     case 3:
-        // spammer
+        // spammer (hit-confirm)
         p2->wanted_animation = crMK;
+        if (is_hitstun(p1->current_animation))
+            p2->wanted_animation = dash_punch;
         break;
 
     case 4:
