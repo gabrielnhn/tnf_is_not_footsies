@@ -355,11 +355,23 @@ int check_hitboxes(player* p1, player* p2)
         p1->animation_frame++;
     }
 
-    // retval:
-    if  (p1_was_hit)
-        return 1;
-    else if (p2_was_hit)
-        return 2;
+    // retval: the sound to be played
+    if  (p1_was_hit && !p1_blocked)
+    {
+        if (p2->current_animation == dash_punch)
+            return medium_hit;
+        else
+            return light_hit;
+    }
+    else if (p2_was_hit && !p2_blocked)
+    {
+        if (p1->current_animation == dash_punch)
+            return medium_hit;
+        else
+            return light_hit;
+    }
+    else if (p1_was_hit || p2_was_hit)
+        return block;
     else
-        return 0;
+        return WHIFF;
 }

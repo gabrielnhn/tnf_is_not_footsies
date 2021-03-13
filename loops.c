@@ -161,8 +161,9 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 }
                 update_boxes(&p1, &p2); // according to both players' position
 
-
-                check_hitboxes(&p1, &p2);
+                int hitbox_retval = check_hitboxes(&p1, &p2);
+                if (hitbox_retval != WHIFF)
+                    play_sound(sounds, hitbox_retval);
 
                 if (check_ko(&p1, &p2))
                     play_sound(sounds, KO);

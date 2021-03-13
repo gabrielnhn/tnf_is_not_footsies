@@ -14,6 +14,8 @@ typedef struct
 
 #define DEFAULT_STUN 6
 
+#define WHIFF -1
+
 extern range_t active_frames[ANIMATIONS_N];
 extern box_t hitboxes[ANIMATIONS_N];
 extern int on_block_advantage[ANIMATIONS_N];
