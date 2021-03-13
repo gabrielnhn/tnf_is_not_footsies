@@ -258,7 +258,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
                 if (p1.is_KOd)
                 {
-                    if(p1.animation_sprite_id == 9) // when player hits the ground
+                    if(p1.animation_frame == 9 * INTERVAL) // when player hits the ground
                         play_sound(sounds, fall_sound);
                     
                     else if(p1.animation_frame > ROUND_END_TIMER)
@@ -269,7 +269,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 }
                 if (p2.is_KOd) 
                 {
-                    if (p2.animation_sprite_id == 9) // when player hits the ground
+                    if (p2.animation_frame == 9 * INTERVAL) // when player hits the ground
                         play_sound(sounds, fall_sound);
 
                     if (p2.animation_frame > ROUND_END_TIMER)
