@@ -95,8 +95,7 @@ void choose_animation(player* p)
         }
     }
      // force block/stun animation
-    else if (p->wanted_animation == high_hitstun || p->wanted_animation == low_hitstun ||
-             p->wanted_animation == block_low || p->wanted_animation == block_low)
+    else if (is_hitstun(p->wanted_animation) || is_blocking(p->wanted_animation))
     {
         p->current_animation = p->wanted_animation;
         if (p->current_animation != p->wanted_animation)
@@ -114,18 +113,16 @@ void choose_animation(player* p)
         }
     }
    
-
     if (p->is_neutral)
         p->is_neutral = true;
 
-    // if (p->current_animation == idle)
-    //     p->is_standing = true;
     if(is_standing(p))
         p->is_standing = true;
 
     // this is important so when doing command moves (such as crMK and crLP)
     // the move won't repeat itself
-    if ((is_attack(p->current_animation) || (p->current_animation == low_hitstun) || p->current_animation == block_low) && (p->current_animation == p->wanted_animation))
+    if ((is_attack(p->current_animation) || (p->current_animation == low_hitstun) ||
+         p->current_animation == block_low) && (p->current_animation == p->wanted_animation))
     {
         if (p->is_standing){
             p->wanted_animation = idle;
