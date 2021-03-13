@@ -113,8 +113,8 @@ void draw_main_menu(int option)
                 "(Press 'ENTER' to select)");
 
 
-    al_draw_text(font, al_map_rgb_f(1, 0, 0), 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, "VERSUS CPU");
-    al_draw_text(font, al_map_rgb_f(1, 0, 0), WIDTH - 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, "VERSUS P2");
+    al_draw_text(font, al_map_rgb_f(1, 1, 1), 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, "VERSUS CPU");
+    al_draw_text(font, al_map_rgb_f(1, 1, 1), WIDTH - 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, "VERSUS P2");
 
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 7*HEIGHT/9, ALLEGRO_ALIGN_CENTER, "(Press 'h' for help)");
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 8*HEIGHT/9, ALLEGRO_ALIGN_CENTER, "(Press 'q' to quit)");
@@ -147,17 +147,15 @@ void draw_level_menu(int level)
     // clear display
     al_clear_to_color(al_map_rgb_f(0, 0.7, 0.7));
     
-    // void al_draw_text(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags,
-    //                   char const *text)
-
-    // draw level option
-    char str[STR_MAX];
-
     ALLEGRO_FONT* font = al_create_builtin_font();
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 2*HEIGHT/9, ALLEGRO_ALIGN_CENTER,
+                "CPU Level:");
+
+    char str[STR_MAX];
     for(int i = 1; i <= LEVELS_N; i++)
     {
         sprintf(str, "%d", i);
-        al_draw_text(font, al_map_rgb_f(0, 0, 1), BORDER + (i-1)*WIDTH/LEVELS_N, HEIGHT/2, ALLEGRO_ALIGN_CENTER, str);
+        al_draw_text(font, al_map_rgb_f(1, 1, 1), BORDER + (i-1)*WIDTH/LEVELS_N, HEIGHT/2, ALLEGRO_ALIGN_CENTER, str);
     }
 
     // draw selection rectangle

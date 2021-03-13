@@ -33,9 +33,10 @@ int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMP
 
             break;
 
-        case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            abort();
-            break;
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                menu_done = true;
+                p2_option = QUIT;
+                break;
         }
     }
     // super important, SEGFAULT otherwise:
