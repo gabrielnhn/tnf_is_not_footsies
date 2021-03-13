@@ -275,10 +275,6 @@ int check_hitboxes(player* p1, player* p2)
         {
             p2_blocked = false;
         }
-        if(!p2_blocked)
-        {
-            p2->health -= damage[p1->current_animation];
-        }
     }
 
     // handle flags
@@ -286,9 +282,10 @@ int check_hitboxes(player* p1, player* p2)
     {
         if (!p1_blocked)
         {
+            p1->health -= damage[p2->current_animation];
             p1->paused_frames = DEFAULT_STUN + on_hit_advantage[p2->current_animation];
             p2->paused_frames = DEFAULT_STUN - on_hit_advantage[p2->current_animation];
-
+            
             if (p1->is_standing)
             {
                 p1->wanted_animation = high_hitstun;
@@ -298,10 +295,6 @@ int check_hitboxes(player* p1, player* p2)
             {
                 p1->wanted_animation = low_hitstun;
                 p1->animation_frame = 0;
-            }
-            if(!p1_blocked)
-            {
-                p1->health -= damage[p2->current_animation];
             }
         }
         else
@@ -327,6 +320,7 @@ int check_hitboxes(player* p1, player* p2)
     {
         if (!p2_blocked)
         {
+            p2->health -= damage[p1->current_animation];
             p2->paused_frames = DEFAULT_STUN + on_hit_advantage[p1->current_animation];
             p1->paused_frames = DEFAULT_STUN - on_hit_advantage[p1->current_animation];
 

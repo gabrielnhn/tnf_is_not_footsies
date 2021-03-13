@@ -5,6 +5,7 @@
 #include "animation.h"
 #include "player.h"
 #include "logic.h"
+#include "sounds.h"
 
 typedef struct
 {
