@@ -6,51 +6,51 @@ char *animation_enum_to_folder(enum animation a)
     switch (a)
     {
     case idle:
-        return "animation/1-idle/";
+        return "resources/animation/1-idle/";
     case walk_forward:
-        return "animation/2-walk-forward/";
+        return "resources/animation/2-walk-forward/";
 
     case walk_backwards:
-        return "animation/3-walk-backwards/";
+        return "resources/animation/3-walk-backwards/";
 
     case dash:
-        return "animation/4-dash/";
+        return "resources/animation/4-dash/";
 
     case backdash:
-        return "animation/5-backdash/";
+        return "resources/animation/5-backdash/";
 
     case crouching:
-        return "animation/6-crouching/";
+        return "resources/animation/6-crouching/";
 
     case crLP:
-        return "animation/7-crLP/";
+        return "resources/animation/7-crLP/";
 
     case crMK:
-        return "animation/8-crMK/";
+        return "resources/animation/8-crMK/";
 
     case dash_punch:
-        return "animation/9-dash-punch/";
+        return "resources/animation/9-dash-punch/";
 
     case overhead:
-        return "animation/10-overhead/";
+        return "resources/animation/10-overhead/";
 
     case block_high:
-        return "animation/11-block_high/";
+        return "resources/animation/11-block_high/";
 
     case block_low:
-        return "animation/12-block_low/";
+        return "resources/animation/12-block_low/";
 
     case fall:
-        return "animation/13-fall/";
+        return "resources/animation/13-fall/";
 
     case high_hitstun:
-        return "animation/14-high-hitstun/";
+        return "resources/animation/14-high-hitstun/";
 
     case low_hitstun:
-        return "animation/15-low-hitstun/";
+        return "resources/animation/15-low-hitstun/";
 
     case rise:
-        return "animation/16-rise/";
+        return "resources/animation/16-rise/";
 
     default:
         fprintf(stderr, "No such animation %d\n", a);
@@ -77,7 +77,7 @@ ALLEGRO_BITMAP ***load_sprites()
     {
         // open its folder
         animation_d = opendir(animation_enum_to_folder(i));
-        must_init(animation_d, "animation/");
+        must_init(animation_d, "resources/animation/");
         rewinddir(animation_d);
 
         // determine how many sprites there are for the animation

@@ -13,51 +13,51 @@ char *sound_enum_to_file(enum sound a)
     switch (a)
     {
     case block:
-        return "sounds/Block.wav";
+        return "resources/sounds/Block.wav";
     case fall_sound:
-        return "sounds/Fall.wav";
+        return "resources/sounds/Fall.wav";
 
     case fight:
-        return "sounds/Fight!.wav";
+        return "resources/sounds/Fight!.wav";
 
     case final_round:
-        return "sounds/FinalRound.wav";
+        return "resources/sounds/FinalRound.wav";
 
     case good:
-        return "sounds/GoodEffect.wav";
+        return "resources/sounds/GoodEffect.wav";
 
     case hard_hit:
-        return "sounds/HardHit.wav";
+        return "resources/sounds/HardHit.wav";
 
     case KO:
-        return "sounds/KO.wav";
+        return "resources/sounds/KO.wav";
 
     case light_hit:
-        return "sounds/LightHit.wav";
+        return "resources/sounds/LightHit.wav";
 
     case medium_hit:
-        return "sounds/MediumHit.wav";
+        return "resources/sounds/MediumHit.wav";
 
     case options:
-        return "sounds/Options.wav";
+        return "resources/sounds/Options.wav";
 
     case round1:
-        return "sounds/Round1.wav";
+        return "resources/sounds/Round1.wav";
 
     case round2:
-        return "sounds/Round2.wav";
+        return "resources/sounds/Round2.wav";
 
     case versus:
-        return "sounds/Versus.wav";
+        return "resources/sounds/Versus.wav";
 
     case warning:
-        return "sounds/WarningSound.wav";
+        return "resources/sounds/WarningSound.wav";
 
     case you_lose:
-        return "sounds/YouLose.wav";
+        return "resources/sounds/YouLose.wav";
 
     case you_win:
-        return "sounds/YouWin.wav";
+        return "resources/sounds/YouWin.wav";
 
     default:
         fprintf(stderr, "No such sound %d\n", a);
@@ -83,6 +83,7 @@ ALLEGRO_SAMPLE **load_sounds()
     {
         path = sound_enum_to_file(i);
         sounds[i] = al_load_sample(path);
+        must_init(sounds[i], "sound");
     }
     return sounds;
 }

@@ -37,7 +37,7 @@ int main()
     must_init(al_init_image_addon(), "image addon");
 
     // Images:
-    ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage4.png");
+    ALLEGRO_BITMAP* stage = al_load_bitmap("resources/animation/stage4.png");
     must_init(stage, "Stage");
 
     ALLEGRO_BITMAP*** animations; // 2d array of bitmap pointers
@@ -45,7 +45,7 @@ int main()
 
 
     // Music module
-    ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVGuile.opus");
+    ALLEGRO_AUDIO_STREAM* music =  play_music("resources/music/SFVGuile.opus");
     must_init(music, "music");
 
     // Sounds
