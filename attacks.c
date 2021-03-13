@@ -42,7 +42,7 @@ void attacks_setup()
             active_frames[i] = (range_t){9 * INTERVAL, 11 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 50, 0};
             on_block_advantage[i] = -8;
-            on_hit_advantage[i] = +8;
+            on_hit_advantage[i] = -3;
             damage[i] = 25;
             break;
         

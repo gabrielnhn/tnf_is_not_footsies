@@ -3,11 +3,11 @@ cflags= -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegr
  
 all: main
 
-valmain: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o
-	$(CC) -g main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o -o main $(cflags) 
+valmain: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o
+	$(CC) -g main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o -o main $(cflags) 
 
-main: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o
-	$(CC) main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o -o main $(cflags) 
+main: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o
+	$(CC) main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o -o main $(cflags) 
 
 animation.o: animation.c animation.h utils.o
 	$(CC) $(cflags) -c animation.c -o animation.o 
@@ -38,6 +38,9 @@ loops.o: loops.c loops.h
 
 autoplayer.o: autoplayer.c autoplayer.h
 	$(CC) $(cflags) -c autoplayer.c -o autoplayer.o
+
+sounds.o: sounds.c sounds.h
+	$(CC) $(cflags) -c sounds.c -o sounds.o
 
 purge: clean
 	rm -rf main

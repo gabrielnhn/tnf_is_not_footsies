@@ -9,6 +9,7 @@
 #include "input.h"
 #include "logic.h"
 #include "loops.h"
+#include "sounds.h"
 
 int main()
 {
@@ -35,33 +36,39 @@ int main()
     must_init(al_init_primitives_addon(), "primitives addon");
     must_init(al_init_image_addon(), "image addon");
 
-    // Stage image
+    // Images:
     ALLEGRO_BITMAP* stage = al_load_bitmap("animation/stage4.png");
     must_init(stage, "Stage");
 
     ALLEGRO_BITMAP*** animations; // 2d array of bitmap pointers
     animations = load_sprites();
 
-    // Allegro "Events" are interruptions to be handled
-    al_register_event_source(queue, al_get_keyboard_event_source());
-    al_register_event_source(queue, al_get_display_event_source(disp));
-    al_register_event_source(queue, al_get_timer_event_source(timer));
 
     // Music module
     ALLEGRO_AUDIO_STREAM* music =  play_music("music/SFVGuile.opus");
     must_init(music, "music");
 
-    // Initial game setup
+    // Sounds
+    ALLEGRO_SAMPLE** sounds = load_sounds();
+    must_init(sounds, "sounds");
 
+
+    // Allegro "Events" are interruptions to be handled
     ALLEGRO_EVENT event;
+    al_register_event_source(queue, al_get_keyboard_event_source());
+    al_register_event_source(queue, al_get_display_event_source(disp));
+    al_register_event_source(queue, al_get_timer_event_source(timer));
     al_start_timer(timer);
 
-    int option = menu_loop(event, queue);
+    // Initial game setup
+    int option = menu_loop(event, queue, sounds);
 
-    match_loop(event, queue, animations, stage, option);
+    match_loop(event, queue, animations, stage, sounds, option);
 
     // Game over, destroy everything we made
     destroy_music(music);
+
+    destroy_sounds(sounds);
 
     al_destroy_bitmap(stage);
     destroy_sprites(animations);

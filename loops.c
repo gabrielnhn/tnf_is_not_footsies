@@ -1,6 +1,6 @@
 #include "loops.h"
 
-int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
+int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
 {
     bool menu_done = false;
     int input;
@@ -38,7 +38,8 @@ int menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue)
 }
 
 void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
-                ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, int option)
+                ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
+                ALLEGRO_SAMPLE** sounds, int option)
 {
     // Initial setup:
 
@@ -67,6 +68,13 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
         
         // time before round starts
         int start = frame_count;
+        if (round_number == 1)
+            play_sound(sounds, round1);
+        else if  (round_number == 2)
+            play_sound(sounds, round2);
+        else
+            play_sound(sounds, final_round);
+
         while (frame_count < start + ROUND_START_TIMER)
         {
             al_wait_for_event(queue, &event);
@@ -110,7 +118,7 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 draw_match(stage, &p1, &p2, message);
             }
         }
-
+        play_sound(sounds, fight);
         while(!round_over)
         {
             // HANDLE INPUT //
@@ -156,7 +164,8 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
                 check_hitboxes(&p1, &p2);
 
-                check_ko(&p1, &p2);
+                if (check_ko(&p1, &p2))
+                    play_sound(sounds, KO);
 
                 choose_animation(&p1); // according to input AND game state
                 choose_animation(&p2);
@@ -193,15 +202,27 @@ void match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
                 draw_match(stage, &p1, &p2, message);
 
-                if (p1.is_KOd && p1.animation_frame > ROUND_END_TIMER)
+                if (p1.is_KOd)
                 {
-                    round_over = true;
-                    p2.rounds_won += 1;
+                    if(p1.animation_sprite_id == 9) // when player hits the ground
+                        play_sound(sounds, fall_sound);
+                    
+                    else if(p1.animation_frame > ROUND_END_TIMER)
+                    {
+                        round_over = true;
+                        p2.rounds_won += 1;
+                    }
                 }
-                if (p2.is_KOd && p2.animation_frame > ROUND_END_TIMER)
+                if (p2.is_KOd) 
                 {
-                    round_over = true;
-                    p1.rounds_won += 1;
+                    if (p2.animation_sprite_id == 9) // when player hits the ground
+                        play_sound(sounds, fall_sound);
+
+                    if (p2.animation_frame > ROUND_END_TIMER)
+                    {
+                        round_over = true;
+                        p1.rounds_won += 1;
+                    }
                 }
 
                 clock_tick = false;

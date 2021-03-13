@@ -223,7 +223,7 @@ void check_movement(player* p1, player* p2)
     }
 }
 
-void check_ko (player* p1, player* p2)
+int check_ko (player* p1, player* p2)
 {
     if(!(p1->is_KOd || p2->is_KOd))
     // don't check it twice
@@ -240,6 +240,8 @@ void check_ko (player* p1, player* p2)
             p2->animation_frame = 0;
             p2->current_animation = fall;
         }
-        
+        if(p1->is_KOd || p2->is_KOd)
+            return 1;   
     }
+    return 0;
 }
