@@ -229,6 +229,10 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
                 choose_animation(&p1, &p2); // according to input AND game state
                 choose_animation(&p2, &p1);
+                
+                if (((p1.current_animation == geneijin) && (p1.animation_frame == 0)) ||
+                    ((p2.current_animation == geneijin) && (p2.animation_frame == 0)))
+                    play_sound(sounds, good);
 
                 // check for movement
                 check_movement(&p1, &p2);
