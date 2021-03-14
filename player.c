@@ -1,7 +1,7 @@
 #include "player.h"
 
 void init_players(player* p1, player* p2)
-// initial players state
+// initial players state during the match
 {
     p1->x = SCR_MIN + 90;
     p2->x = SCR_MAX - 90;

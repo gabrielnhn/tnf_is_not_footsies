@@ -49,7 +49,7 @@ typedef struct
 #include "display.h"
 #include "logic.h"
 
-#define SPEED 3 // character speed
+#define PLAYER_SPEED 3 // character speed
 #define PLAYER_HEIGHT 70
 
 void init_players(player* p1, player* p2);

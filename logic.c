@@ -1,6 +1,7 @@
 #include "logic.h"
 
 bool boxes_collide(box_t A, box_t B)
+// return true if boxes collide
 {
     if(A.width == -1 || B.width == -1) // illegal boxes
     {
@@ -18,22 +19,19 @@ bool boxes_collide(box_t A, box_t B)
 void choose_animation(player* p, player* other_p)
 // according to input/game state, decide which animation the player will perform
 {
-    // first of all, check for KO:
-    
-    if(p->is_KOd == true)
+    if(p->is_KOd == true) // don't update animation of KOd players
     {
-        // p->animation_frame++;
         return;
     }
 
     bool can_move = false;
     
     if (p->wanted_animation == geneijin)
+        // godmode 
         can_move = true;
 
-
     if (p->animation_frame >= frames_on_each_animation[p->current_animation])
-    // just finished a move
+    // just finished a move, whichever it was
     {
         can_move = true;
         p->animation_frame = 0;
@@ -44,15 +42,14 @@ void choose_animation(player* p, player* other_p)
 
     if (((p->current_animation == crouching) || is_attack(p->last_animation) ||
          (p->current_animation == low_hitstun) || p->current_animation == block_low) && can_move)
+         // some moves need to connect easily with the crouching animation, go directly into it, such as
+         // the moves above.
     {
-
         if (p->wanted_animation == crouching)
-        // continue crouching
         {
-            if (is_attack(p->last_animation) ||
-                (p->last_animation == low_hitstun) || 
-                p->last_animation == block_low)
-            // if recovering from an attack, one should recover back in crouching position, not standing. 
+            if (is_attack(p->last_animation) || (p->last_animation == low_hitstun) || 
+                                                p->last_animation == block_low)
+            // connect it directly
                 p->current_animation = crouching;
 
             p->is_standing = false;
@@ -60,15 +57,15 @@ void choose_animation(player* p, player* other_p)
             if ((p->animation_sprite_id < 5) && !(is_attack(p->last_animation) ||
                                                  (p->last_animation == low_hitstun) ||
                                                   p->last_animation == block_low));
-            // is starting to crouch, just let it be
+            // is starting to crouch, just let it be.
 
             else if (p->animation_sprite_id == (5) || (is_attack(p->last_animation) ||
                                                       (p->last_animation == low_hitstun) ||
                                                        p->last_animation == block_low))
-            // has fully crouched OR recovering from attack
+            // has fully crouched OR recovering from animation
             {
                 p->last_animation = idle;
-                p->animation_frame = (6*INTERVAL); // hardcoded sprite when Yun is crouching
+                p->animation_frame = (6*INTERVAL); // hardcoded frame when the player is crouching
             }
             else
             // was standing up but decided to go back to crouching
@@ -93,12 +90,12 @@ void choose_animation(player* p, player* other_p)
         }
         else if(p->current_animation != p->wanted_animation)
         {
-            // switch animations
+            // switch to animation
             p->current_animation = p->wanted_animation;
             p->animation_frame = 0;
         }
     }
-     // force block/stun animation
+    // force block/stun animation
     else if (is_hitstun(p->wanted_animation) || is_blocking(p->wanted_animation))
     {
         p->current_animation = p->wanted_animation;
@@ -109,7 +106,7 @@ void choose_animation(player* p, player* other_p)
     {
         if ((p->animation_frame == active_frames[p->current_animation].end)) // cancel only in the last active frame
         {
-            if ((p->wanted_animation == dash_punch) && // only cancel if move didnt whiff
+            if ((p->wanted_animation == dash_punch) && // only cancel if previous move didnt whiff
                 (is_blocking(other_p->current_animation) || is_hitstun(other_p->current_animation)))
             {
                 p->current_animation = dash_punch;
@@ -142,33 +139,34 @@ void choose_animation(player* p, player* other_p)
     }
 }
 
-int speed_for_animation(player* p, player* other_p)
+int speed_for_player(player* p, player* other_p)
+// get the speed for 'p', according to its animation and the other player's animation too.
 {
     switch (p->current_animation)
     {
     case walk_forward:
-        return SPEED;
+        return PLAYER_SPEED;
 
     case walk_backwards:
-        return -SPEED;
+        return -PLAYER_SPEED;
 
     case dash:
     case dash_punch:
-        return SPEED * 1.5;
+        return PLAYER_SPEED * 1.5;
     
     case backdash:
-        return SPEED * -1.1;
+        return PLAYER_SPEED * -1.1;
 
     case overhead:
-        return SPEED * 0.5;
+        return PLAYER_SPEED * 0.5;
 
     case block_low:
     case block_high:
-        return -SPEED/2;
+        return -PLAYER_SPEED/2;
 
     case high_hitstun:
     case low_hitstun:
-        return -2*SPEED/3;
+        return -2*PLAYER_SPEED/3;
 
     case crLP:
     case crMK:
@@ -178,7 +176,7 @@ int speed_for_animation(player* p, player* other_p)
             (!p->is_player1 && // P2 hit P1 
             (is_blocking(other_p->current_animation) || is_hitstun(other_p->current_animation))))
             
-            return -SPEED/2;
+            return -PLAYER_SPEED/2;
         else
             return 0;
 
@@ -188,56 +186,58 @@ int speed_for_animation(player* p, player* other_p)
 }
 
 void check_movement(player* p1, player* p2)
+// update players' position based on their animations
 {
     // p1:
     if (p1->paused_frames == 0)
     {
-        if (speed_for_animation(p1, p2) > 0)
+        if (speed_for_player(p1, p2) > 0)
         {
             if (!boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)) && (p1->x < SCR_MAX))
-                p1->x += speed_for_animation(p1, p2);
+                p1->x += speed_for_player(p1, p2);
 
             else if (boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)))
             {
                 if (p2->x < SCR_MAX) // drag the other player along
                 {
-                    p1->x += speed_for_animation(p1, p2)/2;
-                    p2->x += speed_for_animation(p1, p2)/2;
+                    p1->x += speed_for_player(p1, p2)/2;
+                    p2->x += speed_for_player(p1, p2)/2;
                 }
             }
         }
         else
         {
             if (p1->x > SCR_MIN)
-                p1->x += speed_for_animation(p1, p2);
+                p1->x += speed_for_player(p1, p2);
         }
     }
     // for p2
     if (p2->paused_frames == 0)
     {
-        if (speed_for_animation(p2, p1) > 0)
+        if (speed_for_player(p2, p1) > 0)
         {
             if (!boxes_collide(default_hurtbox_for_p(p2), default_hurtbox_for_p(p1)) && (p2->x > SCR_MIN))
-                p2->x -= speed_for_animation(p2, p1);
+                p2->x -= speed_for_player(p2, p1);
 
             else if (boxes_collide(default_hurtbox_for_p(p1), default_hurtbox_for_p(p2)))
             {
                 if (p1->x > SCR_MIN) // drag the other player along
                 {
-                    p1->x -= speed_for_animation(p2, p1)/2;
-                    p2->x -= speed_for_animation(p2, p1)/2;
+                    p1->x -= speed_for_player(p2, p1)/2;
+                    p2->x -= speed_for_player(p2, p1)/2;
                 }
             }
         }
         else
         {
             if (p2->x < SCR_MAX)
-                p2->x -= speed_for_animation(p2, p1);
+                p2->x -= speed_for_player(p2, p1);
         }
     }
 }
 
 int check_ko (player* p1, player* p2)
+// check whether a player was KOd.
 {
     if(!(p1->is_KOd || p2->is_KOd))
     // don't check it twice

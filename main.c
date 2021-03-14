@@ -19,15 +19,10 @@ int main()
     must_init(al_init(), "allegro");
     must_init(al_install_keyboard(), "allegro keyboard");
 
-    // 60 FPS
+    // Run the game on 60 FPS
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
     must_init(timer, "allegro timer");
 
-    ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
-    must_init(queue, "allegro queue");
-
-    ALLEGRO_FONT* font = al_create_builtin_font();
-    must_init(font, "allegro font");
 
     // Display module
     ALLEGRO_DISPLAY* disp = create_display();
@@ -43,8 +38,7 @@ int main()
     ALLEGRO_BITMAP*** animations; // 2d array of bitmap pointers
     animations = load_sprites();
 
-
-    // Music module
+    // Music 
     ALLEGRO_AUDIO_STREAM* music =  play_music("resources/music/SFVGuile.opus");
     must_init(music, "music");
 
@@ -52,8 +46,10 @@ int main()
     ALLEGRO_SAMPLE** sounds = load_sounds();
     must_init(sounds, "sounds");
 
-
     // Allegro "Events" are interruptions to be handled
+    ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
+    must_init(queue, "allegro queue");
+
     ALLEGRO_EVENT event;
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(disp));
@@ -61,23 +57,24 @@ int main()
     al_start_timer(timer);
 
     // GAME/MENU:
-    long frame_count;
-    int p2_option = 0;
-    while (p2_option != QUIT)
-    {
-        p2_option = main_menu_loop(event, queue, sounds);
 
-        if (p2_option == HELP)
+    long frame_count;
+    int menu_option = 0;
+    while (menu_option != QUIT)
+    {
+        menu_option = main_menu_loop(event, queue, sounds);
+
+        if (menu_option == HELP)
             help_menu_loop(event, queue, sounds);
 
         int cpu_level = 0;
-        if (p2_option == IS_CPU)
+        if (menu_option == IS_CPU)
             cpu_level = level_menu_loop(event, queue, sounds);
 
-        if (p2_option == IS_CPU || p2_option == IS_PLAYER2)
-            frame_count = match_loop(event, queue, animations, stage, sounds, p2_option, cpu_level);
+        if ((menu_option == IS_CPU && cpu_level != -1) || menu_option == IS_PLAYER2)
+            frame_count = match_loop(event, queue, animations, stage, sounds, menu_option, cpu_level);
         
-        if (p2_option == IS_CPU)
+        if (menu_option == IS_CPU && cpu_level != -1)
             check_for_highscore(cpu_level, frame_count);
     }
 
@@ -89,7 +86,6 @@ int main()
     al_destroy_bitmap(stage);
     destroy_sprites(animations);
 
-    al_destroy_font(font);
     destroy_display(disp);
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);

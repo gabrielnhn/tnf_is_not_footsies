@@ -2,6 +2,7 @@
 
 
 void check_for_highscore(int level, int frames)
+// write to "highscore.txt" if $frames < highscore for a given $level
 {
     FILE* h_file;
     h_file =  fopen("highscore.txt", "r"); // open hi-score file
@@ -63,6 +64,7 @@ void check_for_highscore(int level, int frames)
 }
 
 void get_highscores(int* array)
+// get the highscores from "highscores.txt" and store them in a given array
 {
     FILE* h_file;
     h_file =  fopen("highscore.txt", "r"); // open hi-score file

@@ -1,13 +1,15 @@
 #include "attacks.h"
 
 
+// Proprieties of each attack
 range_t active_frames[ANIMATIONS_N];
 box_t hitboxes[ANIMATIONS_N];
-int on_block_advantage[ANIMATIONS_N];
-int on_hit_advantage[ANIMATIONS_N];
+int blockstun[ANIMATIONS_N];
+int hitstun[ANIMATIONS_N];
 int damage[ANIMATIONS_N];
 
 void attacks_setup()
+// set the values for each attack
 {
     for(int i = 0; i < ANIMATIONS_N; i++)
     {
@@ -16,16 +18,16 @@ void attacks_setup()
         case crLP:
             active_frames[i] = (range_t){3 * INTERVAL, 5 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 50, 0};
-            on_block_advantage[i] = +3;
-            on_hit_advantage[i] = +3;
+            blockstun[i] = +3;
+            hitstun[i] = +3;
             damage[i] = 15;
             break;
 
         case crMK:
             active_frames[i] = (range_t){4 * INTERVAL, 6 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 85, 0};
-            on_block_advantage[i] = -1;
-            on_hit_advantage[i] = +5; // 13
+            blockstun[i] = -1;
+            hitstun[i] = +5; // 13
             damage[i] = 20;
             break;
 
@@ -33,23 +35,20 @@ void attacks_setup()
             // active_frames[i] = (range_t){7 * INTERVAL, 9 * INTERVAL};
             active_frames[i] = (range_t){2 * INTERVAL, 9 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 60, 0};
-            on_block_advantage[i] = -16;
-            on_hit_advantage[i] = 14;
+            blockstun[i] = -16;
+            hitstun[i] = 14;
             damage[i] = 50;
             break;
         
         case overhead:
             active_frames[i] = (range_t){9 * INTERVAL, 11 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 50, 0};
-            on_block_advantage[i] = -8;
-            on_hit_advantage[i] = -3;
+            blockstun[i] = -8;
+            hitstun[i] = -3;
             damage[i] = 25;
             break;
         
         default:
-            active_frames[i] = (range_t){-1, -1}; // no active frames, not an attack
-            on_block_advantage[i] = 0;
-            on_hit_advantage[i] = 0;
             break;
         }
     }
@@ -71,14 +70,10 @@ bool is_attack(enum animation a)
 }
 
 bool has_hurtbox(enum animation a)
+// return true only if "animation a" has a hurtbox
 {
     switch (a)
     {
-    // case low_hitstun:
-    // case high_hitstun:
-    // case block_low:
-    // case block_high:
-    //     return false;
     case geneijin:
     case fall:
         return false;
@@ -89,6 +84,7 @@ bool has_hurtbox(enum animation a)
 }
 
 box_t default_hurtbox_for_p(player* p)
+// return the hardcoded main hurtbox of each player
 {
     box_t default_box;
     if (p->is_player1)
@@ -109,8 +105,7 @@ box_t default_hurtbox_for_p(player* p)
 }
 
 void update_boxes(player* p1, player* p2)
-// compensate for sprite border
-// completely hardcoded.
+// update main hurtbox, move hurtbox and hitbox of each player 
 {
     if (has_hurtbox(p1->current_animation))
     {
@@ -217,6 +212,10 @@ void update_boxes(player* p1, player* p2)
 }
 
 int check_hitboxes(player* p1, player* p2)
+// check whether a player hit another
+// and decide whether a player should be on blockstun or hitstun,
+// if hit, take away their health points,
+// and if necessary, return the sound that should be played.
 {
     bool p1_was_hit = false;
     bool p1_blocked = false;
@@ -284,8 +283,8 @@ int check_hitboxes(player* p1, player* p2)
         if (!p1_blocked)
         {
             p1->health -= damage[p2->current_animation];
-            p1->paused_frames = DEFAULT_STUN + on_hit_advantage[p2->current_animation];
-            p2->paused_frames = DEFAULT_STUN - on_hit_advantage[p2->current_animation];
+            p1->paused_frames = DEFAULT_STUN + hitstun[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN - hitstun[p2->current_animation];
             
             if (p1->is_standing)
             {
@@ -300,8 +299,8 @@ int check_hitboxes(player* p1, player* p2)
         }
         else
         {
-            p1->paused_frames = DEFAULT_STUN + on_block_advantage[p2->current_animation];
-            p2->paused_frames = DEFAULT_STUN - on_block_advantage[p2->current_animation];
+            p1->paused_frames = DEFAULT_STUN + blockstun[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN - blockstun[p2->current_animation];
             if (p1->is_standing)
             {
                 p1->wanted_animation = block_high;
@@ -322,8 +321,8 @@ int check_hitboxes(player* p1, player* p2)
         if (!p2_blocked)
         {
             p2->health -= damage[p1->current_animation];
-            p2->paused_frames = DEFAULT_STUN + on_hit_advantage[p1->current_animation];
-            p1->paused_frames = DEFAULT_STUN - on_hit_advantage[p1->current_animation];
+            p2->paused_frames = DEFAULT_STUN + hitstun[p1->current_animation];
+            p1->paused_frames = DEFAULT_STUN - hitstun[p1->current_animation];
 
             if (p2->is_standing)
             {
@@ -338,8 +337,8 @@ int check_hitboxes(player* p1, player* p2)
         }
         else
         {
-            p1->paused_frames = DEFAULT_STUN + on_block_advantage[p2->current_animation];
-            p2->paused_frames = DEFAULT_STUN - on_block_advantage[p2->current_animation];
+            p1->paused_frames = DEFAULT_STUN + blockstun[p2->current_animation];
+            p2->paused_frames = DEFAULT_STUN - blockstun[p2->current_animation];
 
             if (p2->is_standing)
             {
@@ -357,22 +356,22 @@ int check_hitboxes(player* p1, player* p2)
     }
 
     // retval: the sound to be played
-    if  (p1_was_hit && !p1_blocked)
+    if  (p1_was_hit && !p1_blocked) // p1 was hit
     {
         if (p2->current_animation == dash_punch)
             return medium_hit;
         else
             return light_hit;
     }
-    else if (p2_was_hit && !p2_blocked)
+    else if (p2_was_hit && !p2_blocked) // p2 was hit
     {
         if (p1->current_animation == dash_punch)
             return medium_hit;
         else
             return light_hit;
     }
-    else if (p1_was_hit || p2_was_hit)
+    else if (p1_was_hit || p2_was_hit) // someone blocked
         return block;
     else
-        return WHIFF;
+        return WHIFF; // nothing happened
 }

@@ -3,8 +3,9 @@
 unsigned char key[ALLEGRO_KEY_MAX]; // used to tell whether a key is being pressed
 
 void input_setup(player* p1, player* p2)
+// clear up input systems
 {
-    memset(key, 0, sizeof(key)); // clear it
+    memset(key, 0, sizeof(key));
     memset(p1->input_buffer, 0, sizeof(p1->input_buffer));
     memset(p2->input_buffer, 0, sizeof(p2->input_buffer));
     p1->buffer_length = 0;
@@ -13,10 +14,11 @@ void input_setup(player* p1, player* p2)
     p2->last_input_frame = 0;
 }
 
-int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count,
+void check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count,
                 int p2_input_method, int cpu_level)
-// return the animation the player wants to execute
-// (handles all the input)
+// control each players' input buffer,
+// set the animation the players want to execute,
+// and also sets up control variables such as '.is_inputting_block' or '.is_godmode'
 {
     switch (event.type)
     {
@@ -310,5 +312,4 @@ int check_input(player *p1, player *p2, ALLEGRO_EVENT event, long frame_count,
             break;
     }
 
-    return 0;
 }

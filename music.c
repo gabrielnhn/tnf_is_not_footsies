@@ -10,7 +10,9 @@ ALLEGRO_AUDIO_STREAM* play_music(const char* str)
     must_init(music, "music");
     al_set_audio_stream_playmode(music, ALLEGRO_PLAYMODE_LOOP);
 
-    al_attach_audio_stream_to_mixer(music, al_get_default_mixer());
+    ALLEGRO_MIXER* mixer = al_get_default_mixer();
+    must_init(music, "audio mixer");
+    al_attach_audio_stream_to_mixer(music, mixer);
 
     return music;
 }

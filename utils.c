@@ -1,7 +1,7 @@
 #include "utils.h"
 
 void must_init(bool test, const char *description)
-// Used to initialize modules and immediately test whether they work
+// Used to initialize modules/variables and immediately test whether they work
 {
     if(test) return;
     printf("couldn't initialize %s\n", description);
@@ -20,6 +20,7 @@ void bad_malloc()
 }
 
 bool in_array(char x, unsigned char* array, int array_size)
+// return true if x is in the array
 {
     for (int i = 0; i < array_size; i++)
     {

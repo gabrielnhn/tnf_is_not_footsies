@@ -2,12 +2,12 @@
 
 ALLEGRO_DISPLAY* create_display()
 {
-    // Display settings
+    // Create display
     ALLEGRO_DISPLAY* disp = al_create_display(WIDTH*SCALE, HEIGHT*SCALE);
 
     ALLEGRO_TRANSFORM trans;
     al_identity_transform(&trans);
-    al_scale_transform(&trans, SCALE, SCALE); // scale by a factor of SCALE
+    al_scale_transform(&trans, SCALE, SCALE); // scale it by a factor of $SCALE
     al_use_transform(&trans);
 
     return disp;
@@ -56,20 +56,16 @@ void draw_boxes(player* p1, player* p2)
 
 void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char const* message)
 {
-    // printf("clearing\n");
     // clear display
     al_clear_to_color(al_map_rgb(0, 0, 0));
     
-    // printf("stage\n");
     // draw stage
     al_draw_bitmap(stage, -220, -220, 0);
 
-    // printf("sprites\n");
     //draw player sprites
     al_draw_bitmap(player1->sprite, player1->x, PLAYER_HEIGHT, ALLEGRO_FLIP_HORIZONTAL);
     al_draw_bitmap(player2->sprite, player2->x, PLAYER_HEIGHT, 0);
 
-    // printf("HUD\n");
     // draw HUD
     ALLEGRO_FONT* font = al_create_builtin_font();
     char p1_HP[STR_MAX], p2_HP[STR_MAX];
@@ -84,7 +80,6 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char co
     al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, 1*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p2_HP);
     al_draw_text(font, al_map_rgb_f(0, 1, 0), WIDTH - 100, 2*HEIGHT/12, ALLEGRO_ALIGN_CENTER, p2_Rounds);
 
-    // printf("message?\n");
     if(strcmp(message, "") != 0)
     {
         al_draw_text(font, al_map_rgb_f(1, 0, 0), WIDTH/2, HEIGHT/5, ALLEGRO_ALIGN_CENTER, message);
@@ -93,8 +88,8 @@ void draw_match(ALLEGRO_BITMAP* stage, player* player1, player* player2, char co
     // draw_boxes(player1, player2);
 
     // Print this new display
-    // printf("flip\n");
     al_flip_display();
+    al_destroy_font(font);
 }
 
 void draw_main_menu(int option)
@@ -133,11 +128,9 @@ void draw_main_menu(int option)
                           al_map_rgb_f(0, 1, 0), 3);
     }
 
-    //     void al_draw_rectangle(float x1, float y1, float x2, float y2,
-    //    ALLEGRO_COLOR color, float thickness)
-
     // Print the new display
     al_flip_display();
+    al_destroy_font(font);
 }
 
 void draw_level_menu(int level, int* seconds_on_each)
@@ -153,7 +146,7 @@ void draw_level_menu(int level, int* seconds_on_each)
     for(int i = 1; i <= LEVELS_N; i++)
     {
         sprintf(str, "%d", i);
-        al_draw_text(font, al_map_rgb_f(1, 1, 1), BORDER + (i-1)*WIDTH/LEVELS_N, HEIGHT/2, ALLEGRO_ALIGN_CENTER, str);
+        al_draw_text(font, al_map_rgb_f(1, 1, 1), BORDER_BETWEEN_LEVELS + (i-1)*WIDTH/LEVELS_N, HEIGHT/2, ALLEGRO_ALIGN_CENTER, str);
     }
 
     // draw selection rectangle
@@ -161,8 +154,8 @@ void draw_level_menu(int level, int* seconds_on_each)
     text_width =  al_get_text_width(font, "0");
     text_height = al_get_font_line_height(font);
 
-    al_draw_rectangle(BORDER + (level-1)*WIDTH/LEVELS_N - MENU_RECT_BORDER - text_width/2, HEIGHT/2 - MENU_RECT_BORDER,
-                        BORDER + (level-1)*WIDTH/LEVELS_N + text_width/2 + MENU_RECT_BORDER, HEIGHT/2 + text_height + MENU_RECT_BORDER,
+    al_draw_rectangle(BORDER_BETWEEN_LEVELS + (level-1)*WIDTH/LEVELS_N - MENU_RECT_BORDER - text_width/2, HEIGHT/2 - MENU_RECT_BORDER,
+                        BORDER_BETWEEN_LEVELS + (level-1)*WIDTH/LEVELS_N + text_width/2 + MENU_RECT_BORDER, HEIGHT/2 + text_height + MENU_RECT_BORDER,
                         al_map_rgb_f(0, 1, 0), 3);
     
     if (seconds_on_each[level - 1] != -1)
@@ -174,6 +167,7 @@ void draw_level_menu(int level, int* seconds_on_each)
 
     // Print the new display
     al_flip_display();
+    al_destroy_font(font);
 }
 
 void draw_help_menu()
@@ -189,7 +183,6 @@ void draw_help_menu()
     al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 5*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Punch: B");
     al_draw_text(font, al_map_rgb_f(0.5, 0.5, 0), 1*WIDTH/4, 6*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Kick: V");
 
-
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 1*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"P2 Inputs:");
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 2*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Left: LeftKey");
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 3*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Down: DownKey");
@@ -197,13 +190,11 @@ void draw_help_menu()
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 5*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Punch: Comma(,)");
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0.5), 3*WIDTH/4, 6*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Kick: FullStop(.)");
 
-
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 7*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Read the README file for more information!");
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 8*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"Author: Gabriel Nascarella Hishida");
     al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 9*HEIGHT/10, ALLEGRO_ALIGN_CENTER,"(Press Enter to quit help menu)");
 
-
-
     // Print the new display
     al_flip_display();
+    al_destroy_font(font);
 }

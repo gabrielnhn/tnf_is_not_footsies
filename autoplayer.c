@@ -7,7 +7,7 @@ void autoplayer_setup()
     srand((unsigned) time(&t));
 }
 
-int autoplayer_count;
+int autoplayer_count; // global count
 
 void get_autoplayer_input(player* p1, player* p2, int cpu_level)
 {
@@ -15,7 +15,6 @@ void get_autoplayer_input(player* p1, player* p2, int cpu_level)
     {
     case 1:
         // just blocking high
-        p2->wanted_animation = walk_backwards;
         p2->is_inputting_block = true;
         break;
     
@@ -26,14 +25,14 @@ void get_autoplayer_input(player* p1, player* p2, int cpu_level)
         break;
 
     case 3:
-        // spammer (hit-confirm)
+        // crMK spammer (hit-confirms into dash punch)
         p2->wanted_animation = crMK;
         if (is_hitstun(p1->current_animation))
             p2->wanted_animation = dash_punch;
         break;
 
     case 4:
-        // risky
+        // dash punch spammer
         autoplayer_count++;
         if (autoplayer_count % AUTOP_INTERVAL == 0)
             p2->wanted_animation = dash_punch;
@@ -57,6 +56,7 @@ void get_autoplayer_input(player* p1, player* p2, int cpu_level)
         p2->wanted_animation = rand() % 10;
         break;
     }
+
     // testing whether crMK comboes into dash_punch:
     // autoplayer_count++;
     // if (autoplayer_count % 4 == 0)
@@ -73,7 +73,5 @@ void get_autoplayer_input(player* p1, player* p2, int cpu_level)
     //     p2->wanted_animation = dash_punch;
     // else
     //     p2->wanted_animation = crLP;
-
-        
 }
 

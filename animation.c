@@ -61,7 +61,7 @@ char *animation_enum_to_folder(enum animation a)
     }
 }
 
-int sprites_on_each_animation[ANIMATIONS_N]; // array used only to free memory
+int sprites_on_each_animation[ANIMATIONS_N]; // global array
 
 ALLEGRO_BITMAP ***load_sprites()
 // get all the sprites from the drive
@@ -117,6 +117,7 @@ ALLEGRO_BITMAP ***load_sprites()
 
 void destroy_sprites(ALLEGRO_BITMAP ***animations)
 {
+    // free up memory
     for (int i = 0; i < ANIMATIONS_N; i++)
     {
         for (int j = 0; j < sprites_on_each_animation[i]; j++)

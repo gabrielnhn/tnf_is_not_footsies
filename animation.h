@@ -33,6 +33,4 @@ void animation_setup();
 
 int sprite_for_frame(enum animation, int frame);
 
-
-
 #endif

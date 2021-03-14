@@ -1,10 +1,13 @@
 #include "loops.h"
 
 int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
+// main menu
+// select whether P1 wants to fight CPU, fight P2 or go to Help menu
 {
     bool menu_done = false;
     int input;
     int p2_option = IS_CPU;
+
     while(!menu_done)
     {
         al_wait_for_event(queue, &event);
@@ -50,8 +53,9 @@ int main_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMP
 }
 
 int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
+// P1 wants fo fight the CPU. select its difficulty level
 {
-    int seconds_on_each_level[LEVELS_N];
+    int seconds_on_each_level[LEVELS_N]; // hiscore
     get_highscores(seconds_on_each_level);
 
     bool menu_done = false;
@@ -83,7 +87,8 @@ int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAM
             break;
 
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            abort();
+            menu_done = true;
+            level = -1;
             break;
         }
     }
@@ -95,13 +100,15 @@ int level_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAM
 long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 ALLEGRO_BITMAP*** animations, ALLEGRO_BITMAP* stage, 
                 ALLEGRO_SAMPLE** sounds, int p2_option, int cpu_level)
+// "We just got a real match!"
 {
     // Initial setup:
 
-    bool clock_tick = true; // every time the clock ticks, check game state
+    bool clock_tick = true;
     player p1, p2;
 
     // Match setup:
+
     input_setup(&p1, &p2);
     animation_setup();
     attacks_setup();
@@ -123,6 +130,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
         
         // time before round starts: //
         int start = frame_count;
+
         if (round_number == 1)
             play_sound(sounds, round1);
         else if  (round_number == 2)
@@ -150,8 +158,10 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 // update idle animation
                 p1.animation_frame++; // update animation frame
                 p2.animation_frame++;
-                // just so when the game starts, old input is considered
+
+                // just so when the game starts, old input is considered:
                 check_input(&p1, &p2, event, frame_count, p2_option, cpu_level);
+
                 // force idle animation 
                 p1.wanted_animation = idle;
                 p2.wanted_animation = idle;
@@ -175,7 +185,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 draw_match(stage, &p1, &p2, message);
             }
         }
-        // Real match: //
+        // The match begins:
         play_sound(sounds, fight);
 
         while(!round_over)
@@ -193,7 +203,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             case ALLEGRO_EVENT_TIMER:
                 clock_tick = true;
 
-            default:
+            default: // an input was given:
                 check_input(&p1, &p2, event, frame_count, p2_option, cpu_level);
                 break;
             }
@@ -203,6 +213,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
 
             if (clock_tick && al_is_event_queue_empty(queue))
             {
+                // unpause players if needed
                 if (p1.paused_frames > 0)
                     p1.paused_frames--;
                 else
@@ -221,7 +232,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 update_boxes(&p1, &p2); // according to both players' position
 
                 int hitbox_retval = check_hitboxes(&p1, &p2);
-                if (hitbox_retval != WHIFF)
+                if (hitbox_retval != WHIFF) // should play a sound:
                     play_sound(sounds, hitbox_retval);
 
                 if (check_ko(&p1, &p2))
@@ -232,6 +243,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 
                 if (((p1.current_animation == geneijin) && (p1.animation_frame == 0)) ||
                     ((p2.current_animation == geneijin) && (p2.animation_frame == 0)))
+                    // just activated godmode:
                     play_sound(sounds, good);
 
                 // check for movement
@@ -247,7 +259,6 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 p2.animation_sprite_id = sprite_for_frame(p2.current_animation, p2.animation_frame);
                 p2.sprite = animations[p2.current_animation][p2.animation_sprite_id];
 
-                // check for round over
                 if(p1.is_KOd)
                 {
                     if (p2.is_KOd)
@@ -258,8 +269,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                 else if (p2.is_KOd)
                     message = "P2 K.O." ;
 
-                draw_match(stage, &p1, &p2, message);
-
+                // check for round_over
                 if (p1.is_KOd)
                 {
                     if(p1.animation_frame == 9 * INTERVAL) // when player hits the ground
@@ -283,6 +293,7 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
                     }
                 }
 
+                draw_match(stage, &p1, &p2, message);
                 clock_tick = false;
                 frame_count++;
             }
@@ -292,12 +303,13 @@ long match_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue,
             match_over = true;
         else if ((p1.rounds_won >= 2) || p2.rounds_won >= 2)
             match_over = true;
-
     }
+    // retval: the amount of frames during the whole match
     return frame_count;
 }
 
 void help_menu_loop(ALLEGRO_EVENT event, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_SAMPLE** sounds)
+// print P1 and P2 Input system, Author's name and where to find actual help.
 {
     bool menu_done = false;
     int input;

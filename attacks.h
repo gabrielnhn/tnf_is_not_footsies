@@ -18,9 +18,9 @@ typedef struct
 
 extern range_t active_frames[ANIMATIONS_N];
 extern box_t hitboxes[ANIMATIONS_N];
-extern int on_block_advantage[ANIMATIONS_N];
-extern int on_hit_advantage[ANIMATIONS_N];
-int damage[ANIMATIONS_N];
+extern int blockstun[ANIMATIONS_N];
+extern int hitstun[ANIMATIONS_N];
+extern int damage[ANIMATIONS_N];
 
 void attacks_setup();
 
