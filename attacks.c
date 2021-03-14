@@ -24,7 +24,7 @@ void attacks_setup()
             break;
 
         case crMK:
-            active_frames[i] = (range_t){4 * INTERVAL, 6 * INTERVAL};
+            active_frames[i] = (range_t){5 * INTERVAL, 7 * INTERVAL};
             hitboxes[i] = (box_t){0, 0, 85, 0};
             blockstun[i] = -1;
             hitstun[i] = +5; // 13
