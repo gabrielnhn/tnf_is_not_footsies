@@ -26,9 +26,6 @@ char *sound_enum_to_file(enum sound a)
     case good:
         return "resources/sounds/GoodEffect.wav";
 
-    case hard_hit:
-        return "resources/sounds/HardHit.wav";
-
     case KO:
         return "resources/sounds/KO.wav";
 
@@ -38,26 +35,11 @@ char *sound_enum_to_file(enum sound a)
     case medium_hit:
         return "resources/sounds/MediumHit.wav";
 
-    case options:
-        return "resources/sounds/Options.wav";
-
     case round1:
         return "resources/sounds/Round1.wav";
 
     case round2:
         return "resources/sounds/Round2.wav";
-
-    case versus:
-        return "resources/sounds/Versus.wav";
-
-    case warning:
-        return "resources/sounds/WarningSound.wav";
-
-    case you_lose:
-        return "resources/sounds/YouLose.wav";
-
-    case you_win:
-        return "resources/sounds/YouWin.wav";
 
     default:
         fprintf(stderr, "No such sound %d\n", a);

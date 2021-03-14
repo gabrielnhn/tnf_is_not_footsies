@@ -11,11 +11,10 @@
 
 enum sound
 {
-    block, fall_sound, fight, final_round, good, hard_hit, 
-    KO, light_hit, medium_hit, options, round1, round2,
-    versus, warning, you_lose, you_win 
+    block, fall_sound, fight, final_round, good, 
+    KO, light_hit, medium_hit, round1, round2 
 };
-#define SOUNDS_N 16
+#define SOUNDS_N 10
 
 void sound_setup();
 
