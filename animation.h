@@ -14,9 +14,9 @@ enum animation
 {
     idle, walk_forward, walk_backwards, dash, backdash, crouching,
     crLP, crMK, dash_punch, overhead, block_high,block_low,fall, high_hitstun,
-    low_hitstun, rise, geneijin
+    low_hitstun, geneijin
 };
-#define ANIMATIONS_N 17
+#define ANIMATIONS_N 16
 
 #define INTERVAL 3 // interval of frames in which a sprite is used
 

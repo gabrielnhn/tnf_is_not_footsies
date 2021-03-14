@@ -49,9 +49,6 @@ char *animation_enum_to_folder(enum animation a)
     case low_hitstun:
         return "resources/animation/15-low-hitstun/";
 
-    case rise:
-        return "resources/animation/16-rise/";
-
     case geneijin:
         return "resources/animation/17-geneijin/";
 
@@ -152,7 +149,6 @@ void animation_setup()
     frames_on_each_animation[fall] = 19 * INTERVAL;
     frames_on_each_animation[high_hitstun] = 5 * INTERVAL;
     frames_on_each_animation[low_hitstun] = 7 * INTERVAL;
-    frames_on_each_animation[rise] = 9 * INTERVAL;
     frames_on_each_animation[geneijin] = 21 * INTERVAL;
 }
 

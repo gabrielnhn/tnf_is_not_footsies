@@ -90,7 +90,6 @@ bool is_standing(player* p)
     case low_hitstun:
     case crouching:
     case fall:
-    case rise:
         return false;
     
     default:
