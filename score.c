@@ -1,6 +1,5 @@
 #include "score.h"
 
-
 void check_for_highscore(int level, int frames)
 // write to "highscore.txt" if $frames < highscore for a given $level
 {
