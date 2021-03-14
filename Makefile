@@ -45,6 +45,7 @@ score.o: score.c score.h
 
 purge: clean
 	rm -rf TNF
+	rm -rf highscores.txt
 
 clean:
 	rm -rf *.o
