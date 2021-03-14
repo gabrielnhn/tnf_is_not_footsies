@@ -81,6 +81,7 @@ void choose_animation(player* p, player* other_p)
         // again, details when crouching
         if ((p->current_animation == crouching) && ((p->wanted_animation == idle)))
         {
+
             if (p->animation_frame == (frames_on_each_animation[crouching] - 1))
             // only switch to idle animation when "standing up" animation is done
             {
@@ -119,6 +120,9 @@ void choose_animation(player* p, player* other_p)
         p->is_neutral = true;
 
     if(is_standing(p))
+        p->is_standing = true;
+    else if (p->current_animation == crouching && p->animation_sprite_id > (5))
+        // standing up
         p->is_standing = true;
 
     // this is important so when doing command moves (such as crMK and crLP)
