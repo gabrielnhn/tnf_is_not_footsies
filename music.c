@@ -4,7 +4,7 @@ ALLEGRO_AUDIO_STREAM* play_music(const char* str)
 {
     must_init(al_install_audio(), "allegro audio");
     must_init(al_init_acodec_addon(), "acodec addon");
-    al_reserve_samples(16);
+     must_init(al_reserve_samples(16), "reserve samples");
 
     ALLEGRO_AUDIO_STREAM* music = al_load_audio_stream(str, 2, 2048);
     must_init(music, "music");
