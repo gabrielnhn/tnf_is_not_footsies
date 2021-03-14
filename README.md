@@ -33,7 +33,7 @@
 
 ### Kick
 #### 👟
-#### This is a "low" hitting attack, which means that it can only be blocked if the opponent is crouch blocking. It also cancels into Dash Punch, but has more Startup Frames than the Punch.
+#### This is a "low" hitting attack, which means that it can only be blocked if the opponent is crouch blocking. It also cancels into Dash Punch, but has more Startup Frames and Recovery Frames than the Punch.
 #
 
 ### Overhead Kick
