@@ -1,3 +1,4 @@
+# Rename images from '{{x -1}}/png' to '{{x}}.png'
 import sys
 import os
 
