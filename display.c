@@ -100,17 +100,19 @@ void draw_main_menu(int option)
     // draw options
     ALLEGRO_FONT* font = al_create_builtin_font();
 
-    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 1*HEIGHT/9, ALLEGRO_ALIGN_CENTER,
+    al_draw_text(font, al_map_rgb_f(1, 1, 0), WIDTH/2, HEIGHT/10, ALLEGRO_ALIGN_CENTER, "TNF is Not Footsies!");
+
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 2*HEIGHT/10, ALLEGRO_ALIGN_CENTER,
                 "(Use 'A' and 'D' to navigate)");
-    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 2*HEIGHT/9, ALLEGRO_ALIGN_CENTER,
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 3*HEIGHT/10, ALLEGRO_ALIGN_CENTER,
                 "(Press 'ENTER' to select)");
 
 
     al_draw_text(font, al_map_rgb_f(1, 1, 1), 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, "VERSUS CPU");
     al_draw_text(font, al_map_rgb_f(1, 1, 1), WIDTH - 100, HEIGHT/2, ALLEGRO_ALIGN_CENTER, "VERSUS P2");
 
-    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 7*HEIGHT/9, ALLEGRO_ALIGN_CENTER, "(Press 'h' for help)");
-    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 8*HEIGHT/9, ALLEGRO_ALIGN_CENTER, "(Press 'q' to quit)");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 8*HEIGHT/10, ALLEGRO_ALIGN_CENTER, "(Press 'h' for help)");
+    al_draw_text(font, al_map_rgb_f(0.5, 0, 0), WIDTH/2, 9*HEIGHT/10, ALLEGRO_ALIGN_CENTER, "(Press 'q' to quit)");
 
     int text_x, text_y, text_width, text_height;
     if (option == 1)

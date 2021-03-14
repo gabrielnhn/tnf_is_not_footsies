@@ -65,5 +65,5 @@ $ make
 #
 ### To run the game:
 ```console
-$ ./main
+$ ./TNF
 ```
