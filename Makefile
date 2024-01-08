@@ -1,10 +1,13 @@
 CC=gcc
-cflags= -std=c99 -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 allegro_primitives-5 --libs --cflags)
+cflags= -fcommon -std=c99 -Wall $(shell pkg-config allegro-5 allegro_font-5 allegro_image-5 allegro_acodec-5 allegro_audio-5 allegro_primitives-5 --libs --cflags)
  
 all: TNF
 
 TNF: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o score.o
 	$(CC) main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o score.o -o TNF $(cflags) 
+# TNF: main.c animation.o display.o music.o player.o utils.o input.o logic.o attacks.o loops.o autoplayer.o sounds.o score.o
+# TNF: main.c 
+# 	$(CC) main.c *.c -o TNF $(cflags) 
 
 animation.o: animation.c animation.h utils.o
 	$(CC) $(cflags) -c animation.c -o animation.o 
