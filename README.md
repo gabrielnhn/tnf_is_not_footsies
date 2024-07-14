@@ -1,5 +1,7 @@
 # TNF is Not Footsies!
 
+![In-game Screenshot](./screenshot.png)
+
 ## TNF is a simple fighting game heavily inspired by FOOTSIES, a game by HiFight.
 
 ### TNF has simple mechanics, like FOOTSIES, such as a long ranged slow normal attack, and other attack, that is faster but short ranged, another special punishable attack, and movements such as dashing and backdashing. 
